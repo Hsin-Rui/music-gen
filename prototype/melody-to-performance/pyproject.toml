@@ -1,0 +1,13 @@
+[project]
+name = "melody-to-performance"
+version = "0.1.0"
+description = "Throwaway prototype: melody -> AMT accompaniment -> expressive piano rendering"
+requires-python = ">=3.11"
+dependencies = [
+    "pretty_midi>=0.2.10",
+    "numpy",
+    "psutil",
+]
+
+[tool.uv]
+package = false
