@@ -3,14 +3,14 @@ title: 'Prototype 02: harmony-first accompaniment (harmonizers × accompaniment 
 type: feature
 ticket: ''
 created: '2026-11-21'
-status: in-progress
+status: built
 baseline_revision: '438fe4434a5cfcd345e5098bbebe70ba3cf700d2'
 route: full
 route_source: auto
 risk: low
-review: ''
-review_source: ''
-lenses_ran: []
+review: quick
+review_source: pinned
+lenses_ran: [quick]
 review_loop_iteration: 0
 followup_review_recommended: false
 context:
@@ -86,15 +86,15 @@ External facts (R3 research, README level, unverified on Mac):
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `prototype/harmony-first/setup.sh` -- envs + clones + data/ckpt downloads for MelodyT5, AccoMontage2, AccoMontage, Polyffusion; checks that the prototype-01 envs exist -- reproducible setup
-- [ ] `prototype/harmony-first/steps/chart.py` -- chord-symbol parsing, chart validation, chart ↔ block-chord MIDI, chart → per-beat chord labels -- one shared chart format
-- [ ] `prototype/harmony-first/steps/harmonize_melodyt5.py`, `steps/harmonize_accomontage2.py` -- melody MIDI → normalised chart JSON (AccoMontage2: skip non-4/4, merge 2/4 pairs) -- harmonizers
-- [ ] `prototype/harmony-first/steps/accomp_amt.py`, `steps/accomp_accomontage.py`, `steps/accomp_polyffusion.py` -- melody + chart → N accompaniment MIDI samples -- accompaniment models
-- [ ] `prototype/harmony-first/steps/metrics.py` -- CTnCTR, PCS, out-of-key ratio, melody–accompaniment dissonant-overlap ratio, combined score -- ranking
-- [ ] `prototype/harmony-first/smoke_test.py` -- each new model on a short clip; works/fails, time, RSS → `output/smoke-test.md`
-- [ ] `prototype/harmony-first/run.py` -- orchestrates harmonize → chord audio → accompaniment ×8 → rank → merge → render → WAV for one melody; writes run-notes.md/json -- the pipeline
-- [ ] `prototype/harmony-first/make_player.py` -- page with a harmony section (melody + block chords per source) and a cross grid (source × model × 3 versions) with scores, blind mode and a zh-TW explainer
-- [ ] `prototype/harmony-first/README.md` -- zh-TW setup, usage, layout, licences, limitations, first observations
+- [x] `prototype/harmony-first/setup.sh` -- envs + clones + data/ckpt downloads for MelodyT5, AccoMontage2, AccoMontage, Polyffusion; checks that the prototype-01 envs exist -- reproducible setup
+- [x] `prototype/harmony-first/steps/chart.py` -- chord-symbol parsing, chart validation, chart ↔ block-chord MIDI, chart → per-beat chord labels -- one shared chart format
+- [x] `prototype/harmony-first/steps/harmonize_melodyt5.py`, `steps/harmonize_accomontage2.py` -- melody MIDI → normalised chart JSON (AccoMontage2: skip non-4/4, merge 2/4 pairs) -- harmonizers
+- [x] `prototype/harmony-first/steps/accomp_amt.py`, `steps/accomp_accomontage.py`, `steps/accomp_polyffusion.py` -- melody + chart → N accompaniment MIDI samples -- accompaniment models
+- [x] `prototype/harmony-first/steps/metrics.py` -- CTnCTR, PCS, out-of-key ratio, melody–accompaniment dissonant-overlap ratio, combined score -- ranking
+- [x] `prototype/harmony-first/smoke_test.py` -- each new model on a short clip; works/fails, time, RSS → `output/smoke-test.md`
+- [x] `prototype/harmony-first/run.py` -- orchestrates harmonize → chord audio → accompaniment ×8 → rank → merge → render → WAV for one melody; writes run-notes.md/json -- the pipeline
+- [x] `prototype/harmony-first/make_player.py` -- page with a harmony section (melody + block chords per source) and a cross grid (source × model × 3 versions) with scores, blind mode and a zh-TW explainer
+- [x] `prototype/harmony-first/README.md` -- zh-TW setup, usage, layout, licences, limitations, first observations
 
 **Acceptance Criteria:**
 - Given setup has run, when `uv run smoke_test.py` runs, then `output/smoke-test.md` lists MelodyT5, AccoMontage2, AccoMontage and Polyffusion as works/fails with time and an error excerpt.
@@ -104,9 +104,35 @@ External facts (R3 research, README level, unverified on Mac):
 
 ## Implementation Notes
 
+- Results: 16/24 cells produced (Polyffusion 0/8, no weights; greensleeves × AccoMontage2 skipped as planned). 59 WAVs, none silent. Renderers kept every pitch (multiset equal in all 32 renderings).
+- Polyffusion: env installs, wrapper `steps/accomp_polyffusion.py` written, but weights are SharePoint-only and every link returned "Sorry, you cannot access this document" (2026-11-21); no mirror on GitHub/HF. All Polyffusion cells are MODEL_UNAVAILABLE. Wrapper is untested end to end.
+- Polyffusion inpaint type: upstream defines `below` as "inpaint accompaniment for melody"; the plan's `above` is the reverse, so `below` is used.
+- AccoMontage2 chord-only path crashes upstream (`Pipeline.__add_textures()` missing `log`); local shim gives a default. Segmentation = consecutive 4-bar phrases; melody padded to whole phrases by holding the last note.
+- AccoMontage (and Polyffusion) are also 4/4-only: 2/4 and 3/4 melodies are re-barred into 4-beat bars on the same beat grid (harmony beat-aligned, texture metre 4/4); flagged in run-notes and on the page. Chart fed directly as chord roll (no chord re-detection). CPU shims (map_location, Tensor.cuda no-op).
+- AccoMontage needs phrase-selection randomness > 0 for 8 distinct samples; 0.1 (upstream demo notebook value) used. Only parameter touched besides sample count/seeds.
+- AMT: chords as extra controls on program 48; empty samples (AMT wrote nothing) are kept as 0-note candidates and not ranked. AMT ran on MPS for the full runs: CPU with chord controls took 5-8 min/sample under load (~1 min on MPS); everything else CPU.
+- MelodyT5: modern torch + transformers 4.30.2; causal-mask buffers filtered when loading weights. Upstream default sampling params; output often sparse (few chord symbols, carried over).
+
 ## Plan Change Log
 
+- 2026-11-21: ranking excludes candidates with fewer notes than bars (unless none qualify) — near-empty AMT samples otherwise won on PCS/dissonance. Smoke test clip is 8 bars (AccoMontage's dp_search crashes on a single phrase). Polyffusion inpaint type `below` (not `above`).
+
 ## Review Triage Log
+
+### 2026-11-21 — Review pass
+- verdicts: 11 findings — high 0, medium 2, low 7, false 0, maybe-false 2
+- findings:
+  - `medium` `patch` Resumed cell loses its warnings, so greensleeves LLM×AccoMontage lacked the 3/4 re-barring flag on the page — confirmed in run-notes.json; make_player now derives the flag from the melody meter for AccoMontage/Polyffusion cells.
+  - `medium` `patch` AccoMontage2 log phrases concatenated without length check (ode_to_joy D4 came back 8 bars) — each phrase now cut to its segment length; error if count differs or a phrase is short.
+  - `low` `patch` chart.validate accepts fractional beats that per_beat rounds — validate now rejects non-integer beat counts (checked with a 1.5/2.5 bar).
+  - `maybe-false` `reject` MelodyT5 chart key "unknown" would make every candidate error out — all inputs carry key signatures; would only matter for a keyless melody; fix needs a new guard. Rejected as unlikely low.
+  - `low` `patch` Any Polyffusion failure shown as "weights unavailable" — zh_reason now checks the stored error text.
+  - `maybe-false` `reject` Polyffusion single-track fallback could return the melody — wrapper never runs (no weights); unreachable today; would need an end-to-end run to settle.
+  - `low` `reject` Resume with a different --seed mislabels reused seeds — unlikely in practice; fix adds stored-seed bookkeeping.
+  - `low` `patch` accomp_accomontage docstring contradicts remainder handling — docstring corrected.
+  - `low` `patch` smoke_test docstring / README say 4 bars, default 8 — corrected to 8.
+  - `low` `patch` README misstates the ranking floor — now states "fewer notes than bars are not ranked unless none qualify".
+  - `low` `reject` accomp_amt melody vs metrics use different track selection on multi-track input — all inputs are single-track; fix adds branching.
 
 ## Design Notes
 
@@ -125,3 +151,18 @@ Combined score example: `score = z(CTnCTR) + z(PCS) − z(OOK) − z(dissonant_o
 
 **Manual checks (if no CLI):**
 - Probe every WAV as non-silent (duration/RMS), as in prototype 01.
+
+## Auto Run Result
+
+**Summary:** Prototype 02 built under `prototype/harmony-first/`: 3 harmonizers (LLM charts as given, MelodyT5, AccoMontage2) × 3 accompaniment models (AMT with chord controls, AccoMontage, Polyffusion), 8 samples per cell ranked by CTnCTR/PCS/OOK/dissonant overlap, chosen sample rendered plain / PianoFlow / Pianist Transformer, plus a blind-mode listening page. 8 harmony charts and 16 of 24 cells produced; all 8 Polyffusion cells missing (weights SharePoint-only, access refused); 3 AccoMontage2 cells missing for greensleeves (3/4).
+
+**Files:** `setup.sh` (envs, clones, downloads), `steps/chart.py` (chart format), `steps/harmonize_{melodyt5,accomontage2}.py`, `steps/accomp_{amt,accomontage,polyffusion}.py`, `steps/metrics.py`, `steps/paths.py` (reuses prototype 01), `run.py`, `smoke_test.py`, `make_player.py`, `README.md`, `pyproject.toml`/`uv.lock`.
+
+**Review:** 11 findings; 7 patched (2 medium, 5 low), 0 deferred, 4 rejected (2 maybe-false unreachable with current inputs/untested wrapper, 2 low unlikely needing new guards) — reasons in the triage log.
+
+**Follow-up review recommended:** false (patched: high 0, medium 2, low 5; the two medium patches were verified directly — page flags rebuilt, AccoMontage2 charts reproduced).
+
+**Verification:** smoke test written (4 models work, Polyffusion fails with reason); full runs for all three melodies (by the implementer; AMT on MPS); 59 WAVs probed non-silent (≥5 s, RMS > 0); `make_player.py` rebuilt after patches; all Python compiles; `git add -n .` stages no weights, envs, data or audio. Full pipeline not re-run after patches (patches touch page/docs/validation/AccoMontage2 parsing; AccoMontage2 re-run reproduced stored charts).
+
+**Residual risks:** Polyffusion wrapper untested; player blind mode not clicked through in a browser; MelodyT5 charts sparse at default sampling; AccoMontage texture is 4/4 over 2/4 and 3/4 melodies; timings inflated (parallel runs, reused samples show 0 s).
+
