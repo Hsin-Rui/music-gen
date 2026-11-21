@@ -21,8 +21,9 @@ import torch
 from anticipation import ops
 from anticipation.config import MAX_DUR, MAX_TIME, TIME_RESOLUTION
 from anticipation.convert import events_to_midi
+import anticipation.sample as amt_sample
 from anticipation.sample import generate
-from anticipation.vocab import CONTROL_OFFSET, DUR_OFFSET, NOTE_OFFSET, TIME_OFFSET
+from anticipation.vocab import CONTROL_OFFSET, DUR_OFFSET, MAX_NOTE, MAX_PITCH, NOTE_OFFSET, TIME_OFFSET
 
 MODEL = "stanford-crfm/music-medium-800k"
 MELODY_PROGRAM = 1   # bright acoustic piano: piano-like but distinct from the chord program
@@ -100,6 +101,23 @@ def chord_history(pm, notes):
     return events, n_bars * bar, info
 
 
+def restrict_to_piano():
+    """Only let AMT write notes for program 0 (acoustic grand piano).
+
+    Upstream add_token() applies instr_logits() when sampling the note token (the 3rd
+    token of each event); wrap it so every other instrument, drums included, gets
+    -inf. Rests (NOTE_OFFSET + MAX_NOTE) stay allowed.
+    """
+    original = amt_sample.instr_logits
+
+    def piano_only(logits, full_history):
+        logits = original(logits, full_history)
+        logits[NOTE_OFFSET + MAX_PITCH:NOTE_OFFSET + MAX_NOTE] = -float("inf")
+        return logits
+
+    amt_sample.instr_logits = piano_only
+
+
 def to_tokens(notes):
     """(start, end, pitch, program) -> AMT event tokens (time, dur, note)."""
     toks = []
@@ -119,6 +137,8 @@ def main():
     ap.add_argument("--prompt", choices=["none", "chords"], default="none")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--all-instruments", action="store_true",
+                    help="let AMT pick any instrument (default: piano only, program 0)")
     ap.add_argument("--max-seconds", type=float, default=None,
                     help="only accompany the first N seconds (smoke test)")
     args = ap.parse_args()
@@ -136,7 +156,10 @@ def main():
         end_time = MAX_TIME / TIME_RESOLUTION - 1
     controls = [CONTROL_OFFSET + tok for tok in to_tokens(mel)]
 
-    info = {"prompt": args.prompt, "melody_program": MELODY_PROGRAM, "end_time": end_time}
+    info = {"prompt": args.prompt, "melody_program": MELODY_PROGRAM, "end_time": end_time,
+            "piano_only": not args.all_instruments}
+    if not args.all_instruments:
+        restrict_to_piano()
     if args.prompt == "chords":
         chords, start_time, cinfo = chord_history(pm, notes)
         history = to_tokens(chords)
