@@ -297,20 +297,22 @@ def write_notes(out, notes, args):
           "Metrics (`steps/metrics.py`): CTnCTR (accompaniment vs chart, higher better), PCS (melody vs "
           "accompaniment consonance, higher better), OOK (out-of-key share, lower better), dissonant overlap "
           "(m2/tritone/M7 share of melody–accompaniment overlap time, lower better). "
-          "score = z(CTnCTR) + z(PCS) − z(OOK) − z(dissonant overlap), z within the cell's samples. "
-          "Samples with fewer notes than bars are not ranked (score –) unless none reach that. ★ = chosen.", ""]
+          "copy (share of accompaniment notes shadowing the melody at a near-constant interval, lower better). "
+          "score = z(CTnCTR) − z(OOK) − z(dissonant overlap) − z(copy), z within the cell's ranked samples; "
+          "PCS is reported, not scored. Samples with fewer notes than bars, or copy ≥ 0.5, are not ranked "
+          "(score –) unless none pass. ★ = chosen.", ""]
     for s, row in notes["cells"].items():
         for m, c in row.items():
             if not c.get("candidates"):
                 continue
             L += [f"### {SOURCES[s]} × {MODELS[m][2]}", "",
-                  "| sample | seed | notes | CTnCTR | PCS | OOK | dissonant overlap | score |",
-                  "|---|---|---|---|---|---|---|---|"]
+                  "| sample | seed | notes | CTnCTR | PCS (not scored) | OOK | dissonant overlap | copy | score |",
+                  "|---|---|---|---|---|---|---|---|---|"]
             for x in c["candidates"]:
                 seed = args.seed + x["k"]
                 star = " ★" if x["k"] == c.get("chosen") else ""
                 L.append(f"| cand-{x['k']}{star} | {seed} | {x.get('notes')} | {fmt(x.get('ctnctr'))} | "
-                         f"{fmt(x.get('pcs'))} | {fmt(x.get('ook'))} | {fmt(x.get('dissonant_overlap'))} | "
+                         f"{fmt(x.get('pcs'))} | {fmt(x.get('ook'))} | {fmt(x.get('dissonant_overlap'))} | {fmt(x.get('copy'))} | "
                          f"{fmt(x.get('score'))} |")
             for w in c.get("warnings") or []:
                 L.append(f"\n- warning: {w}")

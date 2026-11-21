@@ -19,6 +19,7 @@ PY = {
     "accomontage2": ROOT / "envs" / "accomontage2" / "bin" / "python",
     "accomontage": ROOT / "envs" / "accomontage" / "bin" / "python",
     "polyffusion": ROOT / "envs" / "polyffusion" / "bin" / "python",
+    "claude": ROOT / ".venv" / "bin" / "python",
     "amt": P01_PY["amt"],
     "pianoflow": P01_PY["pianoflow"],
     "pianist": P01_PY["pianist"],
@@ -34,6 +35,7 @@ MODELS = {
     "amt": ("amt", "accomp_amt.py", "AMT + 和弦條件"),
     "accomontage": ("accomontage", "accomp_accomontage.py", "AccoMontage"),
     "polyffusion": ("polyffusion", "accomp_polyffusion.py", "Polyffusion"),
+    "claude": ("claude", "accomp_claude.py", "Claude 寫伴奏"),
 }
 RENDERERS = {
     "pianoflow": ("pianoflow", "render_pianoflow.py", "SyMuPe/PianoFlow-base"),

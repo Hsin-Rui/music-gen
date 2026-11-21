@@ -51,7 +51,8 @@ steps/harmonize_accomontage2.py 旋律 → AccoMontage2 和弦模組 → 和弦 
 steps/accomp_amt.py            旋律＋和弦 → AMT（和弦當條件）× N 份
 steps/accomp_accomontage.py    旋律＋和弦 → AccoMontage × N 份
 steps/accomp_polyffusion.py    旋律＋和弦 → Polyffusion × N 份（沒有權重，沒實際跑過）
-steps/metrics.py               CTnCTR、PCS、調外音比例、刺耳重疊比例、總分
+steps/metrics.py               CTnCTR、PCS（不計分）、調外音比例、刺耳重疊比例、抄旋律比例、總分
+steps/accomp_claude.py         Claude 寫伴奏：照 accompaniments/claude/<旋律>.json 的逐小節型態展開成音符
 steps/paths.py                 路徑、環境、沿用原型 01 的 runner
 output/<旋律>/harmony/<來源>.{json,mid,wav}            和弦＋「旋律＋柱式和弦」
 output/<旋律>/<來源>/<模型>/candidates/                 8 份候選＋scores.json
@@ -67,10 +68,11 @@ output/player.html                                     試聽頁
 ## 挑選指標（`steps/metrics.py`）
 
 - **CTnCTR**：伴奏的音是不是當下和弦的音（「經過音」接到相鄰的和弦音也算對），越高越好。
-- **PCS**：每個十六分音符，旋律和伴奏同時響的每一對音：三度、五度、六度、同音／八度 +1，四度 0，其他 −1，取平均。
+- **PCS（2026-11-21 起不計分）**：每個十六分音符，旋律和伴奏同時響的每一對音：三度、五度、六度、同音／八度 +1，四度 0，其他 −1，取平均。
 - **OOK**：伴奏裡調外音的比例（小調把升高的六、七級也算調內）。
 - **刺耳重疊**：旋律和伴奏重疊的時間裡，小二度（小九度）、三全音、大七度所佔的比例。
-- **總分** = z(CTnCTR) + z(PCS) − z(OOK) − z(刺耳重疊)，z 分數只在同一格 8 份之內算。音數少於小節數的候選不參與排名；如果 8 份都達不到，才改成所有非空白的候選一起排。
+- **抄旋律**：和旋律同時起音的伴奏音，與旋律的距離落在某個固定的 2 半音範圍內（同音、八度、平行三度等）的比例。
+- **總分**（2026-11-21 依使用者意見修改）= z(CTnCTR) − z(OOK) − z(刺耳重疊) − z(抄旋律)，z 分數只在同一格參加排名的候選之內算。音數少於小節數、或抄旋律 ≥ 50% 的候選不參與排名；如果全部都不合格，才改成所有非空白的候選一起排。舊規則含 PCS，會獎勵抄旋律，8 格 AMT 裡有 5 格挑到抄旋律的那份。
 
 ## 和計畫不同、或需要知道的地方
 

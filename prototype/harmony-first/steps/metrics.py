@@ -14,10 +14,15 @@ Per candidate (accompaniment notes only, melody excluded):
           (major scale; minor = natural minor + raised 6th/7th). Lower = better.
 - dissonant_overlap  duration-weighted share of melody/accompaniment overlap time where the two
           pitches form a minor 2nd/minor 9th, tritone or major 7th (1, 6, 11 semitones mod 12). Lower = better.
-Ranking: score = z(ctnctr) + z(pcs) - z(ook) - z(dissonant_overlap), z-scores within the N candidates
-(a metric with zero spread contributes 0). Candidates with fewer notes than bars (min_notes) are
-not ranked, unless no candidate reaches that: near-empty accompaniments otherwise win, since
-they barely overlap the melody (PCS 1, dissonant overlap 0).
+- copy    melody-shadowing ratio: share of accompaniment notes that start together with a melody note
+          (within 40 ms) at a near-constant distance from it. For every such pair d = acc - melody
+          (semitones); the densest 2-semitone band of d (e.g. {0} unison, {12} octave, {-3,-4} diatonic
+          parallel thirds) is counted, divided by all accompaniment notes. Catches pure repetition
+          (d = 0), octave doubling and the melody moved by an interval. Lower = better.
+Ranking (revised 2026-11-21 at the user's request: PCS dropped, copying penalised):
+score = z(ctnctr) - z(ook) - z(dissonant_overlap) - z(copy), z-scores within the ranked candidates
+(a metric with zero spread contributes 0). PCS is still computed and reported, not scored.
+Not ranked, unless no candidate passes both: fewer notes than bars (min_notes), or copy >= COPY_MAX.
 """
 import json
 import math
@@ -30,6 +35,8 @@ import chart as C  # noqa: E402
 CONSONANT = {0, 3, 4, 7, 8, 9}
 PERFECT_FOURTH = {5}
 HARSH = {1, 6, 11}
+COPY_MAX = 0.5
+ONSET_TOL = 0.04
 
 
 def _notes(path, melody=False):
@@ -54,7 +61,7 @@ def compute(melody_path, chart_obj, acc_path):
     scale = set(C.scale_pcs(tonic, minor))
     res = {"notes": len(acc)}
     if not acc:
-        return {**res, "ctnctr": None, "pcs": None, "ook": None, "dissonant_overlap": None}
+        return {**res, "ctnctr": None, "pcs": None, "ook": None, "dissonant_overlap": None, "copy": None}
 
     # CTnCTR
     onsets = sorted({round(n.start, 4) for n in acc})
@@ -112,6 +119,20 @@ def compute(melody_path, chart_obj, acc_path):
                 if abs(m.pitch - n.pitch) % 12 in HARSH:
                     ov_bad += ov
     res["dissonant_overlap"] = round(ov_bad / ov_total, 4) if ov_total > 0 else None
+
+    # copy: accompaniment shadowing the melody at a near-constant interval
+    diffs = []
+    for n in acc:
+        same = [m.pitch for m in mel if abs(m.start - n.start) <= ONSET_TOL]
+        if same:
+            diffs.append([n.pitch - p for p in same])
+    best_lo, best_cnt = 0, 0
+    for lo in range(-36, 36):
+        cnt = sum(1 for ds in diffs if any(lo <= d <= lo + 1 for d in ds))
+        if cnt > best_cnt:
+            best_lo, best_cnt = lo, cnt
+    res["copy"] = round(best_cnt / len(acc), 4)
+    res["copy_interval"] = [best_lo, best_lo + 1] if best_cnt else None
     return res
 
 
@@ -126,8 +147,9 @@ def _z(values):
 
 def rank(results, min_notes=1):
     """results: list of metric dicts -> adds z_*, score, ranked; returns index of the best (or None)."""
-    ranked = [r for r in results if (r.get("notes") or 0) >= max(1, min_notes)]
-    if not ranked:  # nobody reaches the floor: rank every non-empty candidate
+    ranked = [r for r in results if (r.get("notes") or 0) >= max(1, min_notes)
+              and (r.get("copy") or 0) < COPY_MAX]
+    if not ranked:  # nobody passes: rank every non-empty candidate
         ranked = [r for r in results if r.get("notes")]
     for r in results:
         r["ranked"] = any(r is x for x in ranked)
@@ -135,7 +157,7 @@ def rank(results, min_notes=1):
         for r in results:
             r["score"] = None
         return None
-    signs = {"ctnctr": 1, "pcs": 1, "ook": -1, "dissonant_overlap": -1}
+    signs = {"ctnctr": 1, "ook": -1, "dissonant_overlap": -1, "copy": -1}
     for key, sign in signs.items():
         zs = _z([r[key] for r in ranked])
         for r, z in zip(ranked, zs):

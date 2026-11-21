@@ -18,23 +18,10 @@ ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "output"
 sys.path.insert(0, str(ROOT / "steps"))
 from paths import MODELS, SOURCES, VERSIONS  # noqa: E402
-import chart as C  # noqa: E402
 
 TITLES = {"ode_to_joy": "快樂頌（貝多芬）", "greensleeves": "綠袖子 Greensleeves", "jasmine": "茉莉花"}
 VERSION_LABELS = {"plain": "① 直接播放", "pianoflow": "② PianoFlow", "pianist": "③ Pianist"}
 ORDER = ["ode_to_joy", "greensleeves", "jasmine"]
-
-
-def doubling(melody_notes, cand_path):
-    """Share of accompaniment notes that start while a melody note of the same pitch class sounds
-    (unison or octave doubling of the melody). Reported only; not part of the ranking score."""
-    import pretty_midi
-    acc = [n for i in pretty_midi.PrettyMIDI(str(cand_path)).instruments if not i.is_drum for n in i.notes]
-    if not acc:
-        return None
-    hit = sum(1 for a in acc if any(m.start - 0.02 <= a.start < m.end and (a.pitch - m.pitch) % 12 == 0
-                                    for m in melody_notes))
-    return round(hit / len(acc), 3)
 
 
 def zh_reason(reason, error=None):
@@ -59,7 +46,6 @@ def collect():
     for d in dirs:
         notes = json.loads((d / "run-notes.json").read_text())
         name = d.name
-        mel_notes = C.melody_meta(d / "input.mid")["notes"]
         mel = {"name": name, "title": TITLES.get(name, name),
                "input": f"{name}/input.wav" if (d / "input.wav").exists() else None,
                "meter": f"{notes['meta']['numerator']}/{notes['meta']['denominator']}",
@@ -81,13 +67,12 @@ def collect():
                                       "score": best.get("score"), "ctnctr": best.get("ctnctr"), "pcs": best.get("pcs"),
                                       "ook": best.get("ook"), "dis": best.get("dissonant_overlap"),
                                       "range": [min(scores), max(scores)] if scores else None}
-                    cdir = d / s / m / "candidates"
                     cell["cands"] = [{"k": x["k"], "notes": x.get("notes"), "ctnctr": x.get("ctnctr"),
                                       "pcs": x.get("pcs"), "ook": x.get("ook"), "dis": x.get("dissonant_overlap"),
-                                      "score": x.get("score"), "ranked": x.get("ranked"),
-                                      "dbl": doubling(mel_notes, cdir / x["file"]) if (cdir / x["file"]).exists() else None}
+                                      "score": x.get("score"), "ranked": x.get("ranked"), "copy": x.get("copy"),
+                                      "copy_iv": x.get("copy_interval")}
                                      for x in c["candidates"]]
-                    cell["scores"]["dbl"] = next(x["dbl"] for x in cell["cands"] if x["k"] == c["chosen"])
+                    cell["scores"]["copy"] = best.get("copy")
                     for v in VERSIONS:
                         vv = c["versions"].get(v, {})
                         wav = d / s / m / f"{v}.wav"
@@ -187,9 +172,10 @@ details.explain li { margin-bottom:8px; }
   <li><b>生伴奏（三個模型）</b>：每一份和弦都交給
     <b>AMT 加和弦條件</b>（原型 01 的 AMT，這次把柱式和弦當成額外的「條件」一起給它看，輸出時只留它寫的鋼琴）、
     <b>AccoMontage</b>（ISMIR 2021，從 POP909 流行歌的鋼琴伴奏裡挑樂句，再照我們的和弦改編）、
-    <b>Polyffusion</b>（ISMIR 2023，擴散模型）。<br>
+    <b>Polyffusion</b>（ISMIR 2023，擴散模型）、
+    <b>Claude 寫伴奏</b>（Claude 在對話裡替每段旋律逐小節選伴奏型態：柱式、分解和弦、圓舞曲、空心五度等，並寫下理由，存在 <code>accompaniments/claude/</code>；程式再依和弦表把型態展開成音符，和弦一律放在旋律下方。它不是模型，沒有隨機性，每格一份）。<br>
     <span class="why">意圖：和弦都用同一份，比較的就只是「誰把和聲彈成伴奏比較好」。Polyffusion 的權重下載不到，所以那一欄是空的。AccoMontage 只會 4/4，綠袖子（3/4）和茉莉花（2/4）的拍子被重新分成 4 拍一小節：和弦仍然對齊每一拍，但伴奏的強弱拍是 4/4 的，綠袖子聽起來可能會「拍子不對」。</span></li>
-  <li><b>多生幾份挑最好的</b>：每格生 8 份，用四項和聲指標合成一個分數，挑最高分的一份。<br>
+  <li><b>多生幾份挑最好的</b>：每格生 8 份，用四項指標合成一個分數，挑最高分的一份（見下方〈指標怎麼算〉）。<br>
     <span class="why">意圖：模型每次生成都不一樣，挑掉明顯不好的。分數只負責初選，最後由你的耳朵決定。</span></li>
   <li><b>三個版本</b>：① 直接播放（對齊十六分音符、力度一樣）、② PianoFlow 表情演奏、③ Pianist Transformer 表情演奏，沿用原型 01 的設定。<br>
     <span class="why">意圖：比較伴奏時以 ① 為主，因為 PianoFlow 會自己改變速度。</span></li>
@@ -198,25 +184,26 @@ details.explain li { margin-bottom:8px; }
 </details>
 <details class="explain">
 <summary>指標怎麼算？怎麼挑出「最佳」的那一份？</summary>
-<p><b>為什麼要用指標：</b>每一格生 8 份伴奏，你不可能 24 格 × 8 份 = 192 份都聽。指標只負責「初選」：挑掉明顯和旋律打架、亂彈調外音的。最後好不好，由你的耳朵決定。</p>
-<p><b>依據：</b>前兩項來自配和聲研究的常用指標（Yeh 等人 2021，JNMR，<a href="https://arxiv.org/abs/2001.02360">arXiv 2001.02360</a>），後兩項是 R3 研究整理的和聲一致性指標（見 <code>docs/research-harmonization-accompaniment/</code> 來源 [12][13]）。原本的論文是拿來評「旋律 vs 和弦」，這裡改成評「伴奏 vs 和弦」和「伴奏 vs 旋律」，所以是<b>借用、改編</b>，不是原封不動。數字都是程式算的（<code>steps/metrics.py</code>），只看伴奏的音，不含旋律本身。</p>
+<p><b>為什麼要用指標：</b>每一格生 8 份伴奏，不可能每一份都聽。指標只負責<b>初選</b>：挑掉明顯和旋律打架、亂彈調外音、或只是在抄旋律的那幾份。最後好不好，由你的耳朵決定。</p>
+<p><b>依據：</b>和弦音（CTnCTR）、協和（PCS）來自配和聲研究的常用指標（Yeh 等人 2021，JNMR，<a href="https://arxiv.org/abs/2001.02360">arXiv 2001.02360</a>）；調外音、刺耳重疊是 R3 研究整理的和聲一致性指標（<code>docs/research-harmonization-accompaniment/</code> 來源 [12][13]）。原本的論文是評「旋律 vs 和弦」，這裡改成評「伴奏 vs 和弦」「伴奏 vs 旋律」，所以是<b>借用、改編</b>。「抄旋律」是這次自己加的。全部由程式計算（<code>steps/metrics.py</code>），只看伴奏的音。</p>
 <table>
 <tr><th>指標</th><th>要量什麼</th><th>怎麼算</th><th>方向</th></tr>
-<tr><td><b>和弦音</b><br>CTnCTR</td><td>伴奏有沒有照著和弦走</td><td>對每個伴奏音，看它響起時和弦表上是什麼和弦。是和弦音就算「和弦音」；不是的話，如果下一個音往上或往下走 1–2 個半音、落到和弦音上（經過音、倚音），算「合理的非和弦音」。<br><span class="formula">(和弦音 + 合理的非和弦音) ÷ (和弦音 + 非和弦音)</span></td><td>0–1，越高越好</td></tr>
-<tr><td><b>協和</b><br>PCS</td><td>旋律和伴奏同時響時，聽起來協不協和</td><td>每隔一個十六分音符取樣一次，把當下響著的每個「旋律音 × 伴奏音」配對算音程：同音、三度、五度、六度、八度 = +1；四度 = 0；其他（二度、三全音、七度）= −1。全部平均。</td><td>−1 到 1，越高越好</td></tr>
-<tr><td><b>調外音</b><br>OOK</td><td>伴奏有沒有亂彈不在調上的音</td><td>伴奏音裡，音名不在這首的音階上的比例（大調用大音階；小調用自然小音階，再加上升高的第 6、7 音）。</td><td>0–1，越低越好</td></tr>
-<tr><td><b>刺耳重疊</b></td><td>旋律和伴奏有沒有同時發出很衝的音程</td><td>旋律音和伴奏音重疊的時間裡，兩音是小二度（或小九度）、三全音、大七度的時間比例。</td><td>0–1，越低越好</td></tr>
+<tr><td><b>和弦音</b><br>CTnCTR</td><td>伴奏有沒有照著和弦走</td><td>每個伴奏音響起時，看和弦表上是什麼和弦。是和弦音就算數；不是的話，如果下一個音往上或往下 1–2 個半音、落到和弦音上（經過音、倚音），也算合理。<br><span class="formula">(和弦音 + 合理的非和弦音) ÷ (和弦音 + 非和弦音)</span></td><td>0–1，越高越好</td></tr>
+<tr><td><b>調外音</b><br>OOK</td><td>伴奏有沒有亂彈不在調上的音</td><td>伴奏音裡，音名不在這首音階上的比例（大調用大音階；小調用自然小音階，再加上升高的第 6、7 音）。</td><td>0–1，越低越好</td></tr>
+<tr><td><b>刺耳重疊</b></td><td>旋律和伴奏有沒有同時發出很衝的音程</td><td>旋律和伴奏重疊的時間裡，兩音是小二度（或小九度）、三全音、大七度的時間比例。</td><td>0–1，越低越好</td></tr>
+<tr><td><b>抄旋律</b></td><td>伴奏是不是只在重複旋律，或把旋律平移某個音程</td><td>找出和旋律<b>同時起音</b>的伴奏音，記下它和旋律差幾個半音。差距集中在某個固定範圍（寬 2 個半音，例如 0 = 同音、12 = 高八度、−3/−4 = 下方平行三度）的音，佔全部伴奏音的比例。真正的伴奏和旋律的距離會一直變，所以這個比例低；抄旋律的伴奏距離固定，比例接近 100%。</td><td>0–1，越低越好</td></tr>
+<tr><td><b>協和</b><br>PCS<br>（不計分）</td><td>旋律和伴奏同時響時協不協和</td><td>每個十六分音符取樣，旋律音 × 伴奏音的音程：同音、三度、五度、六度、八度 = +1；四度 = 0；其他 = −1，平均。<b>已經從總分拿掉</b>：抄旋律一定拿滿分，會把抄的那份挑出來。表上仍然列出，只供參考。</td><td>−1 到 1</td></tr>
 </table>
-<p><b>怎麼挑最佳：</b></p>
+<p><b>怎麼挑最佳</b>（2026-11-21 依你的意見修改）：</p>
 <ol>
-<li>同一格的 8 份裡，音符數比小節數還少的（例如 AMT 幾乎什麼都沒寫的），先不參加排名；如果 8 份都這樣，才全部一起排。</li>
-<li>每項指標在這一格參加排名的候選裡換成標準分數（z 分數：比平均高幾個標準差）。</li>
-<li><span class="formula">總分 = z(和弦音) + z(協和) − z(調外音) − z(刺耳重疊)</span>，四項權重一樣。</li>
+<li>同一格的 8 份裡，這兩種先不參加排名：音符數比小節數少的（幾乎什麼都沒寫）；抄旋律達 50% 以上的。如果 8 份都不合格，才全部一起排。</li>
+<li>每項指標在參加排名的候選裡換成標準分數（z 分數：比平均高幾個標準差）。</li>
+<li><span class="formula">總分 = z(和弦音) − z(調外音) − z(刺耳重疊) − z(抄旋律)</span>，四項權重一樣。</li>
 <li>總分最高的那份就是「選中」，拿去做 ① ② ③ 三個版本。</li>
 </ol>
-<p>所以總分<b>只能在同一格裡比較</b>：它的意思是「在這 8 份裡相對比較好」，不能拿快樂頌的 3.2 和茉莉花的 2.0 比。每格下面可以展開看 8 份各自的分數。</p>
-<p><b>⚠ 這套指標的已知缺陷（看完結果才發現）：</b>它會獎勵「重複旋律」。AMT 常常把旋律原樣抄一遍，或高八度再彈一次。抄出來的音和旋律是同音或八度，協和一定滿分、刺耳重疊是 0；旋律本身大多是和弦音，和弦音分數也高。所以抄旋律的那份反而拿高分被選中。表上的<b>「旋律重複」</b>是後來加的檢查：伴奏音裡，有多少比例是在旋律正在響的時候彈同一個音名（同音或差八度）。它目前<b>只顯示、沒有算進總分</b>。超過 50% 的格子會標出來。</p>
-<p><b>指標量不到的東西：</b>節奏好不好聽、織體是不是像鋼琴伴奏、聲部進行順不順、整體風格對不對。這些只能靠耳朵。文獻也發現，客觀指標和聽者的評分相關很弱。</p>
+<p>總分<b>只能在同一格裡比較</b>：意思是「在這 8 份裡相對比較好」，不能跨格比。每格下面可以展開看每一份的分數和沒被排名的原因。「Claude 寫伴奏」每格只有一份（照計畫直接展開，沒有隨機性），所以不用挑，總分是 0。</p>
+<p><b>修改前的問題：</b>舊的總分包含「協和」，會獎勵抄旋律。AMT 常把旋律原樣或高八度再彈一次，舊規則在 8 格 AMT 裡有 5 格選中了這種（4 格同音或八度、1 格平行三度）。</p>
+<p><b>指標量不到的東西：</b>節奏好不好聽、織體像不像鋼琴伴奏、聲部進行順不順、風格對不對。這些只能靠耳朵。文獻也發現客觀指標和聽者評分相關很弱。</p>
 </details>
 <div class="bar">
   <button id="blind">盲聽模式：關</button>
@@ -254,22 +241,22 @@ function cellBox(c, title) {
   }
   if (show() && c.scores) {
     const s = c.scores, sc = el("div", "scores");
-    [["總分", fmt(s.score, 2)], ["和弦音", fmt(s.ctnctr, 2)], ["協和", fmt(s.pcs, 2)],
-     ["調外音", fmt(s.ook, 2)], ["刺耳重疊", fmt(s.dis, 3)], ["音數", s.notes],
-     ["旋律重複", s.dbl == null ? "–" : Math.round(s.dbl * 100) + "%"],
+    [["總分", fmt(s.score, 2)], ["和弦音", fmt(s.ctnctr, 2)],
+     ["調外音", fmt(s.ook, 2)], ["刺耳重疊", fmt(s.dis, 3)],
+     ["抄旋律", s.copy == null ? "–" : Math.round(s.copy * 100) + "%"], ["音數", s.notes],
      ["選中", `第 ${s.chosen + 1}/${s.n} 份`]].forEach(([k, v]) => sc.append(el("span", "chip", `${k} ${v}`)));
     box.append(sc);
-    if (s.dbl != null && s.dbl >= 0.5) box.append(el("div", "meta warn",
-      "注意：選中的這份有一半以上的音，是在重複旋律（同音或差八度）。分數高是因為重複旋律一定「協和」，不代表它是好伴奏。"));
-    const det = el("details", "cands"); det.append(el("summary", null, "8 份候選的分數（★ = 選中）"));
+    if (s.copy != null && s.copy >= 0.5) box.append(el("div", "meta warn",
+      "注意：每一份候選都在抄旋律，只好從裡面挑。"));
+    const det = el("details", "cands"); det.append(el("summary", null, `${c.cands.length} 份候選的分數（★ = 選中）`));
     const tb = el("table"); const hr = el("tr");
-    ["份", "音數", "和弦音", "協和", "調外音", "刺耳重疊", "旋律重複", "總分"].forEach(h => hr.append(el("th", null, h)));
+    ["份", "音數", "和弦音", "調外音", "刺耳重疊", "抄旋律", "協和（不計分）", "總分"].forEach(h => hr.append(el("th", null, h)));
     tb.append(hr);
     for (const x of c.cands) {
       const tr = el("tr", x.k === s.chosen ? "chosen" : null);
-      [(x.k === s.chosen ? "★ " : "") + (x.k + 1), x.notes, fmt(x.ctnctr, 2), fmt(x.pcs, 2), fmt(x.ook, 2),
-       fmt(x.dis, 3), x.dbl == null ? "–" : Math.round(x.dbl * 100) + "%",
-       x.score == null ? (x.notes ? "不排名" : "空的") : fmt(x.score, 2)].forEach(v => tr.append(el("td", null, v)));
+      [(x.k === s.chosen ? "★ " : "") + (x.k + 1), x.notes, fmt(x.ctnctr, 2), fmt(x.ook, 2), fmt(x.dis, 3),
+       x.copy == null ? "–" : Math.round(x.copy * 100) + "%", fmt(x.pcs, 2),
+       x.score == null ? (!x.notes ? "空的" : x.copy >= 0.5 ? "抄旋律，不排名" : "太少，不排名") : fmt(x.score, 2)].forEach(v => tr.append(el("td", null, v)));
       tb.append(tr);
     }
     det.append(tb); box.append(det);
