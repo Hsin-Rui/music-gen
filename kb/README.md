@@ -1,0 +1,119 @@
+# 知識庫
+
+音樂生成專案一路累積的文獻、模型、資料集和實驗。每一筆一個 Markdown 檔，放在 git 裡。
+
+## 怎麼用
+
+- **找東西：** 看下面的目錄，或在 `kb/` 裡搜尋關鍵字（`grep -ri 伴奏 kb/`）。
+- **新增：** 每次研究或做原型後，把新的文獻、模型、資料集各加一個檔，並更新本頁目錄。格式照同資料夾裡現有的檔案。
+- **出處：** 每筆都連回它來自哪份研究報告或實驗（`docs/research-*`、`kb/experiments/`）。研究報告是原始證據，這裡是整理後的索引。
+- **信心：** 文獻的信心欄位沿用研究報告的判定；「尚未精讀」表示我們只用了報告查證過的那句話。
+
+## 實驗
+
+- [原型 01：旋律 → AMT 伴奏 → 表情鋼琴演奏](experiments/prototype-01-melody-to-performance.md)：結論 `conditional`，2026-11-21
+
+## 模型
+
+| 模型 | 做什麼 | 我們的使用狀態 |
+|---|---|---|
+| [ACE-Step 1.5](models/ace-step.md) | 音訊生成 | 未試 |
+| [Anticipatory Music Transformer (AMT)](models/amt.md) | 符號生成：補寫、給旋律生伴奏 | 已用於 prototype-01 |
+| [Aria (EleutherAI)](models/aria.md) | 鋼琴續寫、MIDI 嵌入 | 已排除 |
+| [Basic Pitch (Spotify)](models/basic-pitch.md) | 採譜：音訊 → MIDI | 未試 |
+| [DExter](models/dexter.md) | 表情演奏（擴散模型） | 未試 |
+| [DiffSinger (openvpi)](models/diffsinger.md) | 歌聲合成 | 未試 |
+| [MAJEPPA](models/majeppa.md) | 表情演奏（Aria 的 LoRA 微調） | 備案（未試） |
+| [MIDI-GPT](models/midi-gpt.md) | 多軌補寫＋屬性控制 | 未試 |
+| [MIDI-LLM](models/midi-llm.md) | 文字 → MIDI（LLM） | 未試 |
+| [MidiTok（工具）](models/miditok.md) | MIDI ↔ 模型符號（REMI、CPWord 等） | 未用 |
+| [MuScriptor](models/muscriptor.md) | 採譜：多樂器音訊 → MIDI | 未試 |
+| [MusicGen](models/musicgen.md) | 音訊生成 | 未試 |
+| [NotaGen](models/notagen.md) | 符號生成：時期－作曲家－編制提示 → ABC | 未試 |
+| [Pianist Transformer](models/pianist-transformer.md) | 表情演奏：樂譜 MIDI → 演奏 MIDI | 已用於 prototype-01 |
+| [SyMuPe / PianoFlow](models/pianoflow.md) | 表情演奏：樂譜 MIDI → 演奏 MIDI | 已用於 prototype-01 |
+| [ScorePerformer](models/scoreperformer.md) | 表情演奏 | 未試 |
+| [Text2midi](models/text2midi.md) | 文字 → MIDI | 未試 |
+| [Transkun](models/transkun.md) | 鋼琴採譜 | 未試 |
+| [VirtuosoNet](models/virtuosonet.md) | 表情演奏 | 未試 |
+| [YourMT3+](models/yourmt3.md) | 採譜：多樂器音訊 → MIDI | 未試 |
+
+## 資料集
+
+| 資料集 | 類型 | 授權 |
+|---|---|---|
+| [Aria-MIDI](datasets/aria-midi.md) | 鋼琴 MIDI（從網路音訊轉錄） | CC BY-NC-SA＋免責聲明 |
+| [ASAP](datasets/asap.md) | 樂譜對演奏（對齊） | CC BY-NC-SA |
+| [CompMusic 京劇](datasets/compmusic-jingju.md) | 音訊＋音高曲線＋音符標註 | 各紀錄不同：CC BY-NC-ND／CC BY-NC／CC BY |
+| [Essen 民謠資料庫](datasets/essen-folksong.md) | 符號旋律 | 未查證 |
+| [歌仔戲人聲＋歌詞（中研院團隊）](datasets/gezi-asas.md) | 人聲片段＋歌詞 | 發布狀態不明 |
+| [GOAT 歌仔戲（FT-GAN）](datasets/gezi-goat.md) | 歌聲資料 | CC BY-NC-SA，需申請，附賠償條款 |
+| [Lakh MIDI](datasets/lakh-midi.md) | 多樂器 MIDI | 資料集 CC BY 4.0，但內容是流行歌轉譜，底層版權未授權（推論） |
+| [M4Singer](datasets/m4singer.md) | 中文多風格歌聲 | CC BY-NC-SA＋賠償條款 |
+| [MAESTRO v3](datasets/maestro-v3.md) | 鋼琴 MIDI＋音訊 | CC BY-NC-SA |
+| [Opencpop](datasets/opencpop.md) | 中文歌聲＋樂譜 | CC BY-NC-ND 4.0；商用需洽談 |
+| [PDMX](datasets/pdmx.md) | 符號（MusicXML 樂譜） | CC BY 4.0（12.29% 授權資訊互相矛盾） |
+| [prototype-01 範例旋律（自製）](datasets/prototype-examples.md) | 單旋律 MIDI | 公有領域曲目，本專案自行打譜 |
+| [Saraga](datasets/saraga.md) | 印度古典音訊＋標註 | CC BY-NC-SA |
+| [中研院台灣原住民祭儀歌舞檔案](datasets/sinica-indigenous.md) | 影音 | 頁面沒有寫重用條款 |
+| [SymbTr](datasets/symbtr.md) | 土耳其 makam 符號樂譜 | CC BY-NC-SA |
+| [VocalNotes](datasets/vocalnotes.md) | 日本民謠錄音 | CC BY-NC-SA，需申請；作者要求不重新彙整公開 |
+
+## 文獻
+
+| 文獻（本專案取用的說法） | 發表 | 信心 |
+|---|---|---|
+| [AI 音樂刺激研究以標示偏誤為主](literature/ai-music-stimuli-labelling-2025.md) | 2025–2026 | 中 |
+| [京劇歌聲只用音符合成（DurIAN，預印本）](literature/arxiv-1912.12010.md) | 2019-12 | 中低 |
+| [IS／FAD 與主觀評分相關弱](literature/arxiv-2108.01576.md) | 2021-08 | 中 |
+| [AMT 補寫與伴奏能力（TMLR）](literature/arxiv-2306.08620.md) | 2023-06 | 高 |
+| [主觀評估沒有標準化程序（預印本，搜尋摘要）](literature/arxiv-2308.13736.md) | 2023-08 | 中 |
+| [Transkun 鋼琴採譜（ISMIR 2024）](literature/arxiv-2404.09466.md) | 2024 | 中 |
+| [JASCO：音訊模型直接吃和弦和旋律條件](literature/arxiv-2406.10970.md) | 2024-06 | 中 |
+| [MuseBarControl：直接微調不服從控制（預印本）](literature/arxiv-2407.04331.md) | 2024-07 | 中低 |
+| [YourMT3+（IEEE MLSP 2024）](literature/arxiv-2407.04822.md) | 2024-07 | 中 |
+| [GaMaDHaNi 音高曲線階層生成（ISMIR 2024）](literature/arxiv-2408.12658.md) | 2024-08 | 高 |
+| [鋼琴 MIDI→MusicXML（ISMIR 2024）；音訊→樂譜（IJCAI 2024）](literature/arxiv-2410.00210.md) | 2024 | 中 |
+| [MIDI-GPT 屬性控制、Open RAIL-M、4×V100 2–3 天（預印本）](literature/arxiv-2501.17011.md) | 2025-02 | 高 |
+| [Music for All：非西方資料只占 5.7%（NAACL 2025）](literature/arxiv-2502.07328.md) | 2025-02 | 中 |
+| [RenderBox 多樂器演奏（預印本）](literature/arxiv-2502.07711.md) | 2025-02 | 低 |
+| [Aria-MIDI 從網路音訊轉錄（ICLR 2025）](literature/arxiv-2504.15071.md) | 2025-04 | 高 |
+| [生成音樂評估綜述（ACM CSUR）](literature/arxiv-2506.05104.md) | 2025-06 | 高 |
+| [Aria 論文評估續寫與分類](literature/arxiv-2506.23869.md) | 2025-06 | 中 |
+| [SSIMuse 多聲部抄襲檢測（預印本）](literature/arxiv-2509.13658.md) | 2025-09 | 中 |
+| [依目標難度生成視奏譜（預印本）](literature/arxiv-2509.16913.md) | 2025-09 | 中 |
+| [ABC-Eval：LLM 小節層級失敗（預印本）](literature/arxiv-2509.23350.md) | 2025-09 | 高（單一來源） |
+| [SyMuPe/PianoFlow 能力與授權](literature/arxiv-2511.03425.md) | 2025-11 / 2026-05 | 高（授權）／中（能力） |
+| [MIDI-LLM，Llama 3.2 授權](literature/arxiv-2511.03942.md) | 2025-11 | 高 |
+| [過擬合的模型聽起來更連貫、驗證損失卻變差（預印本）](literature/arxiv-2511.07268.md) | 2025-11 | 中低 |
+| [簡譜光學辨譜（預印本）](literature/arxiv-2512.14758.md) | 2025-12 | 中 |
+| [歌仔戲人聲＋歌詞資料（ISMIR 2025 LBD）](literature/arxiv-2601.00299.md) | 2026-01 | 高（存在）／低（取得） |
+| [在 ABC 上微調 LLM 的取捨；FMD 不可靠（預印本）](literature/arxiv-2601.22764.md) | 2026-01 | 中 |
+| [ACE-Step 1.5 能力（預印本）](literature/arxiv-2602.00744.md) | 2026-02 | 高 |
+| [MuScriptor 架構與評測（預印本，ISMIR 2026 投稿）](literature/arxiv-2607.08168.md) | 2026-08 | 中 |
+| [MazzikaAI：用提示詞引導音訊模型增加 maqam 微分音（預印本）](literature/arxiv-2608.10360.md) | 2026-08 | 中低 |
+| [VQ-VAE 曲線符號化（韓國傳統音樂，預印本）](literature/arxiv-2608.10979.md) | 2026-08 | 中 |
+| [MAJEPPA 論文，ISMIR 2026](literature/arxiv-2608.11026.md) | 2026-08 | 中 |
+| [DiffSynth-Music：音訊轉接器控制節拍和音高（預印本）](literature/arxiv-2609.12774.md) | 2026-09 | 中 |
+| [YuE2：合一模型優於分段串接；顯式樂譜規劃有幫助（預印本，只讀摘要）](literature/arxiv-2609.33757.md) | 2026-09 | 中 |
+| [工尺譜光學辨譜，39 張圖評估](literature/gongche-omr-2014.md) | 2014 | 中 |
+| [MDT：馬可夫鏈出題、3 個難度因子、R² 0.869（Sci Rep）](literature/harrison-2017-mdt-melodic-discrimination.md) | 2017-06 | 高 |
+| [CA-BAT（IRT＋CAT＋AIG）](literature/harrison-2018-ca-bat.md) | 2018 | 中 |
+| [計算民族音樂學：離散化是文化慣例](literature/icmc-smc-2014-discretisation-culture.md) | 2014 | 中 |
+| [VocalNotes：「音符」是否適合許多傳統的基本單位](literature/iftawm-vocalnotes-note-as-unit.md) | 未確認 | 低 |
+| [京劇清唱資料，f0＋音符（ISMIR 2017）](literature/ismir-2017-jingju-a-cappella-dataset.md) | 2017 | 中高 |
+| [VocalNotes（ISMIR 2023 LBD），日本民謠 9 段](literature/ismir-2023-vocalnotes-japanese-folk.md) | 2023-11 | 中 |
+| [Jacoby 等人 15 國節奏先驗（NHB 2024）](literature/jacoby-2024-rhythm-priors-15-countries.md) | 2024-03 | 中 |
+| [民族音樂學：五線譜帶有歐洲的類別預設](literature/jrma-notating-deconstruction.md) | 未確認 | 中 |
+| [VAE 旋律作為相似度刺激（ICMPC 2023）](literature/kim-2023-vae-similarity-stimuli-icmpc.md) | 2023 | 中 |
+| [Mistuning Perception Test（BRM 2019）](literature/larrouy-maestri-2019-mistuning-perception-test.md) | 2019 | 中 |
+| [PROMS（PLoS One 2012）](literature/law-2012-proms.md) | 2012 | 中 |
+| [MET 中國樣本驗證](literature/met-2024-chinese-sample.md) | 2024 | 中 |
+| [短動機導致抄襲（NeurIPS 2025 workshop）](literature/neurips-2025-memorisation-short-motifs.md) | 2025 | 中 |
+| [採譜研究預設西方五線譜的問題（DSH 2022）](literature/soas-2022-transcription-staff-notation-bias.md) | 2022 | 中 |
+| [UAB 學士論文：AI 音樂刺激資料集](literature/uab-2025-ai-music-stimuli-thesis.md) | 2025 | 低 |
+
+## 來源研究
+
+- [技術路線圖研究（2026-11-19）](../docs/research-music-generation-tech-roadmap/research-music-generation-tech-roadmap.md)
+- [原型模型查證（2026-11-21）](../docs/research-prototype-model-check/research-prototype-model-check.md)
