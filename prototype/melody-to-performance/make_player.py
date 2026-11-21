@@ -113,6 +113,12 @@ h3 { font-size:15px; margin:16px 0 4px; }
 .row .meta { color:var(--muted); font-size:13px; grid-column:2; }
 .row .err { color:var(--warn); font-size:13px; }
 audio { width:100%; height:36px; }
+details.explain { background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:12px 16px; margin-bottom:20px; }
+details.explain summary { font-weight:600; cursor:pointer; }
+details.explain ol { padding-left:20px; }
+details.explain li { margin-bottom:10px; }
+.why { color:var(--muted); font-size:13px; }
 @media (max-width:600px) { .row { grid-template-columns:1fr; } .row .meta { grid-column:1; } }
 </style>
 </head>
@@ -120,6 +126,26 @@ audio { width:100%; height:36px; }
 <main>
 <h1>原型試聽：旋律 → 伴奏 → 表情演奏</h1>
 <p class="sub">每段旋律先聽輸入，再比較兩種伴奏開頭下的三個版本。一次只會播放一個音檔。</p>
+<details class="explain" open>
+<summary>這個原型在做什麼？</summary>
+<p><b>要回答的問題：</b>把現成的開源模型串起來，在 Mac 上能不能把一段單旋律變成「願意拿給別人聽」的鋼琴演奏？</p>
+<ol>
+  <li><b>輸入旋律</b>：一段 20 到 30 秒、已經對齊拍子的單旋律 MIDI。<br>
+    <span class="why">意圖：從你之前做過的單旋律 MIDI 接著往下走。</span></li>
+  <li><b>生成伴奏：AMT</b>（Anticipatory Music Transformer，Stanford）。它讀過大量多樂器的 MIDI，能「看著」一條旋律，替它寫出其他聲部。<br>
+    <span class="why">意圖：讓單旋律變成完整的音樂。每段試兩種開頭：「不給開頭」是 AMT 只看旋律、從零開始寫；「柱式和弦開頭」是先放 2 到 3 小節 I–IV–V–I 和弦，讓它照著接下去。因為查證發現，沒給開頭時伴奏品質可能會掉，兩種都試，才分得出是 AMT 本身不行，還是少了開頭才不行。</span></li>
+  <li><b>合併成一軌鋼琴</b>：AMT 會自己挑樂器，例如大鍵琴、吉他、小提琴。這一步把所有伴奏改成鋼琴，對齊到十六分音符的格子，再和旋律合成一軌。<br>
+    <span class="why">意圖：下一步的演奏模型只吃「一軌、對齊拍子的鋼琴譜」。這一版就是 ① 直接播放：每個音的力度一樣、時間完全照格子，是用來比較的基準。</span></li>
+  <li><b>表情演奏：PianoFlow</b>（SyMuPe，ACM MM 2025）。它讀過大量「樂譜和真人演奏」的配對，學會人怎麼把譜彈出來：哪裡快一點、哪裡重一點、踏板怎麼踩。音符本身不改。<br>
+    <span class="why">意圖：測試「看譜彈出表情」這一層能不能補上機器聲的缺點。注意：它會自己決定整體速度，不看譜上寫的速度，所以有些版本會比原曲慢很多。</span></li>
+  <li><b>表情演奏：Pianist Transformer</b>（ICML 2026）。做的事和 PianoFlow 一樣，但是是另一套模型和訓練方式，會輸出踏板，速度通常比原曲稍快。<br>
+    <span class="why">意圖：和 PianoFlow 對照，決定哪一個留下來。原本的候選 Aria 已經排除，因為它只會接著寫，不會照譜彈。</span></li>
+  <li><b>轉成音檔</b>：用 FluidSynth 加上你的 GeneralUser GS 鋼琴音色，把每個版本的 MIDI 轉成 WAV。<br>
+    <span class="why">意圖：三個版本用同一個音色，聽到的差別才是演奏造成的，而不是音色。想聽更好的音色，可以把 output 資料夾裡的 .mid 拖進 Logic 或 Vienna。</span></li>
+</ol>
+<p><b>旁邊的數字：</b>「保留 N/N 個音」是檢查演奏模型有沒有偷改音符，目前兩個模型都完全保留。<br>
+<b>放棄條件：</b>如果沒有一段伴奏和旋律搭得起來，或者 ②③ 聽起來和 ① 沒有明顯差別，就不再走「拼現成模型」這條路。</p>
+</details>
 <div class="bar">
   <button id="blind">盲聽模式：關</button>
   <button id="reveal" hidden>揭曉答案</button>
