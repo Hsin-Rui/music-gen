@@ -1,0 +1,3 @@
+[core]
+project_name = "music-gen"
+output_folder = "{project-root}/docs"

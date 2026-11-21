@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>音樂家養成記</title>
+<style>
+:root{
+  --paper:#f6f0e3; --paper-2:#efe5d0; --card:#fffaf0;
+  --ink:#231c15; --ink-soft:#5d5246; --ink-faint:#8f8270;
+  --staff:#c9bba2; --accent:#9c2f22; --accent-2:#1f5a6b; --gold:#a67a1c;
+  --coach-bg:#e8eef0; --coach-ink:#1f4450;
+  --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 24px -14px rgba(60,40,10,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12141c; --paper-2:#191c27; --card:#1d2130;
+    --ink:#efe6d4; --ink-soft:#bdb3a1; --ink-faint:#857c6e;
+    --staff:#3b4052; --accent:#e47a63; --accent-2:#7fc1cf; --gold:#d8b25a;
+    --coach-bg:#1b2b33; --coach-ink:#a9d6e0;
+    --shadow:0 10px 30px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12141c; --paper-2:#191c27; --card:#1d2130;
+  --ink:#efe6d4; --ink-soft:#bdb3a1; --ink-faint:#857c6e;
+  --staff:#3b4052; --accent:#e47a63; --accent-2:#7fc1cf; --gold:#d8b25a;
+  --coach-bg:#1b2b33; --coach-ink:#a9d6e0;
+  --shadow:0 10px 30px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC","PMingLiU","Source Han Serif TC",serif;
+  line-height:1.75; font-size:17px; overflow-x:hidden;
+}
+.sans{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+h1,h2,h3{line-height:1.3;margin:0;font-weight:700}
+p{margin:.4em 0}
+ul{margin:0;padding:0;list-style:none}
+svg{max-width:100%;height:auto;display:block}
+.small{font-size:.85em;color:var(--ink-soft)}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.12em;padding:.1em .6em;border:1px solid currentColor;border-radius:999px;color:var(--ink-faint)}
+
+/* staff background stripes */
+.staffbg{background-image:repeating-linear-gradient(to bottom,transparent 0 13px,var(--staff) 13px 14px);background-size:100% 70px;background-repeat:repeat-x}
+
+/* Cover */
+.cover{padding:56px 0 40px;text-align:center;position:relative;border-bottom:3px double var(--ink)}
+.cover .eyebrow{letter-spacing:.4em;font-size:.8rem;color:var(--ink-soft)}
+.cover h1{font-size:clamp(2.4rem,9vw,4.6rem);letter-spacing:.12em;margin:.25em 0 .1em}
+.cover .sub{font-size:1.05rem;color:var(--ink-soft)}
+.cover .goal{max-width:620px;margin:22px auto 0;padding:14px 18px;border-top:1px solid var(--staff);border-bottom:1px solid var(--staff);font-size:.95rem}
+.cover .clef{font-size:5rem;line-height:1;color:var(--accent);opacity:.9}
+
+/* Programme */
+.programme{margin:36px auto 10px;max-width:640px}
+.programme h2{text-align:center;font-size:1rem;letter-spacing:.5em;margin-bottom:12px}
+.programme li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px dotted var(--staff)}
+.programme .num{font-style:italic;color:var(--accent);min-width:2.2em}
+.programme .ttl{flex:1}
+.programme .tempo{font-style:italic;color:var(--ink-faint);font-size:.85em;text-align:right}
+.programme a{color:inherit;text-decoration:none}
+.programme a:hover .ttl{color:var(--accent)}
+
+/* Movement headers */
+section.mv{padding:64px 0 24px}
+.mvhead{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:22px;border-bottom:1px solid var(--ink);padding-bottom:10px}
+.mvhead .roman{font-size:3.4rem;line-height:.9;color:var(--accent);font-style:italic}
+.mvhead h2{font-size:clamp(1.4rem,4.6vw,2rem)}
+.mvhead .en{font-size:.8rem;letter-spacing:.2em;color:var(--ink-faint);display:block}
+.mvhead .tempo{margin-left:auto;font-style:italic;color:var(--ink-soft)}
+
+/* voice legend */
+.coach{background:var(--coach-bg);color:var(--coach-ink);border-left:3px solid var(--accent-2);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.92rem;margin:12px 0}
+.coach::before{content:"指揮旁註 ";font-weight:700;letter-spacing:.1em}
+.voice{border-left:3px solid var(--accent);padding:2px 0 2px 12px}
+.quote{font-size:1.25rem;color:var(--accent)}
+.correction{border:1px dashed var(--accent);padding:8px 12px;border-radius:8px;margin:10px 0;font-size:.92rem}
+.correction::before{content:"獨奏者更正 ";color:var(--accent);font-weight:700}
+.legend{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin:20px 0 0;font-size:.85rem}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;display:inline-block;border-radius:3px}
+
+/* Mind map */
+.mm-core{width:min(260px,80%);margin:0 auto 6px;text-align:center;padding:18px;border-radius:50%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;flex-direction:column;background:var(--ink);color:var(--paper);box-shadow:var(--shadow)}
+.mm-core b{font-size:1.15rem}
+.mm-stems{height:30px;width:2px;background:var(--ink);margin:0 auto}
+.mm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:18px}
+.branch{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px 14px;position:relative;overflow:hidden}
+.branch h3{display:flex;align-items:center;gap:10px;font-size:1.15rem}
+.branch h3 .k{font-size:1.9rem;color:var(--accent);line-height:1}
+.branch .stv{margin:10px 0 4px}
+.notes li{position:relative;padding:3px 0 3px 26px}
+.notes li::before{content:"";position:absolute;left:4px;top:.75em;width:11px;height:8px;border-radius:50%;background:var(--ink);transform:rotate(-20deg)}
+.notes li::after{content:"";position:absolute;left:14px;top:-.05em;width:1.3px;height:1em;background:var(--ink)}
+.notes li.sub{padding-left:44px;font-size:.93em;color:var(--ink-soft)}
+.notes li.sub::before{left:22px;width:8px;height:6px;background:var(--ink-soft)}
+.notes li.sub::after{left:29.5px;height:.8em;background:var(--ink-soft)}
+.conv{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.conv span{border:1px solid var(--ink);border-radius:999px;padding:2px 10px;font-size:.9rem;background:var(--paper)}
+.dial{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.dial div{flex:1 1 80px;border:1px solid var(--staff);border-radius:8px;padding:6px;text-align:center;font-size:.85rem}
+.dial i{display:block;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--accent-2),var(--accent));margin-top:4px}
+
+/* Ladder */
+.ladder{position:relative;display:flex;flex-direction:column-reverse;gap:10px;padding:10px 0}
+.rung{position:relative;background:var(--card);border-radius:10px;padding:10px 14px;box-shadow:var(--shadow);max-width:560px}
+.rung .deg{position:absolute;right:10px;top:6px;font-style:italic;color:var(--ink-faint);font-size:.8rem}
+.rung h4{margin:0 0 4px;font-size:1rem;color:var(--accent)}
+.rung .chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--paper-2);border-radius:6px;padding:1px 8px;font-size:.88rem}
+@media (min-width:720px){
+  .rung:nth-child(1){margin-left:0}
+  .rung:nth-child(2){margin-left:60px}
+  .rung:nth-child(3){margin-left:120px}
+  .rung:nth-child(4){margin-left:180px}
+  .rung:nth-child(5){margin-left:240px}
+  .rung:nth-child(6){margin-left:300px}
+}
+@media (max-width:719px){
+  .rung:nth-child(2){margin-left:8px}
+  .rung:nth-child(3){margin-left:16px}
+  .rung:nth-child(4){margin-left:24px}
+  .rung:nth-child(5){margin-left:32px}
+  .rung:nth-child(6){margin-left:40px}
+}
+.rung.top{background:var(--ink);color:var(--paper)}
+.rung.top h4{color:var(--gold);font-size:1.5rem}
+.rung.top .chip{background:rgba(255,255,255,.12);color:var(--paper)}
+.fermata{font-size:1.6rem;color:var(--gold);display:block;line-height:1;margin-bottom:-4px}
+.day{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;margin-top:8px}
+.day div{border-top:2px solid var(--gold);padding:4px 2px;font-size:.88rem}
+.day small{display:block;color:var(--gold);font-style:italic;font-size:.72rem}
+
+/* CD */
+.cdzone{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:26px;align-items:center}
+.cd{position:relative;width:min(340px,100%);aspect-ratio:1/1;margin:0 auto;border-radius:50%;
+  background:
+   radial-gradient(circle at 50% 50%,var(--paper) 0 9%,var(--staff) 9% 10%,transparent 10%),
+   repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.0) 0 3px,rgba(255,255,255,.08) 3px 4px),
+   conic-gradient(from 30deg,#c84b3a,#e3a43a,#3f8aa0,#7c4ca6,#c84b3a);
+  box-shadow:var(--shadow);animation:spin 28s linear infinite}
+.cd:hover{animation-play-state:paused}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.cd{animation:none}}
+.cdlabel{position:absolute;inset:22%;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%;color:var(--ink)}
+.cdlabel b{font-size:clamp(1rem,4vw,1.35rem);color:var(--accent)}
+.cdlabel span{font-size:.75rem;color:var(--ink-soft)}
+.tracks li{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--staff)}
+.tracks .n{font-style:italic;color:var(--accent);min-width:2.4em}
+.rests{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:20px 0}
+.rest{background:var(--card);border-radius:10px;padding:10px;text-align:center;box-shadow:var(--shadow)}
+.rest svg{width:28px;margin:0 auto 4px}
+.tension{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:18px 0}
+.tension .side{padding:14px;border-radius:10px;background:var(--card);box-shadow:var(--shadow);text-align:center}
+.tension .vs{font-size:1.4rem;color:var(--accent);font-style:italic}
+@media (max-width:560px){.tension{grid-template-columns:1fr}.tension .vs{text-align:center}}
+.chord{display:flex;flex-direction:column;align-items:center;gap:4px;margin:10px 0}
+.chord span{border:2px solid var(--ink);border-radius:50%/60%;padding:2px 18px;background:var(--card)}
+.gaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;margin-top:14px}
+
+/* Browser mock */
+.browser{border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--staff);background:var(--card)}
+.bar{display:flex;gap:6px;align-items:center;padding:8px 12px;background:var(--paper-2);border-bottom:1px solid var(--staff)}
+.bar i{width:10px;height:10px;border-radius:50%;background:var(--staff);display:inline-block}
+.bar .url{flex:1;min-width:0;margin-left:8px;background:var(--paper);border-radius:6px;padding:2px 10px;font-size:.78rem;color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero{padding:28px 20px;text-align:center;background:linear-gradient(160deg,var(--paper-2),var(--card))}
+.hero h3{font-size:clamp(1.3rem,5vw,1.9rem)}
+.hero .btn{display:inline-block;margin-top:12px;background:var(--accent);color:#fff;border-radius:999px;padding:6px 18px;font-size:.9rem}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:1px;background:var(--staff)}
+.feat div{background:var(--card);padding:12px 14px;font-size:.92rem}
+.feat b{display:block;color:var(--accent-2)}
+.foot{padding:10px 16px;font-size:.78rem;color:var(--ink-faint);border-top:1px solid var(--staff)}
+.twosuccess{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px;margin:18px 0}
+.versus{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.vcard{border-radius:12px;padding:16px;box-shadow:var(--shadow);background:var(--card)}
+.vcard.dice{background:repeating-linear-gradient(45deg,var(--card) 0 12px,var(--paper-2) 12px 24px)}
+.dicerow{display:flex;gap:8px;font-size:2rem;color:var(--ink-faint);margin:6px 0}
+.dicerow span{display:inline-block;animation:roll 3s ease-in-out infinite}
+.dicerow span:nth-child(2){animation-delay:.4s}.dicerow span:nth-child(3){animation-delay:.8s}
+@keyframes roll{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(90deg)}90%{transform:rotate(180deg)}}
+@media (prefers-reduced-motion:reduce){.dicerow span{animation:none}}
+.duet{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.bub{max-width:88%;padding:6px 12px;border-radius:14px;font-size:.9rem}
+.bub.me{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:3px}
+.bub.ai{align-self:flex-start;background:var(--paper-2);border-bottom-left-radius:3px}
+
+/* Post-scarcity */
+.ps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.panel{background:var(--card);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+.panel h3{font-size:1.1rem;margin-bottom:6px}
+.genres{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.genres span{border-bottom:2px solid var(--gold);padding:0 4px}
+.loopwrap{max-width:420px;margin:0 auto}
+.loop text{font-family:"PingFang TC","Noto Sans TC",sans-serif;fill:var(--ink)}
+.stage{display:flex;justify-content:space-around;align-items:flex-end;gap:10px;margin:10px 0;padding:14px 8px 8px;border-radius:10px;background:var(--paper-2)}
+.stage .p{text-align:center;transition:transform .5s}
+.stage .p .who{font-size:1.1rem;font-weight:700}
+.stage .p .role{display:inline-block;margin-top:4px;padding:1px 10px;border-radius:999px;font-size:.82rem}
+.lead .role{background:var(--accent);color:#fff}
+.acc .role{border:1px solid var(--ink-soft)}
+.lead{transform:translateY(-10px)}
+button.flipbtn{font:inherit;font-size:.88rem;cursor:pointer;border:1px solid var(--ink);background:var(--card);color:var(--ink);border-radius:999px;padding:4px 14px}
+button.flipbtn:hover{background:var(--ink);color:var(--paper)}
+
+/* Assumption flip */
+.flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
+.flip{perspective:1000px;min-height:340px;cursor:pointer;border:0;background:none;padding:0;font:inherit;color:inherit;text-align:left}
+.flip .in{position:relative;width:100%;height:100%;min-height:340px;transition:transform .7s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
+.flip .front{background:var(--card)}
+.flip .back{background:var(--ink);color:var(--paper);transform:rotateY(180deg)}
+.flip .back .k{color:var(--gold)}
+.flip .back .ins{margin-top:auto;font-size:.85rem;border-top:1px solid rgba(255,255,255,.25);padding-top:6px;color:var(--gold)}
+.flip .k{font-size:.75rem;letter-spacing:.2em;color:var(--ink-faint)}
+.flip .big{font-size:1.15rem;font-weight:700}
+.flip .hint{margin-top:auto;font-size:.78rem;color:var(--ink-faint)}
+.flip .mirror{font-size:1.6rem;color:var(--accent);line-height:1}
+@media (prefers-reduced-motion:reduce){.flip .in{transition:none}}
+
+/* Intermission */
+.inter{background:var(--paper-2);margin-top:60px;padding:56px 0;border-top:3px double var(--ink);border-bottom:3px double var(--ink)}
+.compass{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;align-items:center}
+.compass svg text{font-family:"PingFang TC","Noto Sans TC",sans-serif}
+.needle{transform-origin:150px 150px;animation:sway 6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+@media (prefers-reduced-motion:reduce){.needle{animation:none}}
+.ensemble{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px;margin-top:20px}
+.chair{background:var(--card);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);position:relative}
+.chair .rk{position:absolute;right:12px;top:6px;font-size:1.8rem;font-style:italic;color:var(--accent);line-height:1}
+.chair .orig{font-size:.75rem;color:var(--ink-faint)}
+.chair b{display:block;font-size:1.05rem;margin:2px 0}
+.chair.first{outline:2px solid var(--gold)}
+.chair .star{color:var(--accent);font-size:.8rem}
+.formula{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:22px 0;text-align:center}
+.formula .term{background:var(--card);padding:10px 16px;border-radius:10px;box-shadow:var(--shadow)}
+.formula .x{font-size:2rem;color:var(--accent)}
+.unfinished{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-top:26px}
+.reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px;margin-top:10px}
+.reasons div{border:1.5px dashed var(--staff);border-radius:8px;padding:8px 10px;font-size:.9rem}
+.reasons small{display:block;color:var(--ink-faint);font-style:italic}
+
+/* Finale */
+.finale{padding:70px 0 30px}
+.mirrorbig{display:flex;align-items:center;justify-content:center;gap:clamp(10px,4vw,34px);margin:24px 0 8px;flex-wrap:wrap}
+.mirrorbig .pole{font-size:clamp(2rem,9vw,3.6rem);font-weight:700}
+.mirrorbig .pole.r{transform:scaleX(-1);opacity:.35}
+.mirrorbig .arr{font-size:clamp(1.6rem,6vw,2.6rem);color:var(--accent)}
+.userquote{max-width:680px;margin:0 auto;text-align:center;font-size:clamp(1.1rem,3.6vw,1.35rem);padding:18px;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent)}
+.userquote small{display:block;font-size:.8rem;color:var(--ink-faint);margin-top:6px;letter-spacing:.1em}
+.layers{max-width:640px;margin:34px auto;display:flex;flex-direction:column;gap:0}
+.layer{padding:18px;text-align:center;position:relative}
+.layer.score{background:var(--card);border:2px solid var(--accent-2);border-radius:14px 14px 0 0}
+.layer.perf{background:var(--ink);color:var(--paper);border-radius:0 0 14px 14px}
+.layer h3{font-size:1.25rem}
+.layer .role{font-size:.85rem;opacity:.85}
+.layer.score .staffbg{height:42px;margin:8px auto 0;max-width:300px;background-size:100% 42px;background-image:repeating-linear-gradient(to bottom,transparent 0 7px,var(--staff) 7px 8px)}
+.layer.perf .wave{margin:8px auto 0;max-width:300px}
+.layers .out{margin-top:14px;text-align:center;font-weight:700;color:var(--accent)}
+.insights{counter-reset:ins;display:grid;gap:14px;margin-top:20px}
+.ins{counter-increment:ins;background:var(--coach-bg);color:var(--coach-ink);border-radius:12px;padding:14px 16px 14px 62px;position:relative}
+.ins::before{content:counter(ins);position:absolute;left:16px;top:8px;font-size:2.2rem;font-style:italic;color:var(--accent-2);line-height:1.2}
+.ins.hero2{background:var(--card);color:var(--ink);outline:2px solid var(--accent-2)}
+.building{display:flex;flex-direction:column-reverse;gap:4px;max-width:360px;margin:10px auto 0}
+.building div{text-align:center;padding:4px;border-radius:4px;font-size:.85rem}
+.building .base{background:var(--accent-2);color:var(--paper);font-weight:700}
+.building .fl{background:var(--paper-2);color:var(--ink)}
+.next{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.next span{border:1px solid var(--accent-2);border-radius:999px;padding:2px 12px;font-size:.88rem}
+.enc{text-align:center;padding:40px 0 60px;color:var(--ink-soft);font-size:.9rem}
+.enc .bar2{font-size:2rem;color:var(--ink);letter-spacing:.3em}
+</style>
+</head>
+<body>
+
+<header class="cover staffbg">
+  <div class="wrap">
+    <div class="clef" aria-hidden="true">𝄞</div>
+    <div class="eyebrow sans">腦力激盪音樂會 · 節目單</div>
+    <h1>音樂家養成記</h1>
+    <div class="sub">訓練生成音樂模型的動機與願望</div>
+    <div class="goal">本場目標：釐清所有關於訓練音樂生成模型的願望，整理成不同主題，找出從哪裡下手。<br><span class="small">獨奏者：一位測量音樂能力的音樂心理學家，正在學聲樂 · 2026 年 11 月 19 日</span></div>
+    <div class="legend sans">
+      <span><i class="sw" style="background:var(--accent)"></i>獨奏者的聲部（你的點子）</span>
+      <span><i class="sw" style="background:var(--accent-2)"></i>指揮旁註（引導者的整理）</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="programme" aria-label="曲目">
+    <h2>曲 目</h2>
+    <ul>
+      <li><a href="#m1" style="display:contents"><span class="num">I.</span><span class="ttl">心智圖：四個聲部的呈示</span><span class="tempo">Allegro 快板</span></a></li>
+      <li><a href="#m2" style="display:contents"><span class="num">II.</span><span class="ttl">階梯法：一路爬升的音階</span><span class="tempo">Crescendo 漸強</span></a></li>
+      <li><a href="#m3" style="display:contents"><span class="num">III.</span><span class="ttl">秘密願望告白：一張 CD</span><span class="tempo">Adagio 慢板</span></a></li>
+      <li><a href="#m4" style="display:contents"><span class="num">IV.</span><span class="ttl">來自未來的科幻物件</span><span class="tempo">Scherzo 詼諧曲</span></a></li>
+      <li><a href="#m5" style="display:contents"><span class="num">V.</span><span class="ttl">無限資源測試：對唱與傳承</span><span class="tempo">Cantabile 如歌</span></a></li>
+      <li><a href="#m6" style="display:contents"><span class="num">VI.</span><span class="ttl">假設反轉：四段逆行</span><span class="tempo">Retrograde 逆行</span></a></li>
+      <li><a href="#inter" style="display:contents"><span class="num">中場</span><span class="ttl">收斂：羅盤與八人樂團</span><span class="tempo">Tutti 全體</span></a></li>
+      <li><a href="#finale" style="display:contents"><span class="num">終曲</span><span class="ttl">鏡像：看譜，也聽譜</span><span class="tempo">Finale 終曲</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- I. Mind Mapping -->
+  <section class="mv" id="m1">
+    <div class="mvhead"><span class="roman">I</span><h2><span class="en sans">MIND MAPPING</span>心智圖：四個聲部的呈示</h2><span class="tempo">Allegro · 約 30 個音符</span></div>
+    <div class="mm-core"><span class="small" style="color:inherit;opacity:.7">主題</span><b>訓練音樂生成模型</b></div>
+    <div class="mm-stems"></div>
+    <div class="mm-grid">
+      <article class="branch">
+        <h3><span class="k">𝄞</span>第一聲部・轉換功能</h3>
+        <p class="small">第一波五個點子，全是「輸入→輸出」</p>
+        <div class="conv sans">
+          <span>樂譜 → 演奏</span><span>音樂 → 樂譜（自動採譜）</span><span>旋律 → 伴奏</span><span>伴奏 → 旋律</span><span>文字氛圍 → 音樂</span>
+        </div>
+        <div class="coach">第一波五個點子全是樂譜、音訊、旋律、伴奏、文字之間的互轉。</div>
+      </article>
+
+      <article class="branch">
+        <h3><span class="k">𝄢</span>第二聲部・練唱伴奏</h3>
+        <ul class="notes">
+          <li>自己練唱時，讓模型依照樂譜幫我彈伴奏</li>
+          <li class="sub">現況：自己彈，或用 YouTube 影片；預錄影片只能讓人去配合它</li>
+          <li>伴奏要跟著我、由我主導，而不是我配合預錄伴奏</li>
+        </ul>
+        <div class="dial sans" aria-label="想掌控的三個旋鈕">
+          <div>速度<i></i></div><div>強弱（力度）<i></i></div><div>音色<i></i></div>
+        </div>
+        <ul class="notes">
+          <li>用自然語言指定第幾小節到第幾小節要快一點／慢一點</li>
+          <li>用自然語言描述感覺，讓伴奏照那個感覺詮釋</li>
+          <li>自己彈一段示範，讓它模仿我的詮釋</li>
+          <li>用唱的＋自然語言一起溝通</li>
+        </ul>
+        <div class="coach">溝通是多模態的：語言、示範彈奏、歌唱都想用；互動像跟真人伴奏／鋼琴伴奏老師排練。</div>
+      </article>
+
+      <article class="branch">
+        <h3><span class="k">𝄡</span>第三聲部・自製媒體配樂</h3>
+        <ul class="notes">
+          <li>幫自己做的影片生成背景音樂</li>
+          <li>幫自己做的網站生成背景音樂</li>
+          <li>幫自己做的遊戲生成背景音樂</li>
+          <li>依指定風格生成不同類型的音樂素材</li>
+        </ul>
+        <svg viewBox="0 0 300 60" aria-hidden="true" class="stv">
+          <g stroke="var(--staff)" stroke-width="1"><line x1="0" y1="10" x2="300" y2="10"/><line x1="0" y1="20" x2="300" y2="20"/><line x1="0" y1="30" x2="300" y2="30"/><line x1="0" y1="40" x2="300" y2="40"/><line x1="0" y1="50" x2="300" y2="50"/></g>
+          <g fill="var(--ink)" font-size="11" font-family="sans-serif">
+            <ellipse cx="50" cy="35" rx="6" ry="4.5"/><text x="34" y="58" fill="var(--ink-soft)">影片</text>
+            <ellipse cx="140" cy="25" rx="6" ry="4.5"/><text x="124" y="58" fill="var(--ink-soft)">網站</text>
+            <ellipse cx="230" cy="15" rx="6" ry="4.5"/><text x="214" y="58" fill="var(--ink-soft)">遊戲</text>
+          </g>
+        </svg>
+      </article>
+
+      <article class="branch">
+        <h3><span class="k">𝄐</span>第四聲部・研究素材</h3>
+        <p class="small">身份：音樂心理學家，專長是測量音樂能力；測驗對象是一般人</p>
+        <ul class="notes">
+          <li>用生成的音樂素材編製音樂測驗</li>
+          <li>測量人們學習音樂的速度</li>
+          <li>測量人們區分不同音樂風格的能力</li>
+          <li class="sub">痛點一：傳統演算法的素材結構單純，只能操弄少數變項</li>
+          <li class="sub">痛點二：自製素材不吸引人，只是「測驗用」的聲音</li>
+          <li class="sub">痛點三：現成生成模型是黑盒子，無法真正控制變因</li>
+          <li>在同一類型內（東洋風、中國音樂、流行音樂、歌劇等）操弄子風格</li>
+          <li>風格混合：像「舒曼＋貝多芬」</li>
+          <li>風格要道地、可信，又能個別操弄風格、音階、音色</li>
+        </ul>
+        <p class="voice"><b>核心研究願望：</b>同時兼顧「可控度」與「音樂品質」。</p>
+        <div class="coach">控制度 vs 品質是研究用途的核心矛盾（TRIZ 式），也呼應練唱的「由我主導」：你一再要的是控制權。</div>
+        <div class="correction">不只是控制權，品質同樣重要，兩者必須並重。</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- II. Laddering -->
+  <section class="mv" id="m2">
+    <div class="mvhead"><span class="roman">II</span><h2><span class="en sans">LADDERING</span>階梯法：一路爬升的音階</h2><span class="tempo">Crescendo，由下往上讀</span></div>
+    <div class="ladder">
+      <div class="rung"><span class="deg">第 1 級 · Do</span><h4>做出來會很高興</h4><div class="chips"><span class="chip">成就感</span><span class="chip">喜悅</span></div></div>
+      <div class="rung"><span class="deg">第 2 級 · Re</span><h4>寫論文、分享給大家</h4><div class="chips"><span class="chip">寫論文分享模型怎麼做的</span><span class="chip">鼓勵大家用它理解音樂</span><span class="chip">跟音樂互動</span><span class="chip">練習創作音樂</span></div></div>
+      <div class="rung"><span class="deg">第 3 級 · Mi</span><h4>事業與職涯</h4><div class="chips"><span class="chip">商業利益</span><span class="chip">業界工作機會</span><span class="chip">學術界工作機會</span></div></div>
+      <div class="rung"><span class="deg">第 4 級 · Fa</span><h4>完成想做卻還沒做到的事</h4><div class="chips"><span class="chip">用更低成本練習音樂</span><span class="chip">開音樂會，減少與真人伴奏排練時間</span><span class="chip">研發模型、做研究</span><span class="chip">研發音樂測驗素材</span><span class="chip">創作音樂</span><span class="chip">做遊戲配樂</span></div></div>
+      <div class="rung top"><span class="fermata" aria-hidden="true">𝄐</span><span class="deg" style="color:var(--gold)">最高音 · Sol</span><h4>不用上班</h4>
+        <p class="small" style="color:inherit;opacity:.8">不用上班的一天：</p>
+        <div class="day">
+          <div><small>樂句一</small>陪家人、男朋友</div>
+          <div><small>樂句二</small>煮菜</div>
+          <div><small>樂句三</small>關心爸爸、妹妹、親戚</div>
+          <div><small>樂句四</small>做研究、看書</div>
+          <div><small>樂句五</small>做網頁、做軟體</div>
+          <div><small>樂句六</small>玩遊戲</div>
+          <div><small>樂句七</small>練唱、開音樂會</div>
+          <div><small>樂句八</small>分享知識</div>
+        </div>
+      </div>
+    </div>
+    <div class="coach">階梯觸底：底層願望是<b>時間自主</b>。把時間花在家人與所愛的人、創作與研究、自己的音樂、分享知識上；音樂模型是通往這種生活的一條路。</div>
+  </section>
+
+  <!-- III. Secret Wish -->
+  <section class="mv" id="m3">
+    <div class="mvhead"><span class="roman">III</span><h2><span class="en sans">SECRET WISH CONFESSION</span>秘密願望告白：一張 CD</h2><span class="tempo">Adagio，輕聲</span></div>
+    <div class="cdzone">
+      <div class="cd" role="img" aria-label="一張旋轉的 CD，標籤寫著不管有沒有人聽">
+        <div class="cdlabel"><span>首張專輯</span><b>不管有沒有人聽</b><span>Side A</span></div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px">收錄曲目</h3>
+        <ul class="tracks">
+          <li><span class="n">01</span><span>希望內心的想法可以透過音樂表達出來</span></li>
+          <li><span class="n">02</span><span>想出 CD</span></li>
+          <li><span class="n">03</span><span>想唱歌</span></li>
+        </ul>
+        <div class="coach">「不管有沒有人聽」：這個願望不為聽眾、不為成就，為的是表達自己本身。</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">四個休止符：阻礙</h3>
+    <div class="rests">
+      <div class="rest"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M7 4 L14 13 L8 20 L14 28 Q6 25 9 36 Q2 30 9 26 L4 19 L10 12 Z" fill="var(--ink)"/></svg>沒有時間</div>
+      <div class="rest"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M7 4 L14 13 L8 20 L14 28 Q6 25 9 36 Q2 30 9 26 L4 19 L10 12 Z" fill="var(--ink)"/></svg>沒有錢</div>
+      <div class="rest"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M7 4 L14 13 L8 20 L14 28 Q6 25 9 36 Q2 30 9 26 L4 19 L10 12 Z" fill="var(--ink)"/></svg>必須工作賺錢</div>
+      <div class="rest"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M7 4 L14 13 L8 20 L14 28 Q6 25 9 36 Q2 30 9 26 L4 19 L10 12 Z" fill="var(--ink)"/></svg>必須被別人需要，才能換取金錢</div>
+    </div>
+
+    <h3>不協和音程：張力</h3>
+    <div class="tension">
+      <div class="side"><b>自我表達</b><br><span class="small">不管有沒有人聽</span></div>
+      <div class="vs">vs</div>
+      <div class="side"><b>被別人需要</b><br><span class="small">才能換錢</span></div>
+    </div>
+    <div class="coach">兩個世界目前互相排擠時間。</div>
+    <p style="margin-top:16px"><b>解決和弦：既是自我表達、又被別人需要的事</b></p>
+    <div class="chord" aria-label="三個音疊成的和弦"><span>占星</span><span>做這個音樂模型</span><span>做軟體</span></div>
+    <div class="gaps">
+      <div class="panel"><b>信念</b><p class="small">自己想要的這些內容不會只有自己想要，做出來就有價值。</p></div>
+      <div class="panel"><b>市場缺口一</b><p class="small">現有音樂生成模型無法用自然語言互動（至少做得不好）。</p></div>
+      <div class="panel"><b>市場缺口二</b><p class="small">現有工具不同模組／功能之間切換不順。</p></div>
+    </div>
+    <p class="voice" style="margin-top:14px">於是：做一個<b>整合式音樂工具</b>：一個地方涵蓋所有轉換功能，模組間順暢切換，全程可用自然語言互動。</p>
+  </section>
+
+  <!-- IV. Sci-Fi -->
+  <section class="mv" id="m4">
+    <div class="mvhead"><span class="roman">IV</span><h2><span class="en sans">SCI-FI ARTIFACT FROM THE FUTURE</span>來自未來的科幻物件</h2><span class="tempo">Scherzo</span></div>
+    <div class="browser">
+      <div class="bar"><i></i><i></i><i></i><span class="url sans">未來的網頁 · 可以分享給很多人使用</span></div>
+      <div class="hero">
+        <div class="tag sans">首頁的承諾</div>
+        <h3 style="margin-top:8px">這個模型可以做出任何想做的音樂、任何風格</h3>
+        <p class="small">要比 Suno 做得更好<sup>*</sup></p>
+        <span class="btn sans">訂閱</span>
+      </div>
+      <div class="feat sans">
+        <div><b>雙重聽眾</b>同時說服不懂音樂的人和很懂音樂的人</div>
+        <div><b>可轉成樂譜</b>產出能變成樂譜</div>
+        <div><b>可編輯檔案</b>專業音樂工作者容易後製、編輯、再創作，不是一次性音檔</div>
+        <div><b>很多訂閱者</b>訂閱制產品</div>
+        <div><b>有人幫我經營</b>自己不必親自營運</div>
+      </div>
+      <div class="foot sans">* 獨奏者說明：其實對 Suno 不熟，Suno 只是代稱。</div>
+    </div>
+
+    <div class="twosuccess">
+      <div class="panel"><h3>模型的成功</h3><p class="small">網頁產品 · 訂閱者 · 有人經營</p></div>
+      <div class="panel" style="outline:2px solid var(--gold)"><h3>人生的成功</h3><p class="small">開音樂會 · 不開音樂會時去做田野調查 · 學想學的東西 · 寫想寫的書</p></div>
+    </div>
+    <div class="coach">你把兩種成功分開看：產品是讓時間自由的手段。</div>
+
+    <div class="versus">
+      <div class="vcard">
+        <h3>LLM：協作夥伴</h3>
+        <p class="small">能跟它學習、一起工作、做到一個人做不到的事，有時比自己更好。</p>
+        <div class="duet sans">
+          <div class="bub me">第幾小節到第幾小節要快一點</div>
+          <div class="bub ai">依具體修改意見，再迭代一版</div>
+        </div>
+        <ul class="notes">
+          <li>希望能跟音樂模型學習：它是老師／夥伴</li>
+          <li>聽得懂使用者的挑剔，能依具體修改意見迭代</li>
+          <li>可以用樂理知識去影響、引導模型</li>
+        </ul>
+        <p class="small" style="margin-top:6px">（對話泡泡為示意畫面）</p>
+      </div>
+      <div class="vcard dice">
+        <h3>現有音樂模型：骰骰子</h3>
+        <div class="dicerow" aria-hidden="true"><span>⚂</span><span>⚄</span><span>⚀</span></div>
+        <p class="small">只能不停重抽，互動差，像抽卡機。</p>
+      </div>
+    </div>
+    <div class="coach">核心願景浮現：把「LLM 式的協作夥伴體驗」帶到音樂生成：可對話、可學習、可迭代、可輸出樂譜與可編輯檔案。</div>
+  </section>
+
+  <!-- V. Post-Scarcity -->
+  <section class="mv" id="m5">
+    <div class="mvhead"><span class="roman">V</span><h2><span class="en sans">POST-SCARCITY TEST</span>無限資源測試：對唱與傳承</h2><span class="tempo">Cantabile</span></div>
+    <div class="ps">
+      <div class="panel">
+        <h3>文化保存與傳承</h3>
+        <p class="small">讓模型幫我們理解小眾、少人理解的音樂：</p>
+        <div class="genres"><span>歌劇</span><span>傳統戲曲</span><span>歌仔戲</span><span>少數民族音樂</span></div>
+        <ul class="notes">
+          <li>幫助學習這些傳統音樂的精髓</li>
+          <li>保存與傳承文化（數位保存）</li>
+        </ul>
+        <div class="coach">無限資源下的新方向，呼應先前「田野調查」的願望。</div>
+      </div>
+
+      <div class="panel">
+        <h3>AI 老師的循環</h3>
+        <div class="loopwrap">
+          <svg viewBox="0 0 360 360" class="loop" role="img" aria-label="學習循環：指定唱段、模型示範、學習者模仿、模型聆聽回饋、適性化難度、追蹤進度">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>
+            <circle cx="180" cy="180" r="120" fill="none" stroke="var(--staff)" stroke-width="10"/>
+            <path d="M180 60 A120 120 0 0 1 284 120" fill="none" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ah)"/>
+            <path d="M284 240 A120 120 0 0 1 180 300" fill="none" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ah)"/>
+            <path d="M76 240 A120 120 0 0 1 76 120" fill="none" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ah)"/>
+            <g font-size="14" text-anchor="middle">
+              <circle cx="180" cy="60" r="7" fill="var(--ink)"/><text x="180" y="40">指定想學的唱段</text>
+              <circle cx="284" cy="120" r="7" fill="var(--ink)"/><text x="300" y="104" text-anchor="end">模型示範演唱</text>
+              <circle cx="284" cy="240" r="7" fill="var(--ink)"/><text x="296" y="268" text-anchor="end">學習者模仿</text>
+              <circle cx="180" cy="300" r="7" fill="var(--ink)"/><text x="180" y="326">模型聆聽並回饋</text>
+              <text x="180" y="344" font-size="11" fill="var(--ink-soft)">做得好的地方＋具體建議</text>
+              <circle cx="76" cy="240" r="7" fill="var(--ink)"/><text x="64" y="268" text-anchor="start">適性化難度</text>
+              <circle cx="76" cy="120" r="7" fill="var(--ink)"/><text x="60" y="104" text-anchor="start">追蹤進度</text>
+              <text x="180" y="176" font-size="16" font-weight="700">像老師一樣</text>
+              <text x="180" y="198" font-size="12" fill="var(--ink-soft)">持續學習與進步</text>
+            </g>
+          </svg>
+        </div>
+        <div class="coach">適性化難度＝測量能力＋生成對應素材，正好結合你的音樂能力測量專長與可控生成。</div>
+      </div>
+
+      <div class="panel">
+        <h3>現場合奏</h3>
+        <div class="conv sans"><span>即時對唱</span><span>即時合奏</span><span>合唱</span><span>模型現場為我伴奏</span></div>
+        <div class="stage" id="stage" aria-live="polite">
+          <div class="p lead" id="pMe"><div class="who">我</div><span class="role">主唱</span></div>
+          <div class="p acc" id="pAi"><div class="who">模型</div><span class="role">伴奏</span></div>
+        </div>
+        <button class="flipbtn sans" id="swap" type="button">角色反轉 ⇄</button>
+        <p class="small" style="margin-top:6px">角色反轉：我為模型伴奏，模型當主唱／主奏。</p>
+        <ul class="notes" style="margin-top:8px">
+          <li>模型教我彈鋼琴</li>
+          <li>練聲樂時模型告訴我哪裡可以改進（聲樂教練）</li>
+        </ul>
+        <p class="small">（你正在學聲樂。）</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VI. Assumption Reversal -->
+  <section class="mv" id="m6">
+    <div class="mvhead"><span class="roman">VI</span><h2><span class="en sans">ASSUMPTION REVERSAL</span>假設反轉：四段逆行</h2><span class="tempo">點一下卡片，讓旋律倒過來</span></div>
+    <div class="flips">
+      <button class="flip" type="button" aria-pressed="false">
+        <div class="in">
+          <div class="face front"><span class="k sans">原假設 一</span><span class="big">大家都可以用</span><span class="small">對象是所有人</span><span class="hint sans">點擊翻轉 ↻</span></div>
+          <div class="face back"><span class="k sans">逆行</span><span class="mirror">⇄</span><span class="big">只為我一人</span><span class="small" style="color:inherit">個人專屬的音樂夥伴：教我唱歌、為我伴奏、替我生成研究素材</span><span class="ins">翻轉後內容幾乎不變：你就是第一個、最核心的使用者，先為自己做，再推廣。</span></div>
+        </div>
+      </button>
+      <button class="flip" type="button" aria-pressed="false">
+        <div class="in">
+          <div class="face front"><span class="k sans">原假設 二</span><span class="big">由我自己訓練</span><span class="small">或有錢時找人來訓練</span><span class="hint sans">點擊翻轉 ↻</span></div>
+          <div class="face back"><span class="k sans">逆行</span><span class="mirror">⇄</span><span class="big">完全不訓練</span><span class="small" style="color:inherit">先盤點現有模型能做到什麼程度；在現有時間與金錢內，組合現成工具，看能把願望實現到哪裡</span><span class="ins">務實起點：先調查現有模型與服務，找出真正的缺口，再決定哪裡值得自己訓練。</span></div>
+        </div>
+      </button>
+      <button class="flip" type="button" aria-pressed="false">
+        <div class="in">
+          <div class="face front"><span class="k sans">原假設 三</span><span class="big">類似 ChatGPT 的對話式軟體</span><span class="hint sans">點擊翻轉 ↻</span></div>
+          <div class="face back"><span class="k sans">逆行</span><span class="mirror">⇄</span><span class="big">不是軟體：是一位很厲害的音樂家</span><span class="small" style="color:inherit">跟我感情很好，或者是我付得起、請得動的音樂家</span><span class="ins">真正想要的是「厲害、有默契、請得起的音樂家夥伴」；軟體只是讓它可負擔、隨時可得的形式。</span></div>
+        </div>
+      </button>
+      <button class="flip" type="button" aria-pressed="false">
+        <div class="in">
+          <div class="face front"><span class="k sans">原假設 四</span><span class="big">能接上電鋼琴，實際彈奏</span><span class="small">模型直接在實體樂器上彈奏</span><span class="hint sans">點擊翻轉 ↻</span></div>
+          <div class="face back"><span class="k sans">逆行</span><span class="mirror">⇄</span><span class="big">完全不發聲</span><span class="small" style="color:inherit">至少能聽懂我做的音樂並給我回饋（音樂理解／評論者）</span><span class="ins">「聽懂並回饋」在練唱、聲樂教練、歌仔戲老師、不發聲版本中反覆出現，可能比「生成」更底層。</span></div>
+        </div>
+      </button>
+    </div>
+    <p class="small" style="margin-top:10px">卡片背面的金色小字為指揮旁註。</p>
+  </section>
+</div>
+
+<!-- Intermission -->
+<section class="inter" id="inter">
+  <div class="wrap">
+    <div class="mvhead"><span class="roman">中場</span><h2><span class="en sans">CONVERGENCE</span>收斂：羅盤與八人樂團</h2><span class="tempo">Tutti</span></div>
+    <div class="compass">
+      <svg viewBox="0 0 300 300" role="img" aria-label="羅盤：兩極是時間自主與自我表達">
+        <circle cx="150" cy="150" r="130" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+        <circle cx="150" cy="150" r="112" fill="none" stroke="var(--staff)" stroke-dasharray="2 6"/>
+        <g class="needle">
+          <polygon points="150,36 160,150 140,150" fill="var(--accent)"/>
+          <polygon points="150,264 160,150 140,150" fill="var(--accent-2)"/>
+        </g>
+        <circle cx="150" cy="150" r="8" fill="var(--ink)"/>
+        <g font-size="17" font-weight="700" text-anchor="middle" fill="var(--ink)">
+          <text x="150" y="28" fill="var(--accent)">時間自主</text>
+          <text x="150" y="290" fill="var(--accent-2)">自我表達</text>
+        </g>
+      </svg>
+      <div>
+        <h3>羅盤</h3>
+        <p>所有主題最後都指向兩個方向：<b style="color:var(--accent)">時間自主</b>與<b style="color:var(--accent-2)">自我表達</b>。</p>
+        <p class="small">（親和分群結果，經獨奏者認可。）</p>
+        <div class="coach" style="margin-top:14px">你重新定義：這個模型要會「很厲害的音樂家（可能是好幾位）」會的事。每個主題是一種音樂家角色的能力：伴奏者、老師、作曲家、採譜者…</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px">聘請樂團：依想要程度排座位</h3>
+    <p class="small">八個主題在分群時的順序是 1–8；你給的聘請順位，按原順序讀出來是一段旋律：</p>
+    <svg viewBox="0 0 640 170" role="img" aria-label="旋律 5 4 6 7 8 3 2 1：音越高代表越想要">
+      <g stroke="var(--staff)"><line x1="0" y1="30" x2="640" y2="30"/><line x1="0" y1="50" x2="640" y2="50"/><line x1="0" y1="70" x2="640" y2="70"/><line x1="0" y1="90" x2="640" y2="90"/><line x1="0" y1="110" x2="640" y2="110"/></g>
+      <g font-family="sans-serif" font-size="13" text-anchor="middle">
+        <!-- y = 20 + (rank-1)*13 (rank1 highest) -->
+        <g><ellipse cx="50" cy="120" rx="10" ry="7" fill="var(--ink)"/><text x="50" y="160" fill="var(--ink-soft)">協作夥伴</text><text x="50" y="146" fill="var(--accent)">8</text></g>
+        <g><ellipse cx="128" cy="107" rx="10" ry="7" fill="var(--ink)"/><text x="128" y="160" fill="var(--ink-soft)">練唱伴奏</text><text x="128" y="146" fill="var(--accent)">7</text></g>
+        <g><ellipse cx="206" cy="94" rx="10" ry="7" fill="var(--ink)"/><text x="206" y="160" fill="var(--ink-soft)">音樂老師</text><text x="206" y="146" fill="var(--accent)">6</text></g>
+        <g><ellipse cx="284" cy="33" rx="10" ry="7" fill="var(--accent)"/><text x="284" y="160" fill="var(--ink-soft)">研究素材</text><text x="284" y="146" fill="var(--accent)">2</text></g>
+        <g><ellipse cx="362" cy="20" rx="11" ry="8" fill="var(--accent)"/><text x="362" y="160" fill="var(--ink-soft)">轉換工具箱</text><text x="362" y="146" fill="var(--accent)">1</text></g>
+        <g><ellipse cx="440" cy="46" rx="10" ry="7" fill="var(--ink)"/><text x="440" y="160" fill="var(--ink-soft)">創作與配樂</text><text x="440" y="146" fill="var(--accent)">3</text></g>
+        <g><ellipse cx="518" cy="59" rx="10" ry="7" fill="var(--ink)"/><text x="518" y="160" fill="var(--ink-soft)">文化保存</text><text x="518" y="146" fill="var(--accent)">4</text></g>
+        <g><ellipse cx="596" cy="72" rx="10" ry="7" fill="var(--ink)"/><text x="596" y="160" fill="var(--ink-soft)">事業與分享</text><text x="596" y="146" fill="var(--accent)">5</text></g>
+      </g>
+      <polyline points="50,120 128,107 206,94 284,33 362,20 440,46 518,59 596,72" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 4" opacity=".6"/>
+    </svg>
+    <p class="small" style="text-align:center">依名次唱出：第 5、4、6、7、8、3、2、1 號主題。音越高，越想先聘。</p>
+
+    <div class="ensemble">
+      <div class="chair first"><span class="rk">1</span><span class="orig sans">首席 · 原 5 號</span><b>轉換工具箱</b><span class="star">你特別強調：很重要</span></div>
+      <div class="chair"><span class="rk">2</span><span class="orig sans">原 4 號</span><b>研究素材</b></div>
+      <div class="chair"><span class="rk">3</span><span class="orig sans">原 6 號</span><b>創作與配樂</b><span class="star">你特別強調：也很重要</span></div>
+      <div class="chair"><span class="rk">4</span><span class="orig sans">原 7 號</span><b>文化保存</b></div>
+      <div class="chair"><span class="rk">5</span><span class="orig sans">原 8 號</span><b>事業與分享</b></div>
+      <div class="chair"><span class="rk">6</span><span class="orig sans">原 3 號</span><b>音樂老師</b></div>
+      <div class="chair"><span class="rk">7</span><span class="orig sans">原 2 號</span><b>練唱伴奏</b></div>
+      <div class="chair"><span class="rk">8</span><span class="orig sans">原 1 號</span><b>協作夥伴</b></div>
+    </div>
+
+    <h3 style="margin-top:34px">你的排序理由</h3>
+    <div class="formula">
+      <div class="term"><b>沒有替代方案</b><br><span class="small">協作夥伴、練唱伴奏現在都有替代，花錢就有；<br>轉換工具箱反而比較沒有替代</span></div>
+      <div class="x">×</div>
+      <div class="term"><b>自己長期想做且有經驗</b><br><span class="small">轉換工具箱與研究素材是想做很久、<br>做過也失敗過的事</span></div>
+    </div>
+
+    <div class="unfinished">
+      <h3>未完成的樂句，不是終止式</h3>
+      <p class="small">過去嘗試：做過單旋律 MIDI 音樂生成，寫完第一行旋律，就停在下一步之前。</p>
+      <svg viewBox="0 0 640 110" role="img" aria-label="一行單旋律在延長記號處停下，後面是等待填寫的空白小節">
+        <g stroke="var(--staff)"><line x1="0" y1="30" x2="640" y2="30"/><line x1="0" y1="45" x2="640" y2="45"/><line x1="0" y1="60" x2="640" y2="60"/><line x1="0" y1="75" x2="640" y2="75"/><line x1="0" y1="90" x2="640" y2="90"/></g>
+        <text x="4" y="86" font-size="58" fill="var(--ink)">𝄞</text>
+        <g fill="var(--ink)">
+          <ellipse cx="70" cy="75" rx="7" ry="5"/><ellipse cx="100" cy="67" rx="7" ry="5"/><ellipse cx="130" cy="60" rx="7" ry="5"/><ellipse cx="160" cy="52" rx="7" ry="5"/>
+          <ellipse cx="195" cy="45" rx="7" ry="5"/><ellipse cx="225" cy="52" rx="7" ry="5"/><ellipse cx="255" cy="45" rx="7" ry="5"/><ellipse cx="290" cy="37" rx="8" ry="6"/>
+        </g>
+        <g stroke="var(--ink)" stroke-width="1.4"><line x1="77" y1="75" x2="77" y2="50"/><line x1="107" y1="67" x2="107" y2="42"/><line x1="137" y1="60" x2="137" y2="35"/><line x1="167" y1="52" x2="167" y2="27"/><line x1="202" y1="45" x2="202" y2="20"/><line x1="232" y1="52" x2="232" y2="27"/><line x1="262" y1="45" x2="262" y2="20"/></g>
+        <line x1="180" y1="30" x2="180" y2="90" stroke="var(--ink)"/><line x1="310" y1="30" x2="310" y2="90" stroke="var(--ink)"/>
+        <path d="M278 18 A12 12 0 0 1 302 18" fill="none" stroke="var(--gold)" stroke-width="2.5"/><circle cx="290" cy="15" r="2.5" fill="var(--gold)"/>
+        <g stroke="var(--accent-2)" stroke-dasharray="4 5" fill="none"><rect x="320" y="26" width="72" height="68" rx="6"/><rect x="400" y="26" width="72" height="68" rx="6"/><rect x="480" y="26" width="72" height="68" rx="6"/><rect x="560" y="26" width="72" height="68" rx="6"/></g>
+        <g font-family="sans-serif" font-size="12" fill="var(--accent-2)" text-anchor="middle"><text x="356" y="64">方法</text><text x="436" y="64">路線圖</text><text x="516" y="64">知能</text><text x="596" y="64">資料</text></g>
+      </svg>
+      <div class="reasons">
+        <div><small>可能原因一</small>訓練方法不對</div>
+        <div><small>可能原因二</small>做完單旋律後不知道下一步怎麼走（缺路線圖）</div>
+        <div><small>可能原因三</small>專業知能與經驗不足（自評）</div>
+        <div><small>可能原因四</small>沒有找到好的訓練資料</div>
+      </div>
+      <p class="voice" style="margin-top:14px"><b>收斂完成：</b>起點＝轉換工具箱＋可控研究素材（從符號音樂／MIDI 延伸）。下一步補足方法、路線圖、資料三個缺口，並先盤點現有模型。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Finale -->
+<section class="finale" id="finale">
+  <div class="wrap">
+    <div class="mvhead"><span class="roman">終曲</span><h2><span class="en sans">FINALE · MIRROR</span>鏡像：看譜，也聽譜</h2><span class="tempo">Finale</span></div>
+
+    <div class="mirrorbig" aria-hidden="true">
+      <span class="pole">音樂</span><span class="arr">⇄</span><span class="pole">樂譜</span>
+    </div>
+    <div class="userquote">
+      雙向都要：音樂→樂譜，也要樂譜→音樂。<br>希望模型像厲害的音樂家一樣，能<b style="color:var(--accent)">看譜演奏</b>，有表情地詮釋。
+      <small>獨奏者的鏡像結論</small>
+    </div>
+
+    <h3 style="margin-top:44px;text-align:center">兩層架構</h3>
+    <p class="small" style="text-align:center">指揮旁註 · 綜合洞察二</p>
+    <div class="layers">
+      <div class="layer score">
+        <h3 style="color:var(--accent-2)">樂譜層</h3>
+        <div class="role">負責<b>控制</b>：精確操弄你要的變因</div>
+        <div class="staffbg" aria-hidden="true"></div>
+      </div>
+      <div class="layer perf">
+        <h3 style="color:var(--gold)">演奏層（看譜演奏）</h3>
+        <div class="role">負責<b>品質與表情</b>：好聽、像真的音樂</div>
+        <svg class="wave" viewBox="0 0 300 40" aria-hidden="true"><path d="M0 20 Q10 4 20 20 T40 20 T60 20 Q70 0 80 20 T100 20 Q110 8 120 20 T140 20 Q150 2 160 20 T180 20 Q190 10 200 20 T220 20 Q230 0 240 20 T260 20 Q270 8 280 20 T300 20" fill="none" stroke="var(--gold)" stroke-width="2"/></svg>
+      </div>
+      <div class="out">可能化解「可控度 vs 品質」</div>
+    </div>
+
+    <h3 style="margin-top:40px">尾聲五和弦：綜合洞察</h3>
+    <p class="small">以下五點皆為指揮旁註。</p>
+    <div class="insights">
+      <div class="ins"><b>共同語言。</b>樂譜／符號表示貫穿全場：練唱、研究變因、可編輯檔案、過去的 MIDI 經驗。</div>
+      <div class="ins hero2"><b>兩層架構。</b>樂譜層負責控制，「看譜演奏」的演奏層負責品質與表情，可能化解可控度與品質的矛盾。</div>
+      <div class="ins"><b>地基與樓層。</b>音樂→樂譜＝聽懂，樂譜→音樂＝會演奏；兩者＋互動＝伴奏者／老師／協作夥伴。排序後段，是蓋在轉換地基上的樓層。
+        <div class="building" aria-label="以轉換為地基的建築">
+          <div class="base">地基：轉換（聽懂 ＋ 會演奏）</div>
+          <div class="fl">＋ 互動</div>
+          <div class="fl">伴奏者 · 老師 · 協作夥伴</div>
+        </div>
+      </div>
+      <div class="ins"><b>單旋律之後的下一小節。</b>候選的下一步：
+        <div class="next"><span>表情演奏渲染（看譜演奏）</span><span>多聲部／伴奏生成</span></div>
+      </div>
+      <div class="ins"><b>羅盤兩端站到同一邊。</b>轉換工具箱同時服務研究（被需要）、自己的音樂（自我表達），而且沒有替代品。</div>
+    </div>
+  </div>
+</section>
+
+<footer class="enc">
+  <div class="bar2" aria-hidden="true">𝄇</div>
+  <p>謝幕，下一場從盤點現有模型開始。</p>
+  <p class="small">本節目單內容全部取自 2026.11.19 腦力激盪紀錄</p>
+</footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.flip').forEach(function(b){
+    b.addEventListener('click',function(){
+      var on=b.classList.toggle('on');
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  });
+  var swap=document.getElementById('swap'), me=document.getElementById('pMe'), ai=document.getElementById('pAi'), rev=false;
+  if(swap){swap.addEventListener('click',function(){
+    rev=!rev;
+    me.className='p '+(rev?'acc':'lead'); ai.className='p '+(rev?'lead':'acc');
+    me.querySelector('.role').textContent=rev?'伴奏':'主唱';
+    ai.querySelector('.role').textContent=rev?'主唱／主奏':'伴奏';
+  });}
+})();
+</script>
+</body>
+</html>

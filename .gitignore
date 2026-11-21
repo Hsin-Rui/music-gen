@@ -1,0 +1,17 @@
+.DS_Store
+.venv/
+**/.venv/
+__pycache__/
+*.pyc
+.claude/settings.local.json
+.env
+# prototype artefacts: model weights, soundfonts, audio
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+*.sf2
+*.sf3
+*.wav
+prototype/**/output/
+prototype/**/models/
