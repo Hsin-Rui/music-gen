@@ -1,0 +1,5 @@
+# Lead check (lead, r1) — 2026-11-21
+
+1. AccoMontage2 README: MIT licence (sidebar). Inputs: melody MIDI via set_melody; tonic mandatory; mode default major; meter 4/4 is the only supported meter; segmentation mandatory ('A8A8B8B8'), phrases 4 or 8 bars. Run: `python demo.py`, scripted generate_save(), GUI `python back-end/app.py` (localhost:5000). Needs data files from Google Drive into chorderator/static; requirements in requirments.txt (torch/CUDA not named on page). Source: https://github.com/billyblu2000/AccoMontage2 · high · capability/licence
+2. MelodyT5 HF card: licence tag MIT; weights.pth referenced; no inference hardware stated; training instructions use 8 GPUs / CUDA 11.6 builds. Source: https://huggingface.co/sander-wood/melodyt5 · high · licence  (upgrades digest finding 2: weights licence now MIT per HF tag)
+3. D3PIA: search found no GitHub repo; paper says training code at jech2.github.io/D3PIA; an anonymous mirror anonymous-researcher-mir.github.io/D3PIA exists. Source: WebSearch "D3PIA piano accompaniment github" · med · ecosystem

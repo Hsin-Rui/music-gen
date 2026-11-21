@@ -28,6 +28,7 @@ updated: '2026-11-21'
 - 沒有伴奏開頭時品質會掉（issue #18）；控制音在前 50 毫秒會被丟掉。
 - 不能指定樂器；prototype-01 用 logit 遮罩限定只寫鋼琴，可行但「不給開頭」時易重複單音。
 - **沒有和聲概念**，使用者評：和弦怪、對不上、進行難聽。
+- 不是為「旋律＋和弦 → 鋼琴伴奏」設計的；那是 POP909 系列模型的標準任務（[accomontage](accomontage.md)、[polyffusion](polyffusion.md)、[d3pia](d3pia.md)），見 R3。
 
 ## 文獻
 
