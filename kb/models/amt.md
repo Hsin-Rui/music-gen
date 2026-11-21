@@ -37,3 +37,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R1 [10][11][12]](../../docs/research-music-generation-tech-roadmap/research-music-generation-tech-roadmap.md)、[R2 [14]–[20]](../../docs/research-prototype-model-check/research-prototype-model-check.md)、[prototype-01](../experiments/prototype-01-melody-to-performance.md)
+
+## 更新紀錄
+
+- **原型 02（2026-11-21）：** 加上柱式和弦當額外條件（program 48）。64 份裡 12 份是空的；**常把旋律原樣、高八度或平行三度抄一遍**（旋律放在鋼琴類音色、輸出限定鋼琴時）。舊的挑選指標（含 PCS）會挑到這些抄的；已改成排除抄旋律 ≥ 50% 的候選。MPS 約每份 1 分鐘，CPU 加和弦條件 5–8 分鐘。

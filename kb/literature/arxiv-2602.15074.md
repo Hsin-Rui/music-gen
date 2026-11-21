@@ -23,3 +23,7 @@ added: '2026-11-21'
 ## 筆記
 
 （尚未精讀。上面的說法來自研究報告的查證，信心欄位沿用報告的判定。）
+
+## 更新紀錄
+
+- R4：沒有程式碼、沒有聽覺測試。 [R4 [6]](../../docs/research-accompaniment-candidates-r4/research-accompaniment-candidates-r4.md)

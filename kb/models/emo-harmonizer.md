@@ -32,3 +32,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [6]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- **R4（2026-11-21）：** 確認沒有授權檔（GitHub 授權 API 404）；要 CUDA 10.2 和 fast-transformers。[R4 [14]]

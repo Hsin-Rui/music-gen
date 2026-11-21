@@ -32,3 +32,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [24]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- **R4（2026-11-21）：** repo 改名為 [Structured-Arrangement-Code](https://github.com/zhaojw1998/Structured-Arrangement-Code)。第一段（樂譜 → 鋼琴）就是 AccoMontage；和弦要寫成 MIDI 音符、由程式重新辨認；第一段有寫死的 `.cuda()`；只支援 4/4。聽測 23 人勝過 AMT 等對照組。R4 結論：對「只要鋼琴伴奏」的原型 02 幫助不大。[R4 [1][2]]

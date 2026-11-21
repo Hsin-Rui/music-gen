@@ -22,3 +22,7 @@ added: '2026-11-21'
 ## 筆記
 
 （尚未精讀。上面的說法來自研究報告的查證，信心欄位沿用報告的判定。）
+
+## 更新紀錄
+
+- R4：ABC-Eval 沒有和聲題；數小節 GPT-5 家族 93–99%、DeepSeek-chat 30%（reasoner 91%）。 [R4 [24]](../../docs/research-accompaniment-candidates-r4/research-accompaniment-candidates-r4.md)

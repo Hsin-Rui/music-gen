@@ -32,3 +32,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [14]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- **R4（2026-11-21）：** Embellish 推論只寫了 CUDA；README 說的 `inference_gpt2.py` 不存在（404）；輸入是 REMI 事件文字檔，要自己寫轉換。R4 結論：在 Mac 上要改的地方太多，這輪不加。[R4 [3]]

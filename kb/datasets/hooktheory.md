@@ -22,3 +22,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [22]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- R4：HarmonyRL、BART 配和聲（NeuraLLMuse）都用 HookTheory 訓練；HarmonyRL 用的是 Sheet Sage 釋出的版本。 [R4 [11][16]](../../docs/research-accompaniment-candidates-r4/research-accompaniment-candidates-r4.md)

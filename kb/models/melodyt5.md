@@ -33,3 +33,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [1][2]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- **原型 02（2026-11-21）：** 新版 PyTorch＋transformers 4.30.2 可在 CPU 跑（要濾掉 causal-mask buffer）。呼叫方式已逐行對照上游確認沒有錯。上游預設 temperature 2.6 下，和弦很少換（快樂頌前 7 小節都是 D）。使用者盲聽後認為 Claude 的和弦比它好。

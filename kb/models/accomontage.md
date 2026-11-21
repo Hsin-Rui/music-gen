@@ -32,3 +32,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [11]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- **原型 02（2026-11-21）：** 在 Mac CPU 上跑成功（加了 map_location、Tensor.cuda 空操作兩個小補丁）。**只支援 4/4**：綠袖子（3/4）、茉莉花（2/4）要重新分成 4 拍一小節。8 份要不同，需要把樂句選擇隨機度設為 0.1。伴奏密度高（每段 100–350 個音），和弦音比例 0.91–0.99。

@@ -32,3 +32,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [10][8]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- **原型 02（2026-11-21）：** 權重只放在作者的 SharePoint，所有連結都回「無法存取」，GitHub、HF 都沒有鏡像。使用者決定不再追這條線。

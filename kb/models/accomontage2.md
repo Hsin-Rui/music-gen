@@ -33,3 +33,7 @@ updated: '2026-11-21'
 ## 出處
 
 [R3 [3][4]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+
+## 更新紀錄
+
+- **原型 02（2026-11-21）：** 在 Mac CPU 上跑成功；只配和聲的路徑上游會當掉（`__add_textures()` 缺 `log`），加了小補丁。綠袖子（3/4）不支援。
