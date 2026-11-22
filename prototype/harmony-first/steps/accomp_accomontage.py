@@ -64,6 +64,9 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device", default="cpu", help="ignored (CPU only)")
     ap.add_argument("--max-bars", type=int, default=None, help="only the first N 4/4 bars (smoke test)")
+    ap.add_argument("--segmentation", default=None, help="phrase labels, e.g. A4A4B4A4 (default: A4B4C4...)")
+    ap.add_argument("--prefilter", default=None, help="'density,voices' degrees 0-4 (upstream PREFILTER); default off")
+    ap.add_argument("--randomness", type=float, default=RANDOMNESS)
     args = ap.parse_args()
     args.melody, args.chart = str(Path(args.melody).resolve()), str(Path(args.chart).resolve())
     out = Path(args.outdir).resolve()
@@ -95,6 +98,9 @@ def main():
     if args.max_bars:
         n44 = min(n44, args.max_bars)
     segmentation, _ = segmentation_for(n44)
+    if args.segmentation:
+        segmentation = args.segmentation
+    prefilter = tuple(int(x) for x in args.prefilter.split(",")) if args.prefilter else None
     T = n44 * 16
     notes_info = {"rebarred": bpb != 4, "bars_4_4": n44, "segmentation": segmentation,
                   "pad_beats": n44 * 4 - n_beats if not args.max_bars else 0}
@@ -133,7 +139,7 @@ def main():
     load_sec = time.time() - t0
 
     end_sec = n_beats * beat if not args.max_bars else T * beat / 4
-    info = {"load_sec": round(load_sec, 1), "randomness": RANDOMNESS, **notes_info, "samples": []}
+    info = {"load_sec": round(load_sec, 1), "randomness": args.randomness, "prefilter": prefilter, **notes_info, "samples": []}
     for k in range(args.samples):
         seed = args.seed + k
         np.random.seed(seed)
@@ -142,7 +148,7 @@ def main():
         t0 = time.time()
         with torch.no_grad():
             selection = phrase_selection(lead_sheet, query_phrases, reference_check, acc_pool,
-                                         edge_weights, texture_filter, None, None, RANDOMNESS)
+                                         edge_weights, texture_filter, prefilter, None, args.randomness)
             midi = re_harmonization(lead_sheet, chord_table, query_phrases, *selection, model,
                                     acc_pool, meta["bpm"])
         sec = time.time() - t0

@@ -1,0 +1,3264 @@
+{
+ "melody": "ode_to_joy",
+ "source": "gemini",
+ "clip_bars": 8,
+ "clip_sec": 14.55,
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "settings": [
+  {
+   "model": "amt",
+   "setting": "amt-sustain-p0.95",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 0.95
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-sustain-p0.98",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 0.98
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-sustain-p1.0",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 1.0
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-short-p0.95",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 0.95
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-short-p0.98",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 0.98
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-short-p1.0",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 1.0
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-beat-p0.95",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 0.95
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-beat-p0.98",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 0.98
+   }
+  },
+  {
+   "model": "amt",
+   "setting": "amt-beat-p1.0",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 1.0
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d2-v1",
+   "params": {
+    "density": 2,
+    "voices": 1
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d2-v2",
+   "params": {
+    "density": 2,
+    "voices": 2
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d2-v3",
+   "params": {
+    "density": 2,
+    "voices": 3
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d3-v1",
+   "params": {
+    "density": 3,
+    "voices": 1
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d3-v2",
+   "params": {
+    "density": 3,
+    "voices": 2
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d3-v3",
+   "params": {
+    "density": 3,
+    "voices": 3
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d4-v1",
+   "params": {
+    "density": 4,
+    "voices": 1
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d4-v2",
+   "params": {
+    "density": 4,
+    "voices": 2
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-d4-v3",
+   "params": {
+    "density": 4,
+    "voices": 3
+   }
+  },
+  {
+   "model": "accomontage",
+   "setting": "acco-none",
+   "params": {
+    "density": null,
+    "voices": null
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.9",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.9
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.97",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.97
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.99",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.99
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.9",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.9
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.97",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.97
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.99",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.99
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.9",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.9
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.97",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.97
+   }
+  },
+  {
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.99",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.99
+   }
+  }
+ ],
+ "generation": {
+  "acco-d2-v1": {
+   "ok": true,
+   "sec": 66.2,
+   "peak_rss_mb": 3228
+  },
+  "acco-d2-v2": {
+   "ok": true,
+   "sec": 64.2,
+   "peak_rss_mb": 3529
+  },
+  "acco-d2-v3": {
+   "ok": true,
+   "sec": 62.7,
+   "peak_rss_mb": 3928
+  },
+  "acco-d3-v1": {
+   "ok": true,
+   "sec": 64.1,
+   "peak_rss_mb": 3748
+  },
+  "acco-d3-v2": {
+   "ok": true,
+   "sec": 63.0,
+   "peak_rss_mb": 3717
+  },
+  "acco-d3-v3": {
+   "ok": true,
+   "sec": 62.1,
+   "peak_rss_mb": 3825
+  },
+  "acco-d4-v1": {
+   "ok": true,
+   "sec": 62.2,
+   "peak_rss_mb": 3922
+  },
+  "acco-d4-v2": {
+   "ok": true,
+   "sec": 65.0,
+   "peak_rss_mb": 3586
+  },
+  "acco-d4-v3": {
+   "ok": true,
+   "sec": 65.7,
+   "peak_rss_mb": 3186
+  },
+  "acco-none": {
+   "ok": true,
+   "sec": 64.3,
+   "peak_rss_mb": 3381
+  },
+  "ce-t1.0-p0.9": {
+   "ok": true,
+   "sec": 61.3,
+   "peak_rss_mb": 1197
+  },
+  "ce-t1.0-p0.97": {
+   "ok": true,
+   "sec": 83.0,
+   "peak_rss_mb": 1254
+  },
+  "ce-t1.0-p0.99": {
+   "ok": true,
+   "sec": 71.2,
+   "peak_rss_mb": 1199
+  },
+  "ce-t1.2-p0.9": {
+   "ok": true,
+   "sec": 70.9,
+   "peak_rss_mb": 1318
+  },
+  "ce-t1.2-p0.97": {
+   "ok": true,
+   "sec": 62.2,
+   "peak_rss_mb": 1501
+  },
+  "ce-t1.2-p0.99": {
+   "ok": true,
+   "sec": 66.7,
+   "peak_rss_mb": 1778
+  },
+  "ce-t1.4-p0.9": {
+   "ok": true,
+   "sec": 67.7,
+   "peak_rss_mb": 1882
+  },
+  "ce-t1.4-p0.97": {
+   "ok": true,
+   "sec": 86.6,
+   "peak_rss_mb": 1765
+  },
+  "ce-t1.4-p0.99": {
+   "ok": true,
+   "sec": 108.0,
+   "peak_rss_mb": 1864
+  },
+  "amt-sustain-p0.95": {
+   "ok": true,
+   "sec": 1372.8,
+   "peak_rss_mb": 3117
+  },
+  "amt-sustain-p0.98": {
+   "ok": true,
+   "sec": 1306.5,
+   "peak_rss_mb": 3214
+  },
+  "amt-sustain-p1.0": {
+   "ok": true,
+   "sec": 2337.0,
+   "peak_rss_mb": 3214
+  },
+  "amt-short-p0.95": {
+   "ok": true,
+   "sec": 183.9,
+   "peak_rss_mb": 3045
+  },
+  "amt-short-p0.98": {
+   "ok": true,
+   "sec": 109.0,
+   "peak_rss_mb": 2954
+  },
+  "amt-short-p1.0": {
+   "ok": true,
+   "sec": 135.9,
+   "peak_rss_mb": 3050
+  },
+  "amt-beat-p0.95": {
+   "ok": true,
+   "sec": 1340.0,
+   "peak_rss_mb": 3041
+  },
+  "amt-beat-p0.98": {
+   "ok": true,
+   "sec": 1221.3,
+   "peak_rss_mb": 3051
+  },
+  "amt-beat-p1.0": {
+   "ok": true,
+   "sec": 1489.6,
+   "peak_rss_mb": 3139
+  }
+ },
+ "clips": [
+  {
+   "id": "amt-sustain-p0.95-s0",
+   "model": "amt",
+   "setting": "amt-sustain-p0.95",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 0.95
+   },
+   "seed": 0,
+   "wav": "clips/amt-sustain-p0.95-s0.wav",
+   "dur": 14.55,
+   "notes": 1051,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.6023,
+    "ook": 0.2788,
+    "dissonant_overlap": 0.0237,
+    "copy": 0.0647
+   },
+   "new_metrics": {
+    "prompt_doc": 0.1916,
+    "chord_match": 0.9844,
+    "ook": 0.2788,
+    "copy": 0.0647,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2751,
+    "rules": 0.0237,
+    "bass_ok": 0.8158,
+    "failed": [
+     "chord_fit",
+     "playable"
+    ]
+   },
+   "old_score": 1.752,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-sustain-p0.95-s1",
+   "model": "amt",
+   "setting": "amt-sustain-p0.95",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 0.95
+   },
+   "seed": 1,
+   "wav": "clips/amt-sustain-p0.95-s1.wav",
+   "dur": 14.55,
+   "notes": 198,
+   "also": [
+    {
+     "model": "amt",
+     "setting": "amt-sustain-p0.98",
+     "params": {
+      "prompt_style": "sustain",
+      "top_p": 0.98
+     },
+     "seed": 1
+    }
+   ],
+   "old_metrics": {
+    "ctnctr": 0.8081,
+    "ook": 0.0051,
+    "dissonant_overlap": 0.0311,
+    "copy": 0.1768
+   },
+   "new_metrics": {
+    "prompt_doc": 0.7278,
+    "chord_match": 1.0,
+    "ook": 0.0051,
+    "copy": 0.1768,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.8445,
+    "rules": 0.0311,
+    "bass_ok": 0.9737,
+    "failed": [
+     "prompt_copy"
+    ]
+   },
+   "old_score": 2.695,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-sustain-p0.95-s2",
+   "model": "amt",
+   "setting": "amt-sustain-p0.95",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 0.95
+   },
+   "seed": 2,
+   "wav": "clips/amt-sustain-p0.95-s2.wav",
+   "dur": 14.55,
+   "notes": 128,
+   "also": [
+    {
+     "model": "amt",
+     "setting": "amt-sustain-p0.98",
+     "params": {
+      "prompt_style": "sustain",
+      "top_p": 0.98
+     },
+     "seed": 2
+    }
+   ],
+   "old_metrics": {
+    "ctnctr": 0.5312,
+    "ook": 0.2344,
+    "dissonant_overlap": 0.1864,
+    "copy": 0.2031
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2033,
+    "chord_match": 0.6875,
+    "ook": 0.2344,
+    "copy": 0.2031,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3694,
+    "rules": 0.1864,
+    "bass_ok": 0.0,
+    "failed": [
+     "chord_fit"
+    ]
+   },
+   "old_score": -2.209,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-sustain-p0.98-s0",
+   "model": "amt",
+   "setting": "amt-sustain-p0.98",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 0.98
+   },
+   "seed": 0,
+   "wav": "clips/amt-sustain-p0.98-s0.wav",
+   "dur": 14.55,
+   "notes": 999,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.5866,
+    "ook": 0.3483,
+    "dissonant_overlap": 0.0622,
+    "copy": 0.0851
+   },
+   "new_metrics": {
+    "prompt_doc": 0.1773,
+    "chord_match": 0.875,
+    "ook": 0.3483,
+    "copy": 0.0851,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2726,
+    "rules": 0.0622,
+    "bass_ok": 0.7895,
+    "failed": [
+     "chord_fit",
+     "playable"
+    ]
+   },
+   "old_score": 0.581,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-sustain-p1.0-s0",
+   "model": "amt",
+   "setting": "amt-sustain-p1.0",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 1.0
+   },
+   "seed": 0,
+   "wav": "clips/amt-sustain-p1.0-s0.wav",
+   "dur": 14.55,
+   "notes": 479,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.5846,
+    "ook": 0.2463,
+    "dissonant_overlap": 0.0619,
+    "copy": 0.0772
+   },
+   "new_metrics": {
+    "prompt_doc": 0.0905,
+    "chord_match": 0.5306,
+    "ook": 0.2463,
+    "copy": 0.0772,
+    "empty_beat_rate": 0.2344,
+    "playable": false,
+    "prompt_sim": 0.2142,
+    "rules": 0.0619,
+    "bass_ok": 0.1316,
+    "failed": [
+     "chord_fit",
+     "playable"
+    ]
+   },
+   "old_score": 1.181,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-sustain-p1.0-s1",
+   "model": "amt",
+   "setting": "amt-sustain-p1.0",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 1.0
+   },
+   "seed": 1,
+   "wav": "clips/amt-sustain-p1.0-s1.wav",
+   "dur": 14.55,
+   "notes": 38,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.7895,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0492,
+    "copy": 0.5263
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4103,
+    "chord_match": 0.9524,
+    "ook": 0.0,
+    "copy": 0.5263,
+    "empty_beat_rate": 0.0156,
+    "playable": true,
+    "prompt_sim": 0.4916,
+    "rules": 0.0492,
+    "bass_ok": 0.6579,
+    "failed": [
+     "melody_copy"
+    ]
+   },
+   "old_score": null,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-sustain-p1.0-s2",
+   "model": "amt",
+   "setting": "amt-sustain-p1.0",
+   "params": {
+    "prompt_style": "sustain",
+    "top_p": 1.0
+   },
+   "seed": 2,
+   "wav": "clips/amt-sustain-p1.0-s2.wav",
+   "dur": 14.55,
+   "notes": 82,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.6585,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0238,
+    "copy": 0.1341
+   },
+   "new_metrics": {
+    "prompt_doc": 0.27,
+    "chord_match": 0.9062,
+    "ook": 0.0,
+    "copy": 0.1341,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2681,
+    "rules": 0.0399,
+    "bass_ok": 0.6053,
+    "failed": []
+   },
+   "old_score": 2.557,
+   "new_borda": 7,
+   "new_pool": true
+  },
+  {
+   "id": "amt-short-p0.95-s0",
+   "model": "amt",
+   "setting": "amt-short-p0.95",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 0.95
+   },
+   "seed": 0,
+   "wav": "clips/amt-short-p0.95-s0.wav",
+   "dur": 14.55,
+   "notes": 126,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.7698,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0,
+    "copy": 0.1429
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2295,
+    "chord_match": 0.7969,
+    "ook": 0.0,
+    "copy": 0.1429,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2674,
+    "rules": 0.0161,
+    "bass_ok": 0.5789,
+    "failed": []
+   },
+   "old_score": 3.339,
+   "new_borda": 6,
+   "new_pool": true
+  },
+  {
+   "id": "amt-short-p0.95-s1",
+   "model": "amt",
+   "setting": "amt-short-p0.95",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 0.95
+   },
+   "seed": 1,
+   "wav": "clips/amt-short-p0.95-s1.wav",
+   "dur": 14.55,
+   "notes": 24,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8333,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0439,
+    "copy": 0.2917
+   },
+   "new_metrics": {
+    "prompt_doc": 0.1831,
+    "chord_match": 0.8333,
+    "ook": 0.0,
+    "copy": 0.2917,
+    "empty_beat_rate": 0.5312,
+    "playable": true,
+    "prompt_sim": 0.2537,
+    "rules": 0.0439,
+    "bass_ok": 0.1579,
+    "failed": [
+     "enough_notes"
+    ]
+   },
+   "old_score": 1.238,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-short-p0.95-s2",
+   "model": "amt",
+   "setting": "amt-short-p0.95",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 0.95
+   },
+   "seed": 2,
+   "wav": "clips/amt-short-p0.95-s2.wav",
+   "dur": 14.55,
+   "notes": 79,
+   "also": [
+    {
+     "model": "amt",
+     "setting": "amt-short-p0.98",
+     "params": {
+      "prompt_style": "short",
+      "top_p": 0.98
+     },
+     "seed": 2
+    }
+   ],
+   "old_metrics": {
+    "ctnctr": 0.3418,
+    "ook": 0.5823,
+    "dissonant_overlap": 0.1512,
+    "copy": 0.2405
+   },
+   "new_metrics": {
+    "prompt_doc": 0.0812,
+    "chord_match": 0.2656,
+    "ook": 0.5823,
+    "copy": 0.2405,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3376,
+    "rules": 0.1512,
+    "bass_ok": 0.2105,
+    "failed": [
+     "chord_fit"
+    ]
+   },
+   "old_score": -4.976,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-short-p0.98-s0",
+   "model": "amt",
+   "setting": "amt-short-p0.98",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 0.98
+   },
+   "seed": 0,
+   "wav": "clips/amt-short-p0.98-s0.wav",
+   "dur": 14.55,
+   "notes": 32,
+   "also": [
+    {
+     "model": "amt",
+     "setting": "amt-short-p1.0",
+     "params": {
+      "prompt_style": "short",
+      "top_p": 1.0
+     },
+     "seed": 0
+    }
+   ],
+   "old_metrics": {
+    "ctnctr": 0.8125,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0,
+    "copy": 0.2812
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2267,
+    "chord_match": 0.7797,
+    "ook": 0.0,
+    "copy": 0.2812,
+    "empty_beat_rate": 0.0781,
+    "playable": true,
+    "prompt_sim": 0.2606,
+    "rules": 0.0,
+    "bass_ok": 0.3947,
+    "failed": []
+   },
+   "old_score": 1.814,
+   "new_borda": 5,
+   "new_pool": true
+  },
+  {
+   "id": "amt-short-p0.98-s1",
+   "model": "amt",
+   "setting": "amt-short-p0.98",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 0.98
+   },
+   "seed": 1,
+   "wav": "clips/amt-short-p0.98-s1.wav",
+   "dur": 14.55,
+   "notes": 17,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.6471,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0589,
+    "copy": 0.2941
+   },
+   "new_metrics": {
+    "prompt_doc": 0.1778,
+    "chord_match": 0.8421,
+    "ook": 0.0,
+    "copy": 0.2941,
+    "empty_beat_rate": 0.7031,
+    "playable": true,
+    "prompt_sim": 0.225,
+    "rules": 0.0589,
+    "bass_ok": 0.0789,
+    "failed": [
+     "enough_notes"
+    ]
+   },
+   "old_score": 0.027,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-short-p1.0-s1",
+   "model": "amt",
+   "setting": "amt-short-p1.0",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 1.0
+   },
+   "seed": 1,
+   "wav": "clips/amt-short-p1.0-s1.wav",
+   "dur": 14.55,
+   "notes": 37,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.6486,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0252,
+    "copy": 0.2432
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2968,
+    "chord_match": 0.8372,
+    "ook": 0.0,
+    "copy": 0.2432,
+    "empty_beat_rate": 0.3281,
+    "playable": true,
+    "prompt_sim": 0.353,
+    "rules": 0.0252,
+    "bass_ok": 0.3158,
+    "failed": [
+     "enough_notes"
+    ]
+   },
+   "old_score": 1.104,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-short-p1.0-s2",
+   "model": "amt",
+   "setting": "amt-short-p1.0",
+   "params": {
+    "prompt_style": "short",
+    "top_p": 1.0
+   },
+   "seed": 2,
+   "wav": "clips/amt-short-p1.0-s2.wav",
+   "dur": 14.55,
+   "notes": 100,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.36,
+    "ook": 0.09,
+    "dissonant_overlap": 0.0626,
+    "copy": 0.19
+   },
+   "new_metrics": {
+    "prompt_doc": 0.1468,
+    "chord_match": 0.4062,
+    "ook": 0.09,
+    "copy": 0.19,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3314,
+    "rules": 0.0626,
+    "bass_ok": 0.2368,
+    "failed": [
+     "chord_fit"
+    ]
+   },
+   "old_score": -0.678,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-beat-p0.95-s0",
+   "model": "amt",
+   "setting": "amt-beat-p0.95",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 0.95
+   },
+   "seed": 0,
+   "wav": "clips/amt-beat-p0.95-s0.wav",
+   "dur": 14.55,
+   "notes": 946,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.6268,
+    "ook": 0.1342,
+    "dissonant_overlap": 0.0255,
+    "copy": 0.2748
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2143,
+    "chord_match": 0.9688,
+    "ook": 0.1342,
+    "copy": 0.2748,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.3932,
+    "rules": 0.0255,
+    "bass_ok": 0.1053,
+    "failed": [
+     "chord_fit",
+     "playable"
+    ]
+   },
+   "old_score": -0.083,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-beat-p0.95-s1",
+   "model": "amt",
+   "setting": "amt-beat-p0.95",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 0.95
+   },
+   "seed": 1,
+   "wav": "clips/amt-beat-p0.95-s1.wav",
+   "dur": 14.55,
+   "notes": 4,
+   "also": [
+    {
+     "model": "amt",
+     "setting": "amt-beat-p0.98",
+     "params": {
+      "prompt_style": "beat",
+      "top_p": 0.98
+     },
+     "seed": 1
+    }
+   ],
+   "old_metrics": {
+    "ctnctr": 1.0,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0,
+    "copy": 0.0
+   },
+   "new_metrics": {
+    "prompt_doc": 0.0,
+    "chord_match": 1.0,
+    "ook": 0.0,
+    "copy": 0.0,
+    "empty_beat_rate": 0.9844,
+    "playable": true,
+    "prompt_sim": 0.0,
+    "rules": 0.0,
+    "bass_ok": 0.0,
+    "failed": [
+     "enough_notes"
+    ]
+   },
+   "old_score": null,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-beat-p0.95-s2",
+   "model": "amt",
+   "setting": "amt-beat-p0.95",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 0.95
+   },
+   "seed": 2,
+   "wav": "clips/amt-beat-p0.95-s2.wav",
+   "dur": 14.55,
+   "notes": 41,
+   "also": [
+    {
+     "model": "amt",
+     "setting": "amt-beat-p0.98",
+     "params": {
+      "prompt_style": "beat",
+      "top_p": 0.98
+     },
+     "seed": 2
+    }
+   ],
+   "old_metrics": {
+    "ctnctr": 0.122,
+    "ook": 0.4878,
+    "dissonant_overlap": 0.195,
+    "copy": 0.2439
+   },
+   "new_metrics": {
+    "prompt_doc": 0.0,
+    "chord_match": 0.2,
+    "ook": 0.4878,
+    "copy": 0.2439,
+    "empty_beat_rate": 0.5312,
+    "playable": true,
+    "prompt_sim": 0.2655,
+    "rules": 0.195,
+    "bass_ok": 0.0,
+    "failed": [
+     "enough_notes",
+     "chord_fit"
+    ]
+   },
+   "old_score": -6.273,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-beat-p0.98-s0",
+   "model": "amt",
+   "setting": "amt-beat-p0.98",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 0.98
+   },
+   "seed": 0,
+   "wav": "clips/amt-beat-p0.98-s0.wav",
+   "dur": 14.55,
+   "notes": 849,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.5925,
+    "ook": 0.1531,
+    "dissonant_overlap": 0.0249,
+    "copy": 0.0813
+   },
+   "new_metrics": {
+    "prompt_doc": 0.211,
+    "chord_match": 0.8906,
+    "ook": 0.1531,
+    "copy": 0.0813,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2986,
+    "rules": 0.0572,
+    "bass_ok": 0.1316,
+    "failed": [
+     "chord_fit",
+     "playable"
+    ]
+   },
+   "old_score": 2.099,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-beat-p1.0-s0",
+   "model": "amt",
+   "setting": "amt-beat-p1.0",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 1.0
+   },
+   "seed": 0,
+   "wav": "clips/amt-beat-p1.0-s0.wav",
+   "dur": 14.55,
+   "notes": 976,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.5717,
+    "ook": 0.1783,
+    "dissonant_overlap": 0.0417,
+    "copy": 0.0697
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2029,
+    "chord_match": 0.9531,
+    "ook": 0.1783,
+    "copy": 0.0697,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2779,
+    "rules": 0.1546,
+    "bass_ok": 0.4737,
+    "failed": [
+     "chord_fit",
+     "playable"
+    ]
+   },
+   "old_score": 1.798,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-beat-p1.0-s1",
+   "model": "amt",
+   "setting": "amt-beat-p1.0",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 1.0
+   },
+   "seed": 1,
+   "wav": "clips/amt-beat-p1.0-s1.wav",
+   "dur": 14.55,
+   "notes": 158,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.5886,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0746,
+    "copy": 0.1329
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3768,
+    "chord_match": 0.5526,
+    "ook": 0.0,
+    "copy": 0.1329,
+    "empty_beat_rate": 0.4062,
+    "playable": true,
+    "prompt_sim": 0.349,
+    "rules": 0.0746,
+    "bass_ok": 0.2368,
+    "failed": [
+     "enough_notes",
+     "chord_fit"
+    ]
+   },
+   "old_score": 1.56,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "amt-beat-p1.0-s2",
+   "model": "amt",
+   "setting": "amt-beat-p1.0",
+   "params": {
+    "prompt_style": "beat",
+    "top_p": 1.0
+   },
+   "seed": 2,
+   "wav": "clips/amt-beat-p1.0-s2.wav",
+   "dur": 14.55,
+   "notes": 153,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.2222,
+    "ook": 0.6275,
+    "dissonant_overlap": 0.3166,
+    "copy": 0.2092
+   },
+   "new_metrics": {
+    "prompt_doc": 0.1107,
+    "chord_match": 0.3281,
+    "ook": 0.6275,
+    "copy": 0.2092,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3679,
+    "rules": 0.3166,
+    "bass_ok": 0.2895,
+    "failed": [
+     "chord_fit"
+    ]
+   },
+   "old_score": -7.525,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d2-v1-s0",
+   "model": "accomontage",
+   "setting": "acco-d2-v1",
+   "params": {
+    "density": 2,
+    "voices": 1
+   },
+   "seed": 0,
+   "wav": "clips/acco-d2-v1-s0.wav",
+   "dur": 14.55,
+   "notes": 203,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9064,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0458,
+    "copy": 0.1034
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4361,
+    "chord_match": 0.9375,
+    "ook": 0.0,
+    "copy": 0.1034,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.304,
+    "rules": 0.0619,
+    "bass_ok": 0.5263,
+    "failed": []
+   },
+   "old_score": -3.024,
+   "new_borda": 21,
+   "new_pool": true
+  },
+  {
+   "id": "acco-d2-v1-s1",
+   "model": "accomontage",
+   "setting": "acco-d2-v1",
+   "params": {
+    "density": 2,
+    "voices": 1
+   },
+   "seed": 1,
+   "wav": "clips/acco-d2-v1-s1.wav",
+   "dur": 14.55,
+   "notes": 306,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9641,
+    "ook": 0.0033,
+    "dissonant_overlap": 0.0323,
+    "copy": 0.0817
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4009,
+    "chord_match": 0.9531,
+    "ook": 0.0033,
+    "copy": 0.0817,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2761,
+    "rules": 0.0323,
+    "bass_ok": 0.6579,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -0.513,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d2-v1-s2",
+   "model": "accomontage",
+   "setting": "acco-d2-v1",
+   "params": {
+    "density": 2,
+    "voices": 1
+   },
+   "seed": 2,
+   "wav": "clips/acco-d2-v1-s2.wav",
+   "dur": 14.55,
+   "notes": 178,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8652,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0322,
+    "copy": 0.073
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2635,
+    "chord_match": 0.9531,
+    "ook": 0.0,
+    "copy": 0.073,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2826,
+    "rules": 0.0483,
+    "bass_ok": 0.4737,
+    "failed": []
+   },
+   "old_score": -1.643,
+   "new_borda": 18,
+   "new_pool": true
+  },
+  {
+   "id": "acco-d2-v2-s0",
+   "model": "accomontage",
+   "setting": "acco-d2-v2",
+   "params": {
+    "density": 2,
+    "voices": 2
+   },
+   "seed": 0,
+   "wav": "clips/acco-d2-v2-s0.wav",
+   "dur": 14.55,
+   "notes": 274,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9562,
+    "ook": 0.0036,
+    "dissonant_overlap": 0.0403,
+    "copy": 0.1058
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4745,
+    "chord_match": 0.9531,
+    "ook": 0.0036,
+    "copy": 0.1058,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2744,
+    "rules": 0.0403,
+    "bass_ok": 0.6053,
+    "failed": []
+   },
+   "old_score": -2.681,
+   "new_borda": 11,
+   "new_pool": true
+  },
+  {
+   "id": "acco-d2-v2-s1",
+   "model": "accomontage",
+   "setting": "acco-d2-v2",
+   "params": {
+    "density": 2,
+    "voices": 2
+   },
+   "seed": 1,
+   "wav": "clips/acco-d2-v2-s1.wav",
+   "dur": 14.55,
+   "notes": 275,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9709,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0407,
+    "copy": 0.0909
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3206,
+    "chord_match": 0.9844,
+    "ook": 0.0,
+    "copy": 0.0909,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2617,
+    "rules": 0.073,
+    "bass_ok": 0.3421,
+    "failed": []
+   },
+   "old_score": -0.019,
+   "new_borda": 18,
+   "new_pool": true
+  },
+  {
+   "id": "acco-d2-v2-s2",
+   "model": "accomontage",
+   "setting": "acco-d2-v2",
+   "params": {
+    "density": 2,
+    "voices": 2
+   },
+   "seed": 2,
+   "wav": "clips/acco-d2-v2-s2.wav",
+   "dur": 14.55,
+   "notes": 272,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9485,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0333,
+    "copy": 0.0846
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4308,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.0846,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2893,
+    "rules": 0.0333,
+    "bass_ok": 0.6316,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 0.351,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d2-v3-s0",
+   "model": "accomontage",
+   "setting": "acco-d2-v3",
+   "params": {
+    "density": 2,
+    "voices": 3
+   },
+   "seed": 0,
+   "wav": "clips/acco-d2-v3-s0.wav",
+   "dur": 14.55,
+   "notes": 266,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9436,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0369,
+    "copy": 0.0977
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4531,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.0977,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.3006,
+    "rules": 0.0369,
+    "bass_ok": 0.6842,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -0.687,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d2-v3-s1",
+   "model": "accomontage",
+   "setting": "acco-d2-v3",
+   "params": {
+    "density": 2,
+    "voices": 3
+   },
+   "seed": 1,
+   "wav": "clips/acco-d2-v3-s1.wav",
+   "dur": 14.55,
+   "notes": 314,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9299,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0323,
+    "copy": 0.0478
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2361,
+    "chord_match": 1.0,
+    "ook": 0.0,
+    "copy": 0.0478,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2323,
+    "rules": 0.0323,
+    "bass_ok": 0.6579,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 1.265,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d2-v3-s2",
+   "model": "accomontage",
+   "setting": "acco-d2-v3",
+   "params": {
+    "density": 2,
+    "voices": 3
+   },
+   "seed": 2,
+   "wav": "clips/acco-d2-v3-s2.wav",
+   "dur": 14.55,
+   "notes": 262,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.916,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0337,
+    "copy": 0.0916
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.0916,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2926,
+    "rules": 0.0498,
+    "bass_ok": 0.3421,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -0.949,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d3-v1-s0",
+   "model": "accomontage",
+   "setting": "acco-d3-v1",
+   "params": {
+    "density": 3,
+    "voices": 1
+   },
+   "seed": 0,
+   "wav": "clips/acco-d3-v1-s0.wav",
+   "dur": 14.55,
+   "notes": 221,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9502,
+    "ook": 0.0045,
+    "dissonant_overlap": 0.0333,
+    "copy": 0.0679
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3481,
+    "chord_match": 0.8906,
+    "ook": 0.0045,
+    "copy": 0.0679,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2695,
+    "rules": 0.0333,
+    "bass_ok": 0.7368,
+    "failed": []
+   },
+   "old_score": -1.099,
+   "new_borda": 5,
+   "new_pool": true
+  },
+  {
+   "id": "acco-d3-v1-s1",
+   "model": "accomontage",
+   "setting": "acco-d3-v1",
+   "params": {
+    "density": 3,
+    "voices": 1
+   },
+   "seed": 1,
+   "wav": "clips/acco-d3-v1-s1.wav",
+   "dur": 14.55,
+   "notes": 264,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9697,
+    "ook": 0.0076,
+    "dissonant_overlap": 0.0147,
+    "copy": 0.0417
+   },
+   "new_metrics": {
+    "prompt_doc": 0.288,
+    "chord_match": 0.9531,
+    "ook": 0.0076,
+    "copy": 0.0417,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.1911,
+    "rules": 0.047,
+    "bass_ok": 0.4474,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 1.071,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d3-v1-s2",
+   "model": "accomontage",
+   "setting": "acco-d3-v1",
+   "params": {
+    "density": 3,
+    "voices": 1
+   },
+   "seed": 2,
+   "wav": "clips/acco-d3-v1-s2.wav",
+   "dur": 14.55,
+   "notes": 234,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9145,
+    "ook": 0.0,
+    "dissonant_overlap": 0.04,
+    "copy": 0.047
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3295,
+    "chord_match": 0.9531,
+    "ook": 0.0,
+    "copy": 0.047,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2205,
+    "rules": 0.0561,
+    "bass_ok": 0.5263,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -0.029,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d3-v2-s0",
+   "model": "accomontage",
+   "setting": "acco-d3-v2",
+   "params": {
+    "density": 3,
+    "voices": 2
+   },
+   "seed": 0,
+   "wav": "clips/acco-d3-v2-s0.wav",
+   "dur": 14.55,
+   "notes": 287,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9512,
+    "ook": 0.0035,
+    "dissonant_overlap": 0.0392,
+    "copy": 0.122
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4543,
+    "chord_match": 0.9844,
+    "ook": 0.0035,
+    "copy": 0.122,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2781,
+    "rules": 0.0553,
+    "bass_ok": 0.6316,
+    "failed": []
+   },
+   "old_score": -3.27,
+   "new_borda": 13,
+   "new_pool": true
+  },
+  {
+   "id": "acco-d3-v2-s1",
+   "model": "accomontage",
+   "setting": "acco-d3-v2",
+   "params": {
+    "density": 3,
+    "voices": 2
+   },
+   "seed": 1,
+   "wav": "clips/acco-d3-v2-s1.wav",
+   "dur": 14.55,
+   "notes": 324,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9475,
+    "ook": 0.0031,
+    "dissonant_overlap": 0.0157,
+    "copy": 0.0772
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4027,
+    "chord_match": 0.9844,
+    "ook": 0.0031,
+    "copy": 0.0772,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2444,
+    "rules": 0.0157,
+    "bass_ok": 0.7632,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 1.081,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d3-v2-s2",
+   "model": "accomontage",
+   "setting": "acco-d3-v2",
+   "params": {
+    "density": 3,
+    "voices": 2
+   },
+   "seed": 2,
+   "wav": "clips/acco-d3-v2-s2.wav",
+   "dur": 14.55,
+   "notes": 270,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9556,
+    "ook": 0.0037,
+    "dissonant_overlap": 0.0394,
+    "copy": 0.0926
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3402,
+    "chord_match": 0.9531,
+    "ook": 0.0037,
+    "copy": 0.0926,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2589,
+    "rules": 0.0555,
+    "bass_ok": 0.5263,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -2.154,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d3-v3-s0",
+   "model": "accomontage",
+   "setting": "acco-d3-v3",
+   "params": {
+    "density": 3,
+    "voices": 3
+   },
+   "seed": 0,
+   "wav": "clips/acco-d3-v3-s0.wav",
+   "dur": 14.55,
+   "notes": 354,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.952,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0262,
+    "copy": 0.0508
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2881,
+    "chord_match": 0.9683,
+    "ook": 0.0,
+    "copy": 0.0508,
+    "empty_beat_rate": 0.0156,
+    "playable": false,
+    "prompt_sim": 0.209,
+    "rules": 0.0423,
+    "bass_ok": 0.6053,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 2.505,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d3-v3-s1",
+   "model": "accomontage",
+   "setting": "acco-d3-v3",
+   "params": {
+    "density": 3,
+    "voices": 3
+   },
+   "seed": 1,
+   "wav": "clips/acco-d3-v3-s1.wav",
+   "dur": 14.55,
+   "notes": 359,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.961,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0259,
+    "copy": 0.0585
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3606,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.0585,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2139,
+    "rules": 0.0259,
+    "bass_ok": 0.6842,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 2.526,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d3-v3-s2",
+   "model": "accomontage",
+   "setting": "acco-d3-v3",
+   "params": {
+    "density": 3,
+    "voices": 3
+   },
+   "seed": 2,
+   "wav": "clips/acco-d3-v3-s2.wav",
+   "dur": 14.55,
+   "notes": 346,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9624,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0321,
+    "copy": 0.0751
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3362,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.0751,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2371,
+    "rules": 0.0805,
+    "bass_ok": 0.6842,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 1.263,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v1-s0",
+   "model": "accomontage",
+   "setting": "acco-d4-v1",
+   "params": {
+    "density": 4,
+    "voices": 1
+   },
+   "seed": 0,
+   "wav": "clips/acco-d4-v1-s0.wav",
+   "dur": 14.55,
+   "notes": 402,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8532,
+    "ook": 0.0,
+    "dissonant_overlap": 0.013,
+    "copy": 0.0274
+   },
+   "new_metrics": {
+    "prompt_doc": 0.1846,
+    "chord_match": 1.0,
+    "ook": 0.0,
+    "copy": 0.0274,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.1922,
+    "rules": 0.013,
+    "bass_ok": 0.7632,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 1.818,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v1-s1",
+   "model": "accomontage",
+   "setting": "acco-d4-v1",
+   "params": {
+    "density": 4,
+    "voices": 1
+   },
+   "seed": 1,
+   "wav": "clips/acco-d4-v1-s1.wav",
+   "dur": 14.55,
+   "notes": 334,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9671,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0333,
+    "copy": 0.0419
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2655,
+    "chord_match": 0.9844,
+    "ook": 0.0,
+    "copy": 0.0419,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2107,
+    "rules": 0.0494,
+    "bass_ok": 0.7632,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 2.512,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v1-s2",
+   "model": "accomontage",
+   "setting": "acco-d4-v1",
+   "params": {
+    "density": 4,
+    "voices": 1
+   },
+   "seed": 2,
+   "wav": "clips/acco-d4-v1-s2.wav",
+   "dur": 14.55,
+   "notes": 326,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9233,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0426,
+    "copy": 0.046
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2613,
+    "chord_match": 1.0,
+    "ook": 0.0,
+    "copy": 0.046,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2092,
+    "rules": 0.0426,
+    "bass_ok": 0.7895,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -0.011,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v2-s0",
+   "model": "accomontage",
+   "setting": "acco-d4-v2",
+   "params": {
+    "density": 4,
+    "voices": 2
+   },
+   "seed": 0,
+   "wav": "clips/acco-d4-v2-s0.wav",
+   "dur": 14.55,
+   "notes": 408,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8873,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0216,
+    "copy": 0.0343
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2319,
+    "chord_match": 1.0,
+    "ook": 0.0,
+    "copy": 0.0343,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.1898,
+    "rules": 0.0216,
+    "bass_ok": 0.7632,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 1.652,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v2-s1",
+   "model": "accomontage",
+   "setting": "acco-d4-v2",
+   "params": {
+    "density": 4,
+    "voices": 2
+   },
+   "seed": 1,
+   "wav": "clips/acco-d4-v2-s1.wav",
+   "dur": 14.55,
+   "notes": 310,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9323,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0315,
+    "copy": 0.1065
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4112,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.1065,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2523,
+    "rules": 0.0476,
+    "bass_ok": 0.5789,
+    "failed": []
+   },
+   "old_score": -0.763,
+   "new_borda": 10,
+   "new_pool": true
+  },
+  {
+   "id": "acco-d4-v2-s2",
+   "model": "accomontage",
+   "setting": "acco-d4-v2",
+   "params": {
+    "density": 4,
+    "voices": 2
+   },
+   "seed": 2,
+   "wav": "clips/acco-d4-v2-s2.wav",
+   "dur": 14.55,
+   "notes": 313,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8914,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0336,
+    "copy": 0.099
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3573,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.099,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2297,
+    "rules": 0.0497,
+    "bass_ok": 0.5,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -1.966,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v3-s0",
+   "model": "accomontage",
+   "setting": "acco-d4-v3",
+   "params": {
+    "density": 4,
+    "voices": 3
+   },
+   "seed": 0,
+   "wav": "clips/acco-d4-v3-s0.wav",
+   "dur": 14.55,
+   "notes": 386,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8731,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0296,
+    "copy": 0.044
+   },
+   "new_metrics": {
+    "prompt_doc": 0.246,
+    "chord_match": 0.9844,
+    "ook": 0.0,
+    "copy": 0.044,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.1981,
+    "rules": 0.0296,
+    "bass_ok": 0.7105,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": -0.031,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v3-s1",
+   "model": "accomontage",
+   "setting": "acco-d4-v3",
+   "params": {
+    "density": 4,
+    "voices": 3
+   },
+   "seed": 1,
+   "wav": "clips/acco-d4-v3-s1.wav",
+   "dur": 14.55,
+   "notes": 342,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.962,
+    "ook": 0.0058,
+    "dissonant_overlap": 0.0111,
+    "copy": 0.0497
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3217,
+    "chord_match": 0.9688,
+    "ook": 0.0058,
+    "copy": 0.0497,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.195,
+    "rules": 0.0434,
+    "bass_ok": 0.6316,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 1.785,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-d4-v3-s2",
+   "model": "accomontage",
+   "setting": "acco-d4-v3",
+   "params": {
+    "density": 4,
+    "voices": 3
+   },
+   "seed": 2,
+   "wav": "clips/acco-d4-v3-s2.wav",
+   "dur": 14.55,
+   "notes": 390,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9641,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0261,
+    "copy": 0.0513
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3268,
+    "chord_match": 1.0,
+    "ook": 0.0,
+    "copy": 0.0513,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2083,
+    "rules": 0.0422,
+    "bass_ok": 0.7368,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 2.867,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-none-s0",
+   "model": "accomontage",
+   "setting": "acco-none",
+   "params": {
+    "density": null,
+    "voices": null
+   },
+   "seed": 0,
+   "wav": "clips/acco-none-s0.wav",
+   "dur": 14.55,
+   "notes": 271,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9705,
+    "ook": 0.0037,
+    "dissonant_overlap": 0.0368,
+    "copy": 0.1218
+   },
+   "new_metrics": {
+    "prompt_doc": 0.5296,
+    "chord_match": 0.9844,
+    "ook": 0.0037,
+    "copy": 0.1218,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2861,
+    "rules": 0.0368,
+    "bass_ok": 0.6316,
+    "failed": [
+     "prompt_copy",
+     "playable"
+    ]
+   },
+   "old_score": -2.5,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-none-s1",
+   "model": "accomontage",
+   "setting": "acco-none",
+   "params": {
+    "density": null,
+    "voices": null
+   },
+   "seed": 1,
+   "wav": "clips/acco-none-s1.wav",
+   "dur": 14.55,
+   "notes": 258,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9419,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0418,
+    "copy": 0.062
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3351,
+    "chord_match": 0.9531,
+    "ook": 0.0,
+    "copy": 0.062,
+    "empty_beat_rate": 0.0,
+    "playable": false,
+    "prompt_sim": 0.2598,
+    "rules": 0.0741,
+    "bass_ok": 0.4211,
+    "failed": [
+     "playable"
+    ]
+   },
+   "old_score": 0.05,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "acco-none-s2",
+   "model": "accomontage",
+   "setting": "acco-none",
+   "params": {
+    "density": null,
+    "voices": null
+   },
+   "seed": 2,
+   "wav": "clips/acco-none-s2.wav",
+   "dur": 14.55,
+   "notes": 138,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9348,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0216,
+    "copy": 0.1014
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2734,
+    "chord_match": 0.9531,
+    "ook": 0.0,
+    "copy": 0.1014,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2891,
+    "rules": 0.0377,
+    "bass_ok": 0.6316,
+    "failed": []
+   },
+   "old_score": 0.601,
+   "new_borda": 11,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.9-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.9",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.9
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.0-p0.9-s0.wav",
+   "dur": 14.55,
+   "notes": 50,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.96,
+    "ook": 0.02,
+    "dissonant_overlap": 0.0248,
+    "copy": 0.18
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3571,
+    "chord_match": 0.9194,
+    "ook": 0.02,
+    "copy": 0.18,
+    "empty_beat_rate": 0.0312,
+    "playable": true,
+    "prompt_sim": 0.3825,
+    "rules": 0.0248,
+    "bass_ok": 0.3947,
+    "failed": []
+   },
+   "old_score": -0.369,
+   "new_borda": 46,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.9-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.9",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.9
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.0-p0.9-s1.wav",
+   "dur": 14.55,
+   "notes": 63,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.873,
+    "ook": 0.0159,
+    "dissonant_overlap": 0.0027,
+    "copy": 0.2857
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3867,
+    "chord_match": 0.9219,
+    "ook": 0.0159,
+    "copy": 0.2857,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4088,
+    "rules": 0.0027,
+    "bass_ok": 0.6316,
+    "failed": []
+   },
+   "old_score": -2.271,
+   "new_borda": 22,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.9-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.9",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.9
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.0-p0.9-s2.wav",
+   "dur": 14.55,
+   "notes": 99,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9697,
+    "ook": 0.0202,
+    "dissonant_overlap": 0.0259,
+    "copy": 0.1818
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4516,
+    "chord_match": 0.9688,
+    "ook": 0.0202,
+    "copy": 0.1818,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4083,
+    "rules": 0.0259,
+    "bass_ok": 0.5789,
+    "failed": []
+   },
+   "old_score": -0.27,
+   "new_borda": 35,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.97-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.97",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.97
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.0-p0.97-s0.wav",
+   "dur": 14.55,
+   "notes": 50,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.98,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0,
+    "copy": 0.16
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2976,
+    "chord_match": 0.9057,
+    "ook": 0.0,
+    "copy": 0.16,
+    "empty_beat_rate": 0.1719,
+    "playable": true,
+    "prompt_sim": 0.3116,
+    "rules": 0.0,
+    "bass_ok": 0.4474,
+    "failed": []
+   },
+   "old_score": 3.7,
+   "new_borda": 26,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.97-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.97",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.97
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.0-p0.97-s1.wav",
+   "dur": 14.55,
+   "notes": 88,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.875,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0199,
+    "copy": 0.1705
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3495,
+    "chord_match": 0.9048,
+    "ook": 0.0,
+    "copy": 0.1705,
+    "empty_beat_rate": 0.0156,
+    "playable": true,
+    "prompt_sim": 0.3665,
+    "rules": 0.0199,
+    "bass_ok": 0.4211,
+    "failed": []
+   },
+   "old_score": 0.211,
+   "new_borda": 37,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.97-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.97",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.97
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.0-p0.97-s2.wav",
+   "dur": 14.55,
+   "notes": 129,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9767,
+    "ook": 0.031,
+    "dissonant_overlap": 0.0015,
+    "copy": 0.124
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3644,
+    "chord_match": 0.9844,
+    "ook": 0.031,
+    "copy": 0.124,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4303,
+    "rules": 0.0338,
+    "bass_ok": 0.7632,
+    "failed": []
+   },
+   "old_score": 1.051,
+   "new_borda": 42,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.99-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.99",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.99
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.0-p0.99-s0.wav",
+   "dur": 14.55,
+   "notes": 61,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.918,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0028,
+    "copy": 0.1803
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2793,
+    "chord_match": 0.8966,
+    "ook": 0.0,
+    "copy": 0.1803,
+    "empty_beat_rate": 0.0938,
+    "playable": true,
+    "prompt_sim": 0.2951,
+    "rules": 0.0028,
+    "bass_ok": 0.4737,
+    "failed": []
+   },
+   "old_score": 1.906,
+   "new_borda": 25,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.99-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.99",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.99
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.0-p0.99-s1.wav",
+   "dur": 14.55,
+   "notes": 69,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8986,
+    "ook": 0.029,
+    "dissonant_overlap": 0.0,
+    "copy": 0.1594
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3743,
+    "chord_match": 0.9688,
+    "ook": 0.029,
+    "copy": 0.1594,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3804,
+    "rules": 0.0,
+    "bass_ok": 0.4737,
+    "failed": []
+   },
+   "old_score": -0.89,
+   "new_borda": 27,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.0-p0.99-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.0-p0.99",
+   "params": {
+    "temp": 1.0,
+    "top_p": 0.99
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.0-p0.99-s2.wav",
+   "dur": 14.55,
+   "notes": 100,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.97,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0296,
+    "copy": 0.4
+   },
+   "new_metrics": {
+    "prompt_doc": 0.5596,
+    "chord_match": 1.0,
+    "ook": 0.0,
+    "copy": 0.4,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4342,
+    "rules": 0.0457,
+    "bass_ok": 0.5,
+    "failed": [
+     "prompt_copy"
+    ]
+   },
+   "old_score": -1.895,
+   "new_borda": null,
+   "new_pool": false
+  },
+  {
+   "id": "ce-t1.2-p0.9-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.9",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.9
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.2-p0.9-s0.wav",
+   "dur": 14.55,
+   "notes": 64,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9062,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0221,
+    "copy": 0.1875
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4396,
+    "chord_match": 0.9841,
+    "ook": 0.0,
+    "copy": 0.1875,
+    "empty_beat_rate": 0.0156,
+    "playable": true,
+    "prompt_sim": 0.4331,
+    "rules": 0.0221,
+    "bass_ok": 0.3421,
+    "failed": []
+   },
+   "old_score": 0.49,
+   "new_borda": 58,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.9-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.9",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.9
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.2-p0.9-s1.wav",
+   "dur": 14.55,
+   "notes": 60,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9167,
+    "ook": 0.0167,
+    "dissonant_overlap": 0.003,
+    "copy": 0.1667
+   },
+   "new_metrics": {
+    "prompt_doc": 0.382,
+    "chord_match": 0.9016,
+    "ook": 0.0167,
+    "copy": 0.1667,
+    "empty_beat_rate": 0.0469,
+    "playable": true,
+    "prompt_sim": 0.4041,
+    "rules": 0.003,
+    "bass_ok": 0.5,
+    "failed": []
+   },
+   "old_score": 0.432,
+   "new_borda": 33,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.9-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.9",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.9
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.2-p0.9-s2.wav",
+   "dur": 14.55,
+   "notes": 99,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9697,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0251,
+    "copy": 0.2525
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4977,
+    "chord_match": 0.9844,
+    "ook": 0.0,
+    "copy": 0.2525,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.519,
+    "rules": 0.0251,
+    "bass_ok": 0.5263,
+    "failed": []
+   },
+   "old_score": 0.66,
+   "new_borda": 47,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.97-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.97",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.97
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.2-p0.97-s0.wav",
+   "dur": 14.55,
+   "notes": 64,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9688,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0495,
+    "copy": 0.2812
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4286,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.2812,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3992,
+    "rules": 0.0495,
+    "bass_ok": 0.5263,
+    "failed": []
+   },
+   "old_score": -1.141,
+   "new_borda": 42,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.97-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.97",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.97
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.2-p0.97-s1.wav",
+   "dur": 14.55,
+   "notes": 59,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9492,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0113,
+    "copy": 0.1525
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3842,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.1525,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3832,
+    "rules": 0.0274,
+    "bass_ok": 0.5263,
+    "failed": []
+   },
+   "old_score": 2.545,
+   "new_borda": 35,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.97-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.97",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.97
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.2-p0.97-s2.wav",
+   "dur": 14.55,
+   "notes": 65,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9692,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0673,
+    "copy": 0.2615
+   },
+   "new_metrics": {
+    "prompt_doc": 0.459,
+    "chord_match": 0.9844,
+    "ook": 0.0,
+    "copy": 0.2615,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4432,
+    "rules": 0.0673,
+    "bass_ok": 0.4474,
+    "failed": []
+   },
+   "old_score": -1.795,
+   "new_borda": 70,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.99-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.99",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.99
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.2-p0.99-s0.wav",
+   "dur": 14.55,
+   "notes": 96,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9479,
+    "ook": 0.0104,
+    "dissonant_overlap": 0.0164,
+    "copy": 0.1354
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4393,
+    "chord_match": 0.9032,
+    "ook": 0.0104,
+    "copy": 0.1354,
+    "empty_beat_rate": 0.0312,
+    "playable": true,
+    "prompt_sim": 0.3995,
+    "rules": 0.0325,
+    "bass_ok": 0.5263,
+    "failed": []
+   },
+   "old_score": 1.479,
+   "new_borda": 39,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.99-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.99",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.99
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.2-p0.99-s1.wav",
+   "dur": 14.55,
+   "notes": 54,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8889,
+    "ook": 0.0185,
+    "dissonant_overlap": 0.0311,
+    "copy": 0.1481
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2558,
+    "chord_match": 0.871,
+    "ook": 0.0185,
+    "copy": 0.1481,
+    "empty_beat_rate": 0.0312,
+    "playable": true,
+    "prompt_sim": 0.2926,
+    "rules": 0.0311,
+    "bass_ok": 0.3684,
+    "failed": []
+   },
+   "old_score": -1.579,
+   "new_borda": 43,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.2-p0.99-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.2-p0.99",
+   "params": {
+    "temp": 1.2,
+    "top_p": 0.99
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.2-p0.99-s2.wav",
+   "dur": 14.55,
+   "notes": 82,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9146,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0081,
+    "copy": 0.1707
+   },
+   "new_metrics": {
+    "prompt_doc": 0.38,
+    "chord_match": 0.9531,
+    "ook": 0.0,
+    "copy": 0.1707,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4134,
+    "rules": 0.0081,
+    "bass_ok": 0.5789,
+    "failed": []
+   },
+   "old_score": 1.695,
+   "new_borda": 30,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.9-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.9",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.9
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.4-p0.9-s0.wav",
+   "dur": 14.55,
+   "notes": 68,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8971,
+    "ook": 0.0147,
+    "dissonant_overlap": 0.0245,
+    "copy": 0.1765
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3656,
+    "chord_match": 0.875,
+    "ook": 0.0147,
+    "copy": 0.1765,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4122,
+    "rules": 0.0245,
+    "bass_ok": 0.5263,
+    "failed": []
+   },
+   "old_score": -1.115,
+   "new_borda": 37,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.9-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.9",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.9
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.4-p0.9-s1.wav",
+   "dur": 14.55,
+   "notes": 78,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9103,
+    "ook": 0.0128,
+    "dissonant_overlap": 0.0147,
+    "copy": 0.2051
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3776,
+    "chord_match": 0.8594,
+    "ook": 0.0128,
+    "copy": 0.2051,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3811,
+    "rules": 0.0147,
+    "bass_ok": 0.6316,
+    "failed": []
+   },
+   "old_score": -0.561,
+   "new_borda": 20,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.9-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.9",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.9
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.4-p0.9-s2.wav",
+   "dur": 14.55,
+   "notes": 86,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9535,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0074,
+    "copy": 0.1628
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3824,
+    "chord_match": 0.9375,
+    "ook": 0.0,
+    "copy": 0.1628,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3741,
+    "rules": 0.0235,
+    "bass_ok": 0.5526,
+    "failed": []
+   },
+   "old_score": 2.686,
+   "new_borda": 25,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.97-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.97",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.97
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.4-p0.97-s0.wav",
+   "dur": 14.55,
+   "notes": 100,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.92,
+    "ook": 0.02,
+    "dissonant_overlap": 0.0362,
+    "copy": 0.2
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4404,
+    "chord_match": 0.9531,
+    "ook": 0.02,
+    "copy": 0.2,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4132,
+    "rules": 0.0523,
+    "bass_ok": 0.5,
+    "failed": []
+   },
+   "old_score": -2.158,
+   "new_borda": 55,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.97-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.97",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.97
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.4-p0.97-s1.wav",
+   "dur": 14.55,
+   "notes": 139,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8633,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0582,
+    "copy": 0.1223
+   },
+   "new_metrics": {
+    "prompt_doc": 0.3424,
+    "chord_match": 0.8594,
+    "ook": 0.0,
+    "copy": 0.1223,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.3015,
+    "rules": 0.0582,
+    "bass_ok": 0.5263,
+    "failed": []
+   },
+   "old_score": -1.372,
+   "new_borda": 37,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.97-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.97",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.97
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.4-p0.97-s2.wav",
+   "dur": 14.55,
+   "notes": 92,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9674,
+    "ook": 0.0,
+    "dissonant_overlap": 0.033,
+    "copy": 0.1413
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4667,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.1413,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4201,
+    "rules": 0.0491,
+    "bass_ok": 0.5,
+    "failed": []
+   },
+   "old_score": 1.924,
+   "new_borda": 55,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.99-s0",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.99",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.99
+   },
+   "seed": 0,
+   "wav": "clips/ce-t1.4-p0.99-s0.wav",
+   "dur": 14.55,
+   "notes": 106,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.8491,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0136,
+    "copy": 0.1321
+   },
+   "new_metrics": {
+    "prompt_doc": 0.2321,
+    "chord_match": 0.8889,
+    "ook": 0.0,
+    "copy": 0.1321,
+    "empty_beat_rate": 0.0156,
+    "playable": true,
+    "prompt_sim": 0.2545,
+    "rules": 0.0136,
+    "bass_ok": 0.5,
+    "failed": []
+   },
+   "old_score": 0.604,
+   "new_borda": 21,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.99-s1",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.99",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.99
+   },
+   "seed": 1,
+   "wav": "clips/ce-t1.4-p0.99-s1.wav",
+   "dur": 14.55,
+   "notes": 174,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.7816,
+    "ook": 0.0172,
+    "dissonant_overlap": 0.0578,
+    "copy": 0.0747
+   },
+   "new_metrics": {
+    "prompt_doc": 0.274,
+    "chord_match": 0.7812,
+    "ook": 0.0172,
+    "copy": 0.0747,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.2722,
+    "rules": 0.0578,
+    "bass_ok": 0.3684,
+    "failed": []
+   },
+   "old_score": -4.044,
+   "new_borda": 49,
+   "new_pool": true
+  },
+  {
+   "id": "ce-t1.4-p0.99-s2",
+   "model": "compose_embellish",
+   "setting": "ce-t1.4-p0.99",
+   "params": {
+    "temp": 1.4,
+    "top_p": 0.99
+   },
+   "seed": 2,
+   "wav": "clips/ce-t1.4-p0.99-s2.wav",
+   "dur": 14.55,
+   "notes": 97,
+   "also": [],
+   "old_metrics": {
+    "ctnctr": 0.9175,
+    "ook": 0.0,
+    "dissonant_overlap": 0.0258,
+    "copy": 0.2165
+   },
+   "new_metrics": {
+    "prompt_doc": 0.4651,
+    "chord_match": 0.9688,
+    "ook": 0.0,
+    "copy": 0.2165,
+    "empty_beat_rate": 0.0,
+    "playable": true,
+    "prompt_sim": 0.4356,
+    "rules": 0.0419,
+    "bass_ok": 0.3421,
+    "failed": []
+   },
+   "old_score": 0.074,
+   "new_borda": 69,
+   "new_pool": true
+  }
+ ],
+ "blank": [],
+ "failed": []
+}

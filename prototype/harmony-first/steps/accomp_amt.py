@@ -35,6 +35,9 @@ def main():
     ap.add_argument("--samples", type=int, default=8)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device", default="cpu")
+    ap.add_argument("--top-p", type=float, default=0.98)
+    ap.add_argument("--prompt-style", default="sustain", choices=["sustain", "short", "beat"],
+                    help="block-chord prompt: held to the next chord / one beat at each change / re-struck every beat")
     ap.add_argument("--max-seconds", type=float, default=None, help="only the first N seconds (smoke test)")
     args = ap.parse_args()
 
@@ -52,6 +55,12 @@ def main():
     meta = C.melody_meta(args.melody)
     _, notes = P01.load_melody(args.melody)
     chords = C.block_notes(chart, meta["beat_sec"])
+    b = meta["beat_sec"]
+    if args.prompt_style == "short":
+        chords = [(s, min(e, s + b * 0.97), p, v) for s, e, p, v in chords]
+    elif args.prompt_style == "beat":
+        chords = [(s + i * b, min(e, s + (i + 0.97) * b), p, v) for s, e, p, v in chords
+                  for i in range(max(1, int(round((e - s) / b))))]
     if args.max_seconds:
         notes = [n for n in notes if n.start < args.max_seconds]
         chords = [c for c in chords if c[0] < args.max_seconds]
@@ -64,13 +73,13 @@ def main():
     t0 = time.time()
     model = AutoModelForCausalLM.from_pretrained(P01.MODEL).to(args.device).eval()
     info = {"load_sec": round(time.time() - t0, 1), "chord_program": CHORD_PROGRAM,
-            "melody_program": P01.MELODY_PROGRAM, "end_time": end_time, "top_p": 0.98,
+            "melody_program": P01.MELODY_PROGRAM, "end_time": end_time, "top_p": args.top_p, "prompt_style": args.prompt_style,
             "n_chord_control_notes": len(chd), "samples": []}
     for k in range(args.samples):
         seed = args.seed + k
         torch.manual_seed(seed)
         t0 = time.time()
-        events = generate(model, 0, end_time, inputs=[], controls=controls, top_p=.98)
+        events = generate(model, 0, end_time, inputs=[], controls=controls, top_p=args.top_p)
         sec = time.time() - t0
         path = out / f"cand-{k}.mid"
         import pretty_midi
