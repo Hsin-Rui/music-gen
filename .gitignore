@@ -16,3 +16,6 @@ __pycache__/
 prototype/**/output/
 prototype/**/models/
 prototype/**/envs/
+# knowledge-base website build
+site/_src/
+site/_site/

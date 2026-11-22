@@ -1,0 +1,41 @@
+site_name: 音樂生成專案知識庫
+site_url: https://hsin-rui.github.io/music-gen/
+repo_url: https://github.com/Hsin-Rui/music-gen
+docs_dir: _src
+site_dir: _site
+use_directory_urls: false
+theme:
+  name: material
+  language: zh-TW
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      toggle: {icon: material/weather-night, name: 深色模式}
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      toggle: {icon: material/weather-sunny, name: 淺色模式}
+plugins:
+  - search:
+      separator: '[\s​\-_,:!=\[\]()"`/，。、；：？！（）「」]+'
+extra_css: [extra.css]
+markdown_extensions:
+  - tables
+  - toc: {permalink: true}
+  - admonition
+  - attr_list
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+validation:
+  links: {not_found: info, unrecognized_links: info, absolute_links: info}
+  omitted_files: info
