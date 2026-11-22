@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第四輪調參設計</title>
+<style>
+:root{--bg:#fbfaf8;--fg:#1d1d1f;--muted:#5f6368;--card:#fff;--line:#e3e0da;--accent:#2f6f8f;--soft:#eef4f7;--warn:#fff1b8;--ok:#e3f1e6;--okfg:#1e5b2c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141517;--fg:#e8e6e3;--muted:#a3a6ab;--card:#1d1f22;--line:#33363b;--accent:#7cb8d6;--soft:#1f2a30;--warn:#5a4a10;--ok:#1d3a25;--okfg:#a8dcb4}}
+:root[data-theme="dark"]{--bg:#141517;--fg:#e8e6e3;--muted:#a3a6ab;--card:#1d1f22;--line:#33363b;--accent:#7cb8d6;--soft:#1f2a30;--warn:#5a4a10;--ok:#1d3a25;--okfg:#a8dcb4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.6rem;line-height:1.35;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+h2{font-size:1.25rem;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:22px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 20px;margin:14px 0}
+.summary{background:var(--soft)}
+.why{border-left:4px solid var(--accent);background:var(--card);padding:10px 16px;margin:10px 0;border-radius:0 8px 8px 0}
+.why b:first-child{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.scroll{overflow-x:auto}
+.tag{display:inline-block;font-size:.75rem;padding:0 8px;border-radius:999px;background:var(--ok);color:var(--okfg);white-space:nowrap}
+mark{background:var(--warn);color:inherit;padding:0 3px;border-radius:3px}
+code{font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:4px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;max-width:420px;font-size:.85rem;margin:8px 0}
+.grid div{background:var(--soft);border-radius:6px;padding:4px 6px;text-align:center}
+.grid .h{background:transparent;font-weight:600}
+nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem}
+nav a{color:var(--accent);text-decoration:none}
+</style></head><body><div class="wrap">
+
+<h1>第四輪：怎麼操弄參數，請你核對</h1>
+<div class="meta">2026-11-22 · John（PM）· 原型 02 · 快樂頌 × Gemini 和弦 · 這份是開跑前的核對稿，你確認後才生成</div>
+<nav><a href="#s0">總覽</a><a href="#s1">共同設定</a><a href="#s2">AMT</a><a href="#s3">AccoMontage</a><a href="#s4">Compose &amp; Embellish</a><a href="#s5">對決怎麼比</a><a href="#s6">時間</a><a href="#s7">請核對</a></nav>
+
+<section class="card summary" id="s0">
+<h2 style="border:0;margin-top:8px;padding-top:0">總覽</h2>
+<div class="scroll"><table>
+<tr><th>模型</th><th>操弄的參數</th><th>設定數</th><th>每設定</th><th>段數</th></tr>
+<tr><td>AMT</td><td>和弦提示的給法（3）× <code>top_p</code>（3）</td><td>9</td><td>3 份</td><td>27</td></tr>
+<tr><td>AccoMontage</td><td>節奏密度（3）× 同時發聲數（3）＋「不篩選」基準 1</td><td>10</td><td>3 份</td><td>30</td></tr>
+<tr><td>Compose &amp; Embellish</td><td>取樣溫度（3）× <code>top_p</code>（3）</td><td>9</td><td>3 份</td><td>27</td></tr>
+<tr><td colspan="4"><b>合計</b>（完全空白的自動淘汰，實際可能少一些）</td><td><b>84</b></td></tr>
+</table></div>
+<p>每個模型的 27 到 30 段先用淘汰賽比出前 3 名，三個模型的 9 段再比出總排名前 3 名。你只按「A 比較好聽」或「B 比較好聽」。</p>
+</section>
+
+<h2 id="s1">一、所有模型共同的設定</h2>
+<ul>
+<li><b>曲子與和弦：</b>只用快樂頌（4/4，16 小節），和弦用 Gemini 的，三個模型都用同一份。</li>
+<li><b>每個設定生成 3 份，種子固定為 0、1、2。</b>每個設定都用同一組種子。
+<div class="why"><b>為什麼：</b>設定之間的差別比較可能來自參數，而不是運氣。</div></li>
+<li><b>完全空白（0 個音）的自動淘汰，</b>不進對決；其他全部由你聽，<b>不用任何指標事先篩掉</b>。指標照樣會算，等對決結束後拿來和你的選擇對照，看哪一套指標比較接近你的耳朵（這也幫下一輪決定用哪套指標）。</li>
+<li><b>完全相同的版本只留一份：</b>如果兩個設定生出一模一樣的伴奏（AccoMontage 篩選很嚴時有可能），對決裡只放一次，並記下它代表哪幾個設定。</li>
+<li><b>播放：</b>只播前 16 秒，也就是前 8 小節（快樂頌的前兩個樂句），結尾淡出。旋律＋伴奏一起播，直接播放、不做表情演奏。</li>
+<li><b>參數範圍：</b>每個模型的預設值都包含在試的值裡，所以「調了有沒有比預設好」也看得出來。</li>
+</ul>
+
+<h2 id="s2">二、AMT：提示給法 × <code>top_p</code>（9 個設定）</h2>
+<div class="grid"><div class="h"></div><div class="h">0.95</div><div class="h">0.98＊</div><div class="h">1.0</div>
+<div class="h">長和弦＊</div><div>1</div><div>2</div><div>3</div>
+<div class="h">短和弦</div><div>4</div><div>5</div><div>6</div>
+<div class="h">每拍重按</div><div>7</div><div>8</div><div>9</div></div>
+<p class="meta">＊＝目前的預設</p>
+<div class="scroll"><table>
+<tr><th>參數</th><th>值</th><th>意思</th></tr>
+<tr><td rowspan="3">和弦提示的給法</td><td>長和弦（現狀）</td><td>每次換和弦按一個柱式和弦，一直延長到下一個和弦</td></tr>
+<tr><td>短和弦</td><td>一樣在換和弦時按，但只延長一拍；和聲資訊相同，「可以照抄的材料」少很多</td></tr>
+<tr><td>每拍重按</td><td>同一個和弦每拍重按一次，給模型一個明確的拍子感</td></tr>
+<tr><td><code>top_p</code></td><td>0.95、0.98、1.0</td><td>越低越保守（只從最可能的選項裡抽），越高越大膽</td></tr>
+</table></div>
+<div class="why"><b>為什麼選這兩個：</b>
+<ul>
+<li><b>提示給法</b>對應你最在意的「照抄柱式和弦」。AMT 看到什麼樣的提示，就容易學什麼樣：給它長和弦，它就傾向彈長和弦。我們想知道「少給一點可抄的東西」或「給明確的節奏」會不會讓它寫出自己的伴奏。<mark>這是假設，還沒驗證。</mark></li>
+<li><b><code>top_p</code></b>對應「空白輸出」和「亂彈」：上一輪綠袖子有 5/8 份完全空白，可能和取樣太保守或太隨機有關。</li>
+<li><b>不調「提前看多遠」</b>（anticipation，預設 5 秒）：沒有具體觀察指向它，而且 AMT 是最慢的模型，多一個參數就多 3 倍時間。</li>
+</ul></div>
+
+<h2 id="s3">三、AccoMontage：密度 × 發聲數 ＋ 基準（10 個設定）</h2>
+<div class="grid"><div class="h"></div><div class="h">發聲 1</div><div class="h">發聲 2</div><div class="h">發聲 3</div>
+<div class="h">密度 2</div><div>1</div><div>2</div><div>3</div>
+<div class="h">密度 3</div><div>4</div><div>5</div><div>6</div>
+<div class="h">密度 4</div><div>7</div><div>8</div><div>9</div></div>
+<p class="meta">另加設定 10：不篩選（目前的作法，當基準）</p>
+<div class="scroll"><table>
+<tr><th>參數</th><th>值</th><th>意思</th></tr>
+<tr><td>節奏密度（官方 0–4，低到高）</td><td>2、3、4</td><td>只從 POP909 裡節奏密度在這一級的伴奏片段挑</td></tr>
+<tr><td>同時發聲數（官方 0–4，少到多）</td><td>1、2、3</td><td>只挑同時發聲音數在這一級的片段</td></tr>
+<tr><td>挑樂句的隨機程度</td><td><b>固定 0.1</b>（官方範例值）</td><td>不操弄；要大於 0，同一設定的 3 份才會不一樣</td></tr>
+</table></div>
+<div class="why"><b>為什麼選這兩個：</b>
+<ul>
+<li>上一輪 AccoMontage 每格 8 份裡有 4–5 份被「彈得到」擋下，原因是有些和弦橫跨三個音域、兩手撐不開。<b>同時發聲數</b>是官方提供、最直接控制這件事的參數。</li>
+<li><b>節奏密度</b>控制伴奏「動」的程度，對應「在限制內越有變化越好」；密度 0、1 太稀，接近柱式和弦，所以從 2 開始。</li>
+<li>這兩個在官方範例裡就是成對使用的（例如 Auld Lang Syne 用密度 4、發聲 2），而且 AccoMontage 很便宜（每份不到 10 秒），多一個基準設定幾乎不花時間，能直接回答「開篩選有沒有比較好」。</li>
+<li><b>隨機程度不操弄：</b>它主要影響「8 份之間差多少」，對單一份好不好聽的影響比較間接；固定下來可以讓 9 宮格保持乾淨。</li>
+</ul></div>
+<p><b>先修正的輸入：</b>快樂頌的樂句分段從「A4B4C4D4」（四段互不相同）改成「A4A4B4A4」，告訴模型第 1、2、4 段是同一個樂句的重複，讓它在重複的地方用一致的伴奏。<span class="tag">10 個設定都用修正後的分段</span>　綠袖子的弱起拍等快樂頌做完再修。</p>
+
+<h2 id="s4">四、Compose &amp; Embellish：溫度 × <code>top_p</code>（9 個設定）</h2>
+<div class="grid"><div class="h"></div><div class="h">0.90</div><div class="h">0.97＊</div><div class="h">0.99</div>
+<div class="h">溫度 1.0</div><div>1</div><div>2</div><div>3</div>
+<div class="h">溫度 1.2＊</div><div>4</div><div>5</div><div>6</div>
+<div class="h">溫度 1.4</div><div>7</div><div>8</div><div>9</div></div>
+<p class="meta">＊＝官方預設</p>
+<div class="why"><b>為什麼選這兩個：</b>這個模型能調的取樣參數就是這兩個。上一輪它的伴奏偏稀疏（中位數約 72 個音，每小節 4–5 個），可能是取樣偏保守；溫度和 <code>top_p</code> 都在控制「多大膽」，兩者會互相影響，所以正好適合用全組合來看。它也很便宜（每份約 10–25 秒）。</div>
+
+<h2 id="s5">五、對決怎麼比</h2>
+<h3>模型內：每個模型比出前 3 名</h3>
+<ol>
+<li><b>冠軍：</b>所有段落隨機配對打淘汰賽（段數不是 2 的次方時，隨機幾段輪空直接晉級），一路比到剩一段。</li>
+<li><b>第 2 名：</b>只從「曾經直接輸給冠軍」的那幾段裡再比一次淘汰賽。理由：其他段落都輸給了這些段落之一，不可能比它們好。</li>
+<li><b>第 3 名：</b>從「直接輸給冠軍或第 2 名」、還沒排名的段落裡再比一次。</li>
+</ol>
+<p>每個模型大約要比 33–38 組。</p>
+<h3>跨模型：9 段比出總排名前 3 名</h3>
+<p>三個模型各自的前 3 名共 9 段，用同樣的方法比出總冠軍、第 2、第 3 名，約 14 組。</p>
+<h3>介面</h3>
+<ul>
+<li>像問卷：每頁兩段（A、B），可以重播；按「A 比較好聽」或「B 比較好聽」後自動進下一組。</li>
+<li><b>A、B 順序隨機，名稱和設定全部隱藏，</b>直到全部比完才揭曉。先播的那段容易佔便宜，隨機排序可以抵消。</li>
+<li>進度自動存在瀏覽器裡，可以分幾次聽完；最後按「下載結果」存成檔案，交給我寫進計畫和知識庫。</li>
+<li>揭曉頁會列出：前 3 名是哪個模型、哪組設定、哪個種子；每一組對決的結果；以及兩套指標的排名和你的選擇是否一致。</li>
+</ul>
+<div class="why"><b>要先知道的限制：</b>淘汰賽每組只比一次，如果某段在第一輪剛好碰到很強的對手就會出局，所以「前 3 名」是合理的好候選，不保證是 84 段裡真正最好的 3 段。要更準就得比更多組（例如雙敗淘汰），時間大約多一倍；原型階段我建議先用單淘汰。</div>
+
+<h2 id="s6">六、時間</h2>
+<div class="scroll"><table>
+<tr><th>項目</th><th>估計</th></tr>
+<tr><td>生成：AccoMontage 30 份</td><td>約 5 分鐘</td></tr>
+<tr><td>生成：Compose &amp; Embellish 27 份</td><td>約 10 分鐘</td></tr>
+<tr><td>生成：AMT 27 份</td><td>約 1 小時（背景執行，按上一輪每份 1.5–3 分鐘估）</td></tr>
+<tr><td>你的對決：約 120 組 × 每組約 40 秒（兩段各 16 秒＋選擇）</td><td>約 80 分鐘，可分次</td></tr>
+</table></div>
+
+<h2 id="s7">七、請核對</h2>
+<ol>
+<li>三個模型的參數和值（第二到四節）這樣可以嗎？</li>
+<li>AccoMontage 多一個「不篩選」基準，總共 30 段，可以嗎？</li>
+<li>對決用單淘汰（約 120 組），可以嗎？</li>
+</ol>
+<p>確認後 John 寫進原型計畫，接著生成、做對決頁。</p>
+
+</div></body></html>

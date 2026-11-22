@@ -1,0 +1,9852 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hsin-rui.github.io/music-gen/docs/research-music-generation-tech-roadmap/research-music-generation-tech-roadmap.html">
+      
+      
+        <link rel="prev" href="citation-check.html">
+      
+      
+        <link rel="next" href="digests/d1-sota-r1-1.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>技術研究：音樂生成專案的技術起點與路線圖 - 音樂生成專案知識庫</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../../index.html" title="音樂生成專案知識庫" class="md-header__button md-logo" aria-label="音樂生成專案知識庫" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            音樂生成專案知識庫
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              技術研究：音樂生成專案的技術起點與路線圖
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="淺色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="淺色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清除" aria-label="清除" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Hsin-Rui/music-gen" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="音樂生成專案知識庫" class="md-nav__button md-logo" aria-label="音樂生成專案知識庫" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    音樂生成專案知識庫
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Hsin-Rui/music-gen" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    音樂生成專案：知識庫與研究報告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Docs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plan-harmony-first-prototype.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prototype 02: harmony-first accompaniment (harmonizers × accompaniment models)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--built"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plan-harmony-first-round3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prototype 02 round 3: gate-then-rank selection, re-score saved candidates, player + report
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--built"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plan-melody-to-performance-prototype.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prototype: melody → AMT accompaniment → expressive piano rendering
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--built"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brainstorm music gen motivations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Brainstorm music gen motivations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brainstorm-music-gen-motivations/research-proposal-draft.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    研究計畫草案（一頁版）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Brief music gen
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Brief music gen
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../brief-music-gen/brief-music-gen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    樂譜↔音樂雙向轉換與多元文化測驗刺激生成
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prototype plan harmony first
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prototype plan harmony first
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototype-plan-harmony-first/prototype-plan-harmony-first.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原型計畫 02：先定和聲，再生伴奏
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--final"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prototype plan melody to performance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prototype plan melody to performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototype-plan-melody-to-performance/prototype-plan-melody-to-performance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原型計畫：旋律→伴奏→表情演奏
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--final"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research accompaniment candidates r4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research accompaniment candidates r4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-candidates-r4/research-accompaniment-candidates-r4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術研究 R4：原型 02 還能加哪些模型（配和聲、生伴奏）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_8_2" id="__nav_2_8_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Digests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-candidates-r4/digests/d1-accompaniment-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 round 1: melody + chords → piano accompaniment models (accessed 2026-11-21)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-candidates-r4/digests/d2-harmonizers-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D2 round 1: melody harmonization models (accessed 2026-11-21)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-candidates-r4/digests/d3-llm-rules-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D3 round 1: LLM harmonization evidence + rule-based harmonizers (accessed 2026-11-21)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-candidates-r4/digests/runnability-r2-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Round 2: can we feed our own melody + chords? (accessed 2026-11-21)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research accompaniment metrics r5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research accompaniment metrics r5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/citation-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citation check: research-accompaniment-metrics-r5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文獻研究 R5：怎麼從 8 份伴奏裡挑出最好的一份（挑選指標）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9_3" id="__nav_2_9_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_9_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Digests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/digests/A-harmonic-fidelity-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digest A — Harmonic fidelity metrics (r1-1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/digests/AB-leads-r2-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AB leads, round 2, part 1: exact metric definitions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/digests/B-prompt-copy-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digest B: prompt-copy / similarity / texture metrics (r1-1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/digests/C-leads-r2-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C-leads round 2, part 1: rule-violation and playability checks (best-of-8 piano accompaniment)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/digests/C-rules-playability-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C: Harmony / voice-leading rule violations and piano playability (round 1, agent 1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-accompaniment-metrics-r5/digests/D-variety-combination-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D-variety-combination-r1-1: metrics for variety/creativity, their link to listening judgments, and how to combine them for best-of-N selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research harmonization accompaniment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research harmonization accompaniment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-harmonization-accompaniment/research-harmonization-accompaniment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術研究：配和聲模型與和弦條件伴奏生成
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_10_2" id="__nav_2_10_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_10_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Digests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-harmonization-accompaniment/digests/accompaniment-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digest: Symbolic accompaniment generation (melody + chords -&gt; piano), round 1, part 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-harmonization-accompaniment/digests/harmonization-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digest: Melody harmonization (melody to chords), r1-1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-harmonization-accompaniment/digests/lead-check-r1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lead check (lead, r1) — 2026-11-21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-harmonization-accompaniment/digests/llm-datasets-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digest: LLM harmonization evidence + chord-annotated melody datasets (round 1, pass 1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research music generation tech roadmap
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research music generation tech roadmap
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="citation-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citation check: research-music-generation-tech-roadmap.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術研究：音樂生成專案的技術起點與路線圖
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="research-music-generation-tech-roadmap.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術研究：音樂生成專案的技術起點與路線圖
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        執行摘要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D1 現況：採譜、表情演奏、可控生成
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D2 資料集與授權
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D3 非十二平均律的表示法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D4 音樂心理學裡的生成刺激
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d5-midi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D5 單旋律 MIDI 之後的路線
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        跨面向洞察
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反證（反方審查）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建議
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        待解問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        過期地圖
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        來源附錄
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_11_3" id="__nav_2_11_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_11_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_11_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Digests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/d1-sota-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 Landscape and state of the art, round 1 (researcher 1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/d1d2-licences-r2-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1/D2 licence verification, round 2, digest 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/d2-data-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D2 Datasets &amp; Licensing — Round 1, digest 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/d3-repr-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D3: Representing music beyond 12-TET (round 1, digest 1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/d4-stimuli-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D4: Generative and algorithmic stimuli in music cognition (round 1, researcher 1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/d5-roadmap-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D5: Practical roadmap and implementation reality (round 1, digest 1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/gaps-r2-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaps R2-1: Japanese / Indigenous archives, non-Western generators, fine-tuning reports, singing synthesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/redteam-c1-adopt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Red team C1: "Adopt and fine-tune existing open symbolic models"
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/redteam-c2-hybrid.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Red-team C2: two-layer symbolic + contour hybrid vs end-to-end audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digests/redteam-c3-gap.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Red team: claim C3, "neural generation + IRT for music-ability testing is an open gap"
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_12" id="__nav_2_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research prototype model check
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research prototype model check
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-prototype-model-check/research-prototype-model-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術查證：原型的三個模型能不能用
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_12_2" id="__nav_2_12_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digests
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_12_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_12_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Digests
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-prototype-model-check/digests/aria-alternatives-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digest: Aria for expressive rendering, and alternatives (r1-1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-prototype-model-check/digests/aria-alternatives-r1-lead-check.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lead check (lead, r1): Pianist Transformer spot-check — 2026-11-21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-prototype-model-check/digests/symupe-amt-r1-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Digest: SyMuPe/PianoFlow + Anticipatory Music Transformer on Mac M3 Pro (18GB). Round 1, researcher 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../kb/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kb
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Kb
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datasets
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Datasets
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/aria-midi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aria-MIDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/asap.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ASAP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/chinese-chorales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    中國合唱資料集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/chord-melody-dataset.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chord Melody Dataset（CMD）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/chordonomicon.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chordonomicon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/compmusic-jingju.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CompMusic 京劇
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/essen-chinese-diao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Essen 中國民歌調式標記
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/essen-folksong.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Essen 民謠資料庫
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/florence-price-art-songs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Florence Price 藝術歌曲資料集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/gezi-asas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    歌仔戲人聲＋歌詞（中研院團隊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/gezi-goat.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GOAT 歌仔戲（FT-GAN）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/hooktheory.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hooktheory（Sheet Sage 版）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/lakh-midi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lakh MIDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/m4singer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M4Singer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/maestro-v3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MAESTRO v3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/melodyhub.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MelodyHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/neurallmuse-melodic-harmonization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NeuraLLMuse 配和聲資料集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/opencpop.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opencpop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/opengufeng.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenGufeng
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/openscore-lieder.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenScore Lieder Corpus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/pdmx.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PDMX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/pop1k7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pop1K7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/pop909.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    POP909
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/prototype-examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prototype-01 範例旋律（自製）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/saraga.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saraga
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/schubert-winterreise.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schubert Winterreise Dataset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/sinica-indigenous.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    中研院台灣原住民祭儀歌舞檔案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/slakh2100.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Slakh2100
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/symbtr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SymbTr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/vocalnotes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VocalNotes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/datasets/when-in-rome.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    When-in-Rome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experiments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/experiments/prototype-01-melody-to-performance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原型 01：旋律 → AMT 伴奏 → 表情鋼琴演奏
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--done"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Literature
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Literature
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/ai-music-stimuli-labelling-2025.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 音樂刺激研究以標示偏誤為主
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-1904.10237.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PIG 鋼琴指法資料集與統計指法模型（Nakamura 等人）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-1907.06637.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bach Doodle／Coconet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-1912.12010.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    京劇歌聲只用音符合成（DurIAN，預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2001.02360.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    和聲一致性指標彙整；沒有「多生幾份再挑」的伴奏論文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2006.13329.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bach or Mock?（ICML 2020 工作坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2008.01307.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jazz Transformer（Wu &amp; Yang，ISMIR 2020）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2008.01951.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MusPy（ISMIR 2020）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2108.01576.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS／FAD 與主觀評分相關弱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2108.11213.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AccoMontage（ISMIR 2021）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2201.10936.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FIGARO（ICLR 2023）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2209.00353.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AccoMontage2 聽覺測試：和聲性顯著優於 BLSTM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2209.08212.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compose &amp; Embellish：先寫樂譜再潤飾成鋼琴演奏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2306.08620.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AMT 補寫與伴奏能力（TMLR）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2308.13736.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主觀評估沒有標準化程序（預印本，搜尋摘要）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2310.16334.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AccoMontage-3：樂譜 → 鋼琴 → 多軌，聽測勝過 AMT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2310.17162.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoCoMulla：MusicGen 加和弦控制，輸出音訊
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2402.16153.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ChatMusician：配和聲用編輯距離評，不是評和聲品質
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2404.06393.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MuPT：ABC 預訓練模型，只會續寫
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2404.09466.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transkun 鋼琴採譜（ISMIR 2024）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2405.09901.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Whole-Song 階層式生成（ICLR 2024）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2406.10970.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JASCO：音訊模型直接吃和弦和旋律條件
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2407.02277.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MelodyT5：ABC 配和聲、七和弦與轉位、1.13 億參數、訓練資料、指標比較
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2407.04331.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MuseBarControl：直接微調不服從控制（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2407.04822.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YourMT3+（IEEE MLSP 2024）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2407.21531.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    語言模型配和聲：專家給 GPT-4 5.5–6.5 分
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2408.00473.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RubricNet 鋼琴難度
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2408.12658.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GaMaDHaNi 音高曲線階層生成（ISMIR 2024）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2409.05521.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPT-4o 音程好、辨認和弦與音階弱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2410.00210.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    鋼琴 MIDI→MusicXML（ISMIR 2024）；音訊→樂譜（IJCAI 2024）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2410.08435.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FGG：取樣時擋掉調外音；沒看到授權
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2501.17011.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIDI-GPT 屬性控制、Open RAIL-M、4×V100 2–3 天（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2502.07328.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Music for All：非西方資料只占 5.7%（NAACL 2025）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2502.07711.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RenderBox 多樂器演奏（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2503.22853.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    樂理考試各編碼格式比較
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2504.05690.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STAGE：音訊分軌生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2504.15071.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aria-MIDI 從網路音訊轉錄（ICLR 2025）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2504.16839.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMART
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2506.05104.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生成音樂評估綜述（ACM CSUR）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2506.15548.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Function Alignment：一個基礎模型加多個音樂轉接器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2506.23130.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Florence Price 藝術歌曲資料集與伴奏生成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2506.23869.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aria 論文評估續寫與分類
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2509.00051.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生成音樂評量指標綜述（Kader &amp; Karmaker，預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2509.13658.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSIMuse 多聲部抄襲檢測（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2509.16913.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    依目標難度生成視奏譜（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2509.23350.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ABC-Eval：LLM 小節層級失敗（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2511.03425.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyMuPe/PianoFlow 能力與授權
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2511.03942.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIDI-LLM，Llama 3.2 授權
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2511.07268.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    過擬合的模型聽起來更連貫、驗證損失卻變差（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2511.14600.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPFG-Net：可控制緊張度的配和聲
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2511.20697.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSU-Bench（ACL 2026）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2512.07627.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B* 限制解碼
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2512.14758.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    簡譜光學辨譜（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2601.00299.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    歌仔戲人聲＋歌詞資料（ISMIR 2025 LBD）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2601.16150.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單編碼器遮罩式配和聲（Apache-2.0、無權重）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2601.22764.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 ABC 上微調 LLM 的取捨；FMD 不可靠（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2602.00744.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACE-Step 1.5 能力（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2602.03523.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D3PIA：220 萬參數、POP909 比較表、13 位專家聽覺測試；和弦正確率不等於聽感和諧
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2602.15074.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    風格規劃＋樂句檢索，以綜合分數挑選
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2605.21538.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Academic Text-to-Music 挑戰
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2607.08168.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MuScriptor 架構與評測（預印本，ISMIR 2026 投稿）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2608.03050.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    鋼琴編曲論文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2608.10360.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MazzikaAI：用提示詞引導音訊模型增加 maqam 微分音（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2608.10979.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VQ-VAE 曲線符號化（韓國傳統音樂，預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2608.11026.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MAJEPPA 論文，ISMIR 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2609.12774.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DiffSynth-Music：音訊轉接器控制節拍和音高（預印本）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/arxiv-2609.33757.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YuE2：合一模型優於分段串接；顯式樂譜規劃有幫助（預印本，只讀摘要）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/augmented-fifth-2026-llm-harmonic-analysis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前沿語言模型的羅馬數字分析（非正式）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/carone-2026-llm-music-theory-pmlr.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    語言模型在符號輸入接近滿分、音訊下降；LogicLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/chinese-chorales-dataset-2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    中國合唱資料集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/gongche-omr-2014.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工尺譜光學辨譜，39 張圖評估
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/groovetoolbox-2021.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GrooveToolbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/harrison-2017-mdt-melodic-discrimination.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MDT：馬可夫鏈出題、3 個難度因子、R² 0.869（Sci Rep）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/harrison-2018-ca-bat.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CA-BAT（IRT＋CAT＋AIG）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/harrison-pearce-2020-consonance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Harrison &amp; Pearce（Psychological Review 2020）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/herremans-chew-2016-tension-ribbons.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Herremans &amp; Chew 張力帶（TENOR 2016）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/icmc-smc-2014-discretisation-culture.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    計算民族音樂學：離散化是文化慣例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/iftawm-vocalnotes-note-as-unit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VocalNotes：「音符」是否適合許多傳統的基本單位
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/ismir-2017-jingju-a-cappella-dataset.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    京劇清唱資料，f0＋音符（ISMIR 2017）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/ismir-2023-vocalnotes-japanese-folk.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VocalNotes（ISMIR 2023 LBD），日本民謠 9 段
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/jacoby-2024-rhythm-priors-15-countries.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jacoby 等人 15 國節奏先驗（NHB 2024）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/jrma-notating-deconstruction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    民族音樂學：五線譜帶有歐洲的類別預設
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/kim-2023-vae-similarity-stimuli-icmpc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VAE 旋律作為相似度刺激（ICMPC 2023）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/larrouy-maestri-2019-mistuning-perception-test.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mistuning Perception Test（BRM 2019）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/law-2012-proms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PROMS（PLoS One 2012）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/mcleod-steedman-2016-voice-separation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    McLeod &amp; Steedman（JNMR 2016）HMM 聲部分離，有程式碼，巴赫作品測試
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/meng-2025-essen-chinese-diao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Essen 中國民歌調式標記
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/met-2024-chinese-sample.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MET 中國樣本驗證
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/mir-eval-transcription.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mir_eval 音符比對
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/mirex-2024-symbolic-generation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIREX 2024 符號生成：樂譜 → 鋼琴伴奏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/music21-voiceleading.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    music21 VoiceLeadingQuartet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/neurips-2025-memorisation-short-motifs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    短動機導致抄襲（NeurIPS 2025 workshop）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/soas-2022-transcription-staff-notation-bias.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    採譜研究預設西方五線譜的問題（DSH 2022）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/uab-2025-ai-music-stimuli-thesis.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UAB 學士論文：AI 音樂刺激資料集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/yang-lerch-2020-generative-eval.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yang &amp; Lerch（Neural Computing and Applications）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/literature/yin-2022-originality-report.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yin 等人（SN Computer Science）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/accomontage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AccoMontage
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--原型 02 候選"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/accomontage2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AccoMontage2
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--原型 02 候選"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/accomontage3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AccoMontage-3（Structured Arrangement）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/ace-step.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACE-Step 1.5
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/amt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anticipatory Music Transformer (AMT)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--已用於 prototype-01"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/aria.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aria (EleutherAI)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--已排除"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/asigalov61-harmonizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    asigalov61 Melody-Harmonizer-Transformer
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--不建議"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/autoharmonizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoHarmonizer
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/bart-harmonizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BART 配和聲與 B* 限制解碼（NeuraLLMuse）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--觀察中（沒有權重）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/basic-pitch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Pitch (Spotify)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/claude-accompaniment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude 寫伴奏（本專案）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--原型 02 使用中"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/cocomulla.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoCoMulla
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--不適用（輸出音訊）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/compose-embellish.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compose &amp; Embellish
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--原型 02 使用中（第三輪加入）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/cpfg-net.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CPFG-Net
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/d3pia.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D3PIA
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--觀察中（沒找到程式碼）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/dexter.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DExter
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/diffsinger.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DiffSinger (openvpi)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/emo-harmonizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EMO_Harmonizer
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/fgg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FGG（Fine-Grained Guidance）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/figaro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FIGARO
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/florence-price-accompaniment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Florence Price 伴奏生成器
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--觀察中"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/function-alignment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Function Alignment（music-x-lab）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--觀察中"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/getmusic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GETMusic
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--不考慮"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/harmonyrl.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HarmonyRL
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--R4 建議加入原型 02"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/impro-visor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Impro-Visor
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/majeppa.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MAJEPPA
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--備案（未試）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/meagtan-harmonizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meagtan/harmonizer
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/melodyt5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MelodyT5
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--原型 02 候選"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/midi-gpt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIDI-GPT
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/midi-llm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIDI-LLM
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/miditok.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MidiTok（工具）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未用"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/mupt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MuPT
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--不適用"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/muscriptor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MuScriptor
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/musicgen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MusicGen
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/neurallmuse-harmonizers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NeuraLLMuse 配和聲系列（SplitEncoder、GridMLMelHarm 等）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--觀察中（沒有權重）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/notagen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NotaGen
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/pianist-transformer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pianist Transformer
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--已用於 prototype-01"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/pianoflow.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SyMuPe / PianoFlow
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--已用於 prototype-01"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/polyffusion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyffusion
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--原型 02 候選"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/rl-chord.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RL-Chord
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--觀察中（沒有程式碼）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/scoreperformer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ScorePerformer
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/single-encoder-harmonizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單編碼器遮罩式配和聲（FF curriculum）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/stharm.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STHarm／VTHarm／rVTHarm
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/text2midi.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Text2midi
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/transkun.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transkun
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/veeharmgen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VeeHarmGen
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--R4 建議當基準線"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/virtuosonet.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VirtuosoNet
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/whole-song-gen.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Whole-Song Hierarchical Generation
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/yourmt3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YourMT3+
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--未試"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kb/models/zang-2026-piano-accompaniment.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    結構化鋼琴伴奏（規劃＋檢索，Zang 等人）
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--觀察中（沒有程式碼）"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        執行摘要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D1 現況：採譜、表情演奏、可控生成
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D2 資料集與授權
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D3 非十二平均律的表示法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D4 音樂心理學裡的生成刺激
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d5-midi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D5 單旋律 MIDI 之後的路線
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        跨面向洞察
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反證（反方審查）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建議
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        待解問題
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        過期地圖
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        來源附錄
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">技術研究：音樂生成專案的技術起點與路線圖<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><strong>這份研究服務的決定：</strong> 樂譜↔音樂雙向轉換，以及可控、跨文化的研究素材生成，該從哪裡開始？哪些部分用現成的、哪些自己訓練、用哪些資料、單旋律 MIDI 之後的下一步是什麼？</p>
+<h2 id="_2">執行摘要<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><strong>建議：不要從頭訓練。先用現成的開源模型拼出一條「採譜→樂譜層→表情演奏」的流程，把力氣花在整合、控制和評估上。研究的切入點選在「神經網路生成的測驗題目＋IRT 難度校準」。</strong></p>
+<p>支撐這個建議的三個發現：</p>
+<ol>
+<li><strong>每一段都有可以直接拿來用的零件，但沒有人把它們串起來。</strong></li>
+<li>採譜：MuScriptor、YourMT3+、Basic Pitch [1][3][4][5]</li>
+<li>給旋律生伴奏：AMT [12]</li>
+<li>作曲家和時期控制：NotaGen [19]</li>
+<li>鋼琴表情演奏：SyMuPe、Aria [8][18]</li>
+</ol>
+<p>找不到任何整合這些功能的開源工具鏈，而這正是你想做的「轉換工具箱」。
+2. <strong>你的研究問題有一個經過反方審查仍然成立的空白。</strong>
+   - 音樂能力測驗早就在用自動出題加 IRT，但用的是馬可夫鏈，只控制 3 個因子 [53]。
+   - 針對性搜尋後，沒有找到任何研究用神經網路生成題目、再用 IRT 校準難度。
+   - 西方中心的問題有實證支持 [58]，所以「跨文化、可控的生成題目」是有根據的研究貢獻。
+3. <strong>雙層架構方向對，但要修正說法。</strong>
+   - 有顯式的樂譜或規劃層，確實有助於控制。YuE2 的專家評分是 49.3% 對 34.6% [70]（預印本，只讀摘要）。
+   - 對歌仔戲、京劇這類以滑音為主的傳統，控制點可能應該放在「音高曲線」或該文化專屬的符號，而不是西方的音符。這是從印度聲樂的研究推論出來的 [50]，京劇另有只用音符就合成歌聲的反例 [76]。
+   - 兩層要分開訓練還是合成一個模型，目前還沒有定論。2026 年的證據比較偏向合成一個 [70]。</p>
+<p><strong>最大的限制：資料和授權。</strong>
+- 可以商用的大型符號資料，只找到 PDMX [27]。主要的演奏資料、非西方資料和多數模型權重都限非商用 [2][8][17][28][34][35][36]。
+- 歌仔戲幾乎沒有可以用的公開資料 [37][38]。
+- 2026 年 7 月德國法院在 GEMA 對 Suno 案認定「模型本身侵權」[41]，判決尚未定讞，也只有單一來源。
+- 結論：<strong>做學術研究可行，但將來要做訂閱產品，就得重新挑選資料和權重。</strong></p>
+<hr />
+<h2 id="d1">D1　現況：採譜、表情演奏、可控生成<a class="headerlink" href="#d1" title="Permanent link">&para;</a></h2>
+<p><strong>採譜（音訊→樂譜）大致可以直接用現成的，但輸出是 MIDI，不是樂譜。</strong>
+- 最新的開源多樂器採譜模型是 <strong>MuScriptor</strong>（2026-08，預印本）。在作者自己的測試集上，多樂器 F1 是 48.2，YourMT3+ 是 21.9。不過在 Bach10、合唱和古典樂資料集上，YourMT3+ 的起音 F1 比較高，而且兩者唱合唱都很弱 [1]（中信心：數字是單一來源，而且來自競爭者自己的表格）。
+- MuScriptor 的程式碼是 MIT，<strong>權重是 CC BY-NC 4.0（非商用）</strong> [2]。
+- YourMT3+ 的程式碼是 GPL-3.0，HF 上的權重是 Apache-2.0 [3][4]。
+- Basic Pitch 是 Apache-2.0，可以商用 [5]。
+- 鋼琴採譜：最新的頂尖結果仍是 2024 年的 Transkun [6]，沒找到 2025–26 年的後繼者。
+- <strong>音訊→可編輯樂譜（MusicXML）</strong>目前仍要分兩步：先轉 MIDI，再轉樂譜。已發表的系統只有鋼琴 [7]，沒有找到通用的多樂器音訊轉樂譜模型。</p>
+<p><strong>看譜表情演奏（樂譜→有表情的演奏）研究很活躍，但幾乎全部只做鋼琴。</strong>
+- 最實用的開源工具是 <strong>SyMuPe/PianoFlow</strong>（README 標示 ACM MM'25，未獨立確認），可以用情緒文字引導。它的程式碼是 Apache-2.0，<strong>權重和訓練資料是 CC BY-NC-SA 4.0</strong>，論文自己也說還不能即時互動 [8]。
+- 唯一找到的多樂器版本是 RenderBox（預印本，開放程度未確認）[9]（低信心）。</p>
+<p><strong>可控的符號生成：有可以拿來改的基礎模型，各自控制的面向不同。</strong>
+- <strong>Anticipatory Music Transformer（AMT）</strong>：可以補寫缺段，也能「給旋律、生伴奏」。README 裡直接示範了 <code>controls=</code> 的用法 [10][12]。程式碼和權重都是 Apache-2.0，但大型模型的訓練資料包含「約 45 萬張商業唱片的轉譜」[11]。
+- <strong>NotaGen</strong>（IJCAI 2025）：以「時期－作曲家－編制」作為提示生成 ABC 記譜，程式碼是 MIT [19]。這是本研究唯一找到、<strong>有現成作曲家和時期控制</strong>的開源模型。不過只有微調後的權重支援這種控制，而且本研究沒有系統性地搜尋其他有作曲家條件的模型。
+- <strong>Text2midi</strong>（AAAI 2025，權重 Apache-2.0）[13] 和 <strong>MIDI-LLM</strong>（Llama 3.2 授權）[14]：用文字描述風格、調性、速度和樂器。
+- <strong>MIDI-GPT</strong>：多軌補寫，加上密度、複音數、風格等屬性控制。權重是 Open RAIL-M，有使用限制 [20]。</p>
+<p><strong>音訊生成：控制力進步很快，但產出不是樂譜。</strong>
+- ACE-Step 1.5（2026-02，MIT）支援風格控制、翻唱、局部重繪、給人聲生伴奏和 LoRA 微調；摘要沒有提到 MIDI 或樂譜輸出 [15][16]。
+- MusicGen 的權重是 CC BY-NC [17]。</p>
+<p><strong>整合工具鏈：</strong> 沒有找到任何開源工具同時涵蓋採譜、生成和演奏（低信心：這是「沒找到」，不是「確定不存在」）。</p>
+<h2 id="d2">D2　資料集與授權<a class="headerlink" href="#d2" title="Permanent link">&para;</a></h2>
+<p><strong>可以商用又乾淨的大型符號資料，只找到 PDMX。</strong>
+- PDMX 收錄超過 25 萬份 MusicXML 樂譜，授權 CC BY 4.0。有 12.29% 的曲目授權資訊互相矛盾，作者建議使用 <code>no_license_conflict</code> 子集（222,856 首）[27]。</p>
+<p><strong>其他主要資料集都只能非商用，或底層版權有疑慮：</strong>
+| 資料集 | 內容 | 授權 |
+|---|---|---|
+| MAESTRO v3 | 198.7 小時，鋼琴 MIDI＋音訊 | CC BY-NC-SA [28] |
+| ASAP | 222 份樂譜對 1,067 次演奏（README 內的數字不一致：222／236、1,067／1,068） | CC BY-NC-SA [31] |
+| Aria-MIDI | 從網路音訊轉錄的鋼琴 MIDI [81] | CC BY-NC-SA，另有免責聲明 [30] |
+| Lakh MIDI | 17.6 萬個 MIDI | 資料集本身 CC BY 4.0，但內容是抓下來的流行歌轉譜，底層作品的版權並未因此授權（推論）[29] |
+| Opencpop | 中文歌聲加樂譜 | 官方頁面是 CC BY-NC-ND 4.0，商用需另外寫信洽談。來源原本互相矛盾，已依官方頁面釐清 [32] |
+| M4Singer | 中文多風格歌聲 | CC BY-NC-SA，另附賠償條款 [33] |</p>
+<p><strong>非西方和傳統音樂：資料大多限非商用、以音訊為主，有些要申請才能取得。</strong>
+- 京劇（CompMusic）：不同紀錄的授權不同，有 CC BY-NC-ND、CC BY-NC 和 CC BY [35]。其中有 120 段唱腔、1,265 句的清唱資料，附 pYIN 音高曲線和音符標註 [49]。
+- 土耳其 makam 的 SymbTr：約 3,000 首，CC BY-NC-SA [36]。
+- 印度音樂的 Saraga：CC BY-NC-SA [34]。
+- <strong>歌仔戲</strong>：
+  - 中研院團隊有一份「人聲片段＋歌詞」資料（ISMIR 2025 初步發表），沒有音高或樂譜層，發布狀態也不明 [37]。
+  - FT-GAN 的 GOAT 歌仔戲資料要申請才能取得，授權是 CC BY-NC-SA，並附賠償條款 [38]。
+- <strong>日本傳統音樂</strong>：在英文搜尋中，唯一能拿來做研究的只有 9 段民謠錄音（VocalNotes，CC BY-NC-SA），而且要填申請表才能取得。整份資料集含有敏感的儀式內容，作者要求不要重新彙整後公開 [64]（中信心：來自搜尋摘要）。
+- <strong>台灣原住民音樂</strong>：中研院民族所的祭儀歌舞檔案有 7 族、309 個影音檔，可以在線上取得，但<strong>頁面沒有寫重用條款</strong> [65]。</p>
+<p><strong>法律現況：風險在模型背下並吐出訓練資料，不只是「訓練」這個行為本身。</strong>
+- GEMA 對 OpenAI 案（慕尼黑，2025-11）：法院判定模型背下歌詞並在輸出中重現屬於侵權，而且文字與資料探勘（TDM）的例外不適用 [40]。截至 2026-07 仍在上訴中 [41]。
+- <strong>GEMA 對 Suno 案（慕尼黑，2026-07-31）</strong>：法院認為「模型本身侵權」，責任在提供模型的業者，符合 EU AI Act 也不能當作抗辯。判決尚未定讞 [41]（中信心：只有一個法律事務所的來源）。
+- 美國：2025 年 10 到 11 月，UMG 和 WMG 分別與 Udio 和解，WMG 也與 Suno 和解 [42]。</p>
+<h2 id="d3">D3　非十二平均律的表示法<a class="headerlink" href="#d3" title="Permanent link">&para;</a></h2>
+<p><strong>記譜格式在規格上做得到，實際上很少軟體支援。</strong>
+- MIDI 2.0 有逐音音高和 32 位元的滑音（pitch bend）[43]。
+- MusicXML 原生支援四分之一音，也可以用小數 <code>&lt;alter&gt;</code> 表示更細的音高 [44]。
+- MEI 能區分「寫的」和「實際發聲的」臨時記號 [46]。
+- 但實務上：沒找到確認支援 MIDI 2.0 逐音音高的合成器清單 [77]；Dorico 匯出時會丟掉微分音記號 [45]，OpenMusic 匯入時也會忽略它們 [78]（中低信心：都來自論壇）。
+- 滑音和裝飾音在這些格式中，多半只能當作音符或裝飾記號處理。有研究者因此質疑「音符」是不是適合許多傳統的基本單位 [83]（低信心）。</p>
+<p><strong>目前研究的做法：把「連續音高曲線」放在中間層。</strong>
+- 印度聲樂的 GaMaDHaNi（ISMIR 2024）是「音高曲線→音訊」的兩階段生成。作者明確反對用「粗糙的離散符號」來表示旋律 [50]。
+- 京劇的資料集同時提供 f0 曲線和音符標註 [49]。
+- 2026 年有一篇預印本用 VQ-VAE 把韓國傳統音樂的裝飾音曲線「學成」離散符號 [51]。
+- 計算民族音樂學早就主張：把音高切成離散的音，本身就是一種文化慣例 [52]。</p>
+<p><strong>在地資料的缺口：</strong>
+- 工尺譜的光學辨譜研究只在 39 張圖上做過評估，沒有公開資料集 [47]。
+- 簡譜沒有標準的評測資料，2025 年的系統改用不需要大量訓練資料的傳統電腦視覺方法 [48]。</p>
+<h2 id="d4">D4　音樂心理學裡的生成刺激<a class="headerlink" href="#d4" title="Permanent link">&para;</a></h2>
+<p><strong>已經有測驗用程式自動生成題目，但都不是深度學習。</strong>
+- 旋律辨別測驗（MDT，Sci Rep 2017）的做法 [53]：
+  - 用馬可夫鏈，從愛爾蘭民謠（Essen 資料庫）生成旋律。
+  - 只控制 3 個「難度因子」：旋律長度、輪廓違反、調性違反。
+  - 用解釋型 IRT 校準難度，這 3 個因子能解釋難度變異的 <strong>adj. R² = 0.869</strong>。
+  - 共校準 1,200 題，受試者是 158 位成人和 266 位兒童。
+- CA-BAT（節拍）和 MPT（音準）沿用同樣的「自動出題＋IRT＋適性化測驗」做法 [54][55]。
+- PROMS 標榜自己「文化公平」[56]。</p>
+<p><strong>近年用 AI 音樂當刺激的研究，大多在問別的問題。</strong> 它們多半測的是「標示為人做的還是 AI 做的，會不會改變聽者反應」，沒有拿模型來精確操弄變因，自然度的驗證也只做到操弄檢核 [57]。</p>
+<p><strong>缺口還在，經過反方審查仍然成立。</strong> 在 2017–2026 年的文獻中做了針對性搜尋，<strong>沒有找到</strong>任何研究用神經網路生成音樂能力測驗的題目，再用 IRT 或適性化測驗校準難度。最接近的有三個：
+- 一篇用 VAE 生成相似度刺激、但沒有用 IRT 的研究（ICMPC 2023）[61]
+- 一篇因為生成模型失敗、改用 Suno 的學士論文 [62]
+- 一篇「依目標難度生成鋼琴視奏譜」的預印本（教育用途，不是測驗）[63]</p>
+<p><strong>西方中心的批評有實證支持。</strong>
+- MDT 的作者自己承認只用了單一曲風 [53]。
+- Jacoby 等人在 2024 年的 15 國研究發現，不同族群偏好的節奏比例不同，而學生和網路樣本的反應都很接近美國聽者 [58]。
+- 音樂聽力測驗（MET）在中國樣本上，之前並沒有做過跨文化的信效度檢驗 [68]。</p>
+<p><strong>評估生成品質的方法還沒有標準。</strong> 評估方法的分類可以參考 ACM CSUR 的綜述 [59]。主觀的聽覺測驗沒有統一的實驗程序 [79]（預印本，中信心），客觀指標和聽者評分的相關也很弱：IS 是 0.25 到 0.37，FAD 是 −0.01 到 −0.16 [60]。</p>
+<h2 id="d5-midi">D5　單旋律 MIDI 之後的路線<a class="headerlink" href="#d5-midi" title="Permanent link">&para;</a></h2>
+<p><strong>現在的標準做法：</strong>
+- 用 MidiTok 把 MIDI 轉成模型能讀的符號序列，目前版本 3.1.0（2026-09，MIT），支援 REMI、CPWord、Octuple、MMM 等格式 [21]。
+- 再接一個只有解碼器的 Transformer，或改用 ABC 記譜的文字模型。
+- 三個目標都有開源的預訓練模型可以拿來改：
+  - 伴奏：AMT [12]
+  - 鋼琴表情演奏：Aria，Apache-2.0，ISMIR 2025（依 README，BibTeX 仍標為預印本，未確認）[18]
+  - 作曲家和時期控制：NotaGen [19]</p>
+<p><strong>算力：</strong>
+- NotaGen-large 的訓練、微調和推論都<strong>至少</strong>需要 24GB 顯示記憶體。NotaGen-X 在本機推論大約 8GB。較小的版本（110M、244M）需求更低 [19]。
+- Aria 可以在 Apple Silicon 上用 MLX 推論 [18]。
+- 參考值：MIDI-GPT 這種小型多軌模型從頭訓練，大約要 4 張 V100 跑 2 到 3 天 [20]。
+- AMT、Aria 和 NotaGen 都沒有公布訓練所需的 GPU 時數。AMT 和 Aria 也<strong>沒有附微調說明</strong>，AMT 的作者把訓練導向另一套框架 Levanter [12][18]。</p>
+<p><strong>一般 LLM 不適合當核心生成器。</strong>
+- 在 ABC-Eval（2025-09，預印本）上，GPT-5 的平均分數約 55%。所有模型在小節層級的任務上都失敗，辨認作曲家和曲風也接近用猜的 [22]。
+- 用 ABC 微調 LLM 可以提升理解力，但會犧牲一般能力 [23]。
+- 比較適合的用途是「自然語言介面」，而不是生成音樂本身。</p>
+<p><strong>常見的坑：</strong>
+- 直接微調新的細部控制，模型常常學不會遵守。MuseBarControl 加了一個預訓練階段後，和弦正確率從 65.3% 提升到 78.3% [24]（中低信心）。
+- 模型抄襲訓練資料，多半來自短動機重複出現 [26]。檢查方法也有限：旋律式的抄襲檢測在多聲部音樂上會失效，要改用 SSIMuse 這類專門方法 [25]。
+- FMD 不是可靠的品質指標 [23]。訓練損失也不可靠：有研究發現，過擬合的模型聽起來反而更連貫，驗證損失卻變差 [80]（中低信心）。聽覺測驗仍然是基準。</p>
+<h2 id="_3">跨面向洞察<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>授權決定了「研究版」和「產品版」是兩條不同的路。</strong> 把 D1 的權重授權和 D2 的資料授權放在一起看：</li>
+<li>研究版可以用 MuScriptor、SyMuPe、MAESTRO、京劇資料。</li>
+<li>產品版只剩 Basic Pitch、YourMT3+（附 GPL 義務）、ACE-Step、PDMX，再加上自己錄製或取得授權的資料 [2][4][5][8][16][27]。其中 ACE-Step 和 YourMT3+ 的訓練資料來源還沒查證，商用前需要先確認。</li>
+<li>AMT 雖然是 Apache 授權，作者自己也提醒輸出「應推定有侵權風險」[10]。在 GEMA 對 Suno 案之後，「寬鬆的授權不等於可以安全商用」這點更明確了 [41]。</li>
+<li><strong>最缺資料的文化，剛好也是最需要曲線表示的文化。</strong> 歌仔戲和京劇的公開資料最少（D2），而它們偏偏最依賴滑音和裝飾音，西方記譜表達不了（D3）[37][49][50]。所以跨文化這一段，要從<strong>自己採集資料</strong>和<strong>設計表示法</strong>開始，不能指望直接微調現成模型。這也呼應了你想做田野調查的願望。</li>
+<li><strong>評估方法本身就可以是研究貢獻。</strong></li>
+<li>客觀指標不可靠，聽覺測驗又沒有標準程序（D4）[60][79]。</li>
+<li>但你的專業恰好有 IRT 和心理計量的方法（D4）[53]。</li>
+<li>加上模型會抄襲訓練資料，需要專門的檢查（D5）[25][26]。</li>
+<li>三者合在一起，「用心理計量方法驗證生成刺激的可控度、自然度和原創性」本身就是一個方法學貢獻。</li>
+</ul>
+<h2 id="_4">反證（反方審查）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>結論</th>
+<th>判定</th>
+<th>最強的反方論點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>神經網路生成＋IRT 是研究空白</td>
+<td><strong>成立</strong>，措辭改為「沒有找到」</td>
+<td>馬可夫鏈出題已經能解釋約 87% 的難度變異；神經網路生成器沒有可以解釋的難度因子，可能反而削弱構念效度。所以必須說清楚神經網路生成「多帶來了什麼」，例如風格廣度和生態效度 [53]。最接近的既有研究見 [61][62][63]。這是審查員自己的推論，不是文獻結論。</td>
+</tr>
+<tr>
+<td>雙層架構優於直接生成音訊</td>
+<td><strong>被削弱</strong></td>
+<td>YuE2 中，專家較偏好「一個模型同時寫譜和生成音訊」，勝過分段串接 [70]。音訊轉接器已經能在沒有符號層的情況下控制節拍和音高 [71]。JASCO 則直接把符號形式的和弦和旋律當作條件，而不另外生成符號層 [72]。阿拉伯 maqam 有直接用提示詞引導音訊模型的例子 [73]。民族音樂學批評音符類別帶有歐洲的預設 [82]，採譜研究也普遍預設五線譜是目標格式 [75]。京劇歌聲也有只用音符、不用曲線就合成出來的研究 [76]。但目前沒有找到任何正面比較兩種做法的研究。</td>
+</tr>
+<tr>
+<td>採用現成模型並微調，優於從頭訓練</td>
+<td><strong>被削弱</strong>，核心仍然成立</td>
+<td>24GB 只是 NotaGen-large 的下限，實際上要改用中小型版本 [19]。NotaGen 的預訓練資料來源沒有公開 [19]。西方偏誤主要在音訊模型上有實證，非西方資料只占 5.7% [74]。用很小的資料集微調容易背下訓練資料。替代方案「針對特定傳統自訂表示法、從頭訓練小模型」說得通，但沒有找到實證。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">建議<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>第一步，用 2 到 4 週做一個研究版原型，涵蓋「旋律→伴奏→演奏」。</strong></li>
+<li>用 AMT 從旋律生伴奏 [12]，再用 SyMuPe/PianoFlow 或 Aria 做鋼琴表情演奏 [8][18]。全部在研究授權下進行。</li>
+<li>這條路直接接著你做過的單旋律 MIDI，回答「下一步」的問題。</li>
+<li>信心：中高。授權都已到第一手來源查證，但能力只有部分查證：SyMuPe 的能力來自搜尋摘要，AMT 和 Aria 也沒有微調說明。「2 到 4 週」是我的估計，沒有來源。</li>
+<li><strong>對應 brief 的「可行性」一節。</strong></li>
+<li><strong>第二步，在西方曲風上建立可控的題目庫，再用 IRT 校準難度，做出第一篇論文的雛型。</strong></li>
+<li>仿照 MDT 的方法 [53]，把「難度因子」換成 NotaGen 的作曲家和時期條件 [19]，或 MIDI-GPT 的屬性控制 [20]。</li>
+<li>一開始就設計好「因子→難度」的解釋模型，回應反方審查的效度疑慮。</li>
+<li>信心：中。目前沒有先例，這同時是機會也是風險。</li>
+<li><strong>對應研究計畫的「研究目標」和「構想方法」。</strong></li>
+<li><strong>第三步，把跨文化視為獨立的資料和表示法工程，不要期待微調就能解決。</strong></li>
+<li>先挑一個傳統，京劇的資料最完整 [49]。用「音符骨架＋音高曲線」的表示法 [50][51]，並評估合一模型這條路 [70]。</li>
+<li>歌仔戲要先和中研院團隊 [37] 或 FT-GAN 團隊 [38] 洽談取得資料，或自己做田野採集。</li>
+<li>歌聲合成的部分，改用 openvpi/DiffSinger 作為基礎：它的程式碼是 Apache-2.0，但預訓練模型和聲庫的條款還沒查證 [39]。不要用沒有授權的 FT-GAN 程式碼 [38]。</li>
+<li>信心：中低。關於表示法的結論已被反方審查削弱，在地資料也極少。</li>
+<li><strong>對應研究計畫的「跨文化變因框架」和「風險」。</strong></li>
+<li><strong>一開始就決定是做研究還是做產品。</strong></li>
+<li>產品版從 PDMX、Basic Pitch、ACE-Step 這類可以商用的組合出發 [5][16][27]。</li>
+<li>所有生成內容都要做抄襲檢查，例如 SSIMuse [25]。</li>
+<li>信心：中。法律判決還在變動 [41]。</li>
+<li><strong>對應 brief 的「限制與風險」。</strong></li>
+<li><strong>不要拿一般的 LLM 當音樂生成器，只用它做自然語言介面</strong> [22][23]。信心：中，因為只有單一評測來源。</li>
+</ol>
+<h2 id="_6">待解問題<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>NotaGen 和 AMT 能不能在少量非西方資料上微調成功？</strong> 目前沒有任何實作報告。需要自己做一個小實驗，例如拿京劇的樂譜 [49] 試微調 NotaGen-small。</li>
+<li><strong>雙層分開訓練和合一模型，哪個比較好？</strong> 沒有找到正面比較的研究 [70]。要等 YuE2 的論文經過同儕審查，或自己做消融實驗。</li>
+<li><strong>歌仔戲和原住民音樂的資料能不能取得、怎麼取得？</strong> 需要寫信洽談中研院民族所 [65]、Li Su 團隊 [37] 和 FT-GAN 作者 [38]，並遵循原住民同意相關的規範。</li>
+<li><strong>還沒查到的部分：</strong></li>
+<li>日文文獻裡的日本傳統音樂資料（英文搜尋幾乎沒有結果）</li>
+<li>中國少數民族音樂的資料庫</li>
+<li>美國著作權局的 AI 訓練報告</li>
+<li>可以用 Deepen 繼續查，或改用你自己的研究工具。</li>
+<li><strong>只有單一來源、尚待確認的說法：</strong> GEMA 對 Suno 判決 [41]，以及 MAESTRO、M4Singer 和 Saraga 的授權 [28][33][34]。</li>
+</ul>
+<h2 id="_7">過期地圖<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>大部分授權條款是在 2026-11-19 當天到第一手來源查證的，但 SymbTr、Saraga 和 Aria-MIDI 仍只有單一來源或搜尋摘要。授權最容易變動，建議每個月重查。依各類說法的有效期限，建議重查的時間如下：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>代表說法</th>
+<th>建議重查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>授權</td>
+<td>MuScriptor、SyMuPe、ACE-Step、MusicGen、AMT、PDMX、Opencpop、MAESTRO [2][8][11][16][17][27][28][32]</td>
+<td><strong>2026-12-19</strong></td>
+</tr>
+<tr>
+<td>法律</td>
+<td>GEMA 對 OpenAI 上訴、GEMA 對 Suno [40][41]</td>
+<td>2027-02</td>
+</tr>
+<tr>
+<td>評測和能力</td>
+<td>MuScriptor F1、ABC-Eval、YuE2、AMT 和 NotaGen 能力 [1][12][19][22][70]</td>
+<td>2027-05</td>
+</tr>
+<tr>
+<td>資料集</td>
+<td>工尺譜和簡譜辨譜資料、歌仔戲資料 [37][47][48]</td>
+<td>2027-11</td>
+</tr>
+<tr>
+<td>方法</td>
+<td>GaMaDHaNi、MDT、民族音樂學 [50][52][53]</td>
+<td>2028-11</td>
+</tr>
+</tbody>
+</table>
+<p><code>recon_kit staleness</code> 依照「發表日期」計算，把 16 條說法標成過期，其中大多是授權類。不過授權本身是今天到第一手來源確認的，所以上表以存取日起算。<strong>最早的重查日是 2026-12-19（授權類）。</strong></p>
+<hr />
+<h2 id="_8">來源附錄<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>支持的發現</th>
+<th>發表者</th>
+<th>發表日期</th>
+<th>存取日期</th>
+<th>信心</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[1]</td>
+<td>MuScriptor 架構與評測（預印本，ISMIR 2026 投稿）</td>
+<td><a href="https://arxiv.org/abs/2607.08168">arXiv 2607.08168</a></td>
+<td>2026-08</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[2]</td>
+<td>MuScriptor 程式碼 MIT／權重 CC BY-NC</td>
+<td><a href="https://github.com/muscriptor/muscriptor">GitHub muscriptor</a>、<a href="https://huggingface.co/MuScriptor/muscriptor-large">HF</a></td>
+<td>2026-11</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[3]</td>
+<td>YourMT3+（IEEE MLSP 2024）</td>
+<td><a href="https://arxiv.org/html/2407.04822v3">arXiv 2407.04822</a></td>
+<td>2024-07</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[4]</td>
+<td>YourMT3 程式碼 GPL-3.0／權重 Apache-2.0</td>
+<td><a href="https://github.com/mimbres/YourMT3">GitHub</a>、<a href="https://huggingface.co/mimbres/YourMT3">HF</a></td>
+<td>2025-06</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[5]</td>
+<td>Basic Pitch Apache-2.0</td>
+<td><a href="https://github.com/spotify/basic-pitch">Spotify GitHub</a></td>
+<td>2022</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[6]</td>
+<td>Transkun 鋼琴採譜（ISMIR 2024）</td>
+<td><a href="https://arxiv.org/html/2404.09466v6">arXiv 2404.09466</a></td>
+<td>2024</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[7]</td>
+<td>鋼琴 MIDI→MusicXML（ISMIR 2024）；音訊→樂譜（IJCAI 2024）</td>
+<td><a href="https://arxiv.org/html/2410.00210v1">arXiv 2410.00210</a>、<a href="https://ijcai.org/proceedings/2024/862">IJCAI</a></td>
+<td>2024</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[8]</td>
+<td>SyMuPe/PianoFlow 能力與授權</td>
+<td><a href="https://arxiv.org/html/2511.03425v1">arXiv 2511.03425</a>、<a href="https://github.com/ilya16/SyMuPe">GitHub</a>、<a href="https://huggingface.co/SyMuPe/PianoFlow-base">HF</a></td>
+<td>2025-11 / 2026-05</td>
+<td>2026-11-19</td>
+<td>高（授權）／中（能力）</td>
+</tr>
+<tr>
+<td>[9]</td>
+<td>RenderBox 多樂器演奏（預印本）</td>
+<td><a href="https://arxiv.org/html/2502.07711v1">arXiv 2502.07711</a></td>
+<td>2025-02</td>
+<td>2026-11-19</td>
+<td>低</td>
+</tr>
+<tr>
+<td>[10]</td>
+<td>AMT 補寫與伴奏能力（TMLR）</td>
+<td><a href="https://arxiv.org/abs/2306.08620">arXiv 2306.08620</a></td>
+<td>2023-06</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[11]</td>
+<td>AMT 權重 Apache-2.0；訓練資料含 45 萬張商業唱片轉譜</td>
+<td><a href="https://huggingface.co/stanford-crfm/music-large-800k">HF music-large-800k</a></td>
+<td>2024-03</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[12]</td>
+<td>AMT <code>controls=</code> 伴奏示範；無訓練／微調程式碼</td>
+<td><a href="https://github.com/jthickstun/anticipation">GitHub anticipation</a></td>
+<td>2026-07</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[13]</td>
+<td>Text2midi（AAAI 2025）MIT／Apache-2.0</td>
+<td><a href="https://huggingface.co/amaai-lab/text2midi">HF</a>、<a href="https://github.com/AMAAI-Lab/Text2midi">GitHub</a></td>
+<td>2025-01</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[14]</td>
+<td>MIDI-LLM，Llama 3.2 授權</td>
+<td><a href="https://arxiv.org/abs/2511.03942v1">arXiv 2511.03942</a>、<a href="https://github.com/slSeanWU/MIDI-LLM">GitHub</a></td>
+<td>2025-11</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[15]</td>
+<td>ACE-Step 1.5 能力（預印本）</td>
+<td><a href="https://arxiv.org/abs/2602.00744v2">arXiv 2602.00744</a></td>
+<td>2026-02</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[16]</td>
+<td>ACE-Step 1.5 程式碼與權重 MIT</td>
+<td><a href="https://github.com/ace-step/ACE-Step-1.5">GitHub</a>、<a href="https://huggingface.co/ACE-Step/Ace-Step1.5">HF</a></td>
+<td>2026-02</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[17]</td>
+<td>MusicGen 權重 CC BY-NC</td>
+<td><a href="https://github.com/facebookresearch/audiocraft">AudioCraft GitHub</a></td>
+<td>2026-03</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[18]</td>
+<td>Aria：Apache-2.0、約 6 萬小時鋼琴、MLX 推論；無微調說明（README 標 ISMIR 2025，BibTeX 標預印本）</td>
+<td><a href="https://github.com/EleutherAI/aria">GitHub EleutherAI/aria</a></td>
+<td>2026-05</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[19]</td>
+<td>NotaGen：MIT、時期－作曲家－編制提示、24GB 微調（IJCAI 2025）</td>
+<td><a href="https://github.com/ElectricAlexis/NotaGen">GitHub</a>、<a href="https://arxiv.org/abs/2502.18008">arXiv 2502.18008</a></td>
+<td>2025-02</td>
+<td>2026-11-19</td>
+<td>高（權重授權未載明）</td>
+</tr>
+<tr>
+<td>[20]</td>
+<td>MIDI-GPT 屬性控制、Open RAIL-M、4×V100 2–3 天（預印本）</td>
+<td><a href="https://arxiv.org/html/2501.17011v2">arXiv 2501.17011</a></td>
+<td>2025-02</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[21]</td>
+<td>MidiTok 3.1.0（MIT）</td>
+<td><a href="https://pypi.org/project/miditok/">PyPI</a></td>
+<td>2026-09</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[22]</td>
+<td>ABC-Eval：LLM 小節層級失敗（預印本）</td>
+<td><a href="https://arxiv.org/html/2509.23350v1">arXiv 2509.23350</a></td>
+<td>2025-09</td>
+<td>2026-11-19</td>
+<td>高（單一來源）</td>
+</tr>
+<tr>
+<td>[23]</td>
+<td>在 ABC 上微調 LLM 的取捨；FMD 不可靠（預印本）</td>
+<td><a href="https://arxiv.org/html/2601.22764v1">arXiv 2601.22764</a></td>
+<td>2026-01</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[24]</td>
+<td>MuseBarControl：直接微調不服從控制（預印本）</td>
+<td><a href="https://arxiv.org/abs/2407.04331">arXiv 2407.04331</a></td>
+<td>2024-07</td>
+<td>2026-11-19</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>[25]</td>
+<td>SSIMuse 多聲部抄襲檢測（預印本）</td>
+<td><a href="https://arxiv.org/abs/2509.13658">arXiv 2509.13658</a></td>
+<td>2025-09</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[26]</td>
+<td>短動機導致抄襲（NeurIPS 2025 workshop）</td>
+<td><a href="https://neurips.cc/virtual/2025/123788">NeurIPS</a></td>
+<td>2025</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[27]</td>
+<td>PDMX CC BY 4.0、no_license_conflict 222,856 首</td>
+<td><a href="https://zenodo.org/records/15571083">Zenodo 15571083</a></td>
+<td>2025-06</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[28]</td>
+<td>MAESTRO v3 規模與 CC BY-NC-SA</td>
+<td><a href="https://magenta.tensorflow.org/datasets/maestro">Magenta</a></td>
+<td>即時頁面</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[29]</td>
+<td>Lakh MIDI 規模與 CC BY 4.0</td>
+<td><a href="https://colinraffel.com/projects/lmd/">Colin Raffel</a></td>
+<td>即時頁面</td>
+<td>2026-11-19</td>
+<td>高／推論為中</td>
+</tr>
+<tr>
+<td>[30]</td>
+<td>Aria-MIDI CC BY-NC-SA＋免責聲明</td>
+<td><a href="https://github.com/loubbrad/aria-midi">GitHub aria-midi</a></td>
+<td>2025-06</td>
+<td>2026-11-19</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>[31]</td>
+<td>ASAP 規模與 CC BY-NC-SA</td>
+<td><a href="https://github.com/fosfrancesco/asap-dataset">GitHub asap-dataset</a></td>
+<td>即時頁面</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[32]</td>
+<td>Opencpop CC BY-NC-ND 4.0（官方頁面）</td>
+<td><a href="https://wenet-e2e.github.io/opencpop/liscense/">Opencpop</a></td>
+<td>2022</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[33]</td>
+<td>M4Singer CC BY-NC-SA＋賠償條款</td>
+<td><a href="https://github.com/M4Singer/M4Singer/blob/master/dataset_license.md">GitHub</a></td>
+<td>—</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[34]</td>
+<td>Saraga CC BY-NC-SA</td>
+<td><a href="https://zenodo.org/records/4301737">Zenodo 4301737</a></td>
+<td>2018-05</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[35]</td>
+<td>CompMusic 京劇各紀錄授權</td>
+<td><a href="https://zenodo.org/records/1285647">Zenodo 1285647 等</a></td>
+<td>2017–2024</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[36]</td>
+<td>SymbTr 約 3,000 首、CC BY-NC-SA</td>
+<td><a href="https://github.com/MTG/symbtr">GitHub MTG/symbtr</a></td>
+<td>2016</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[37]</td>
+<td>歌仔戲人聲＋歌詞資料（ISMIR 2025 LBD）</td>
+<td><a href="https://arxiv.org/abs/2601.00299v1">arXiv 2601.00299</a></td>
+<td>2026-01</td>
+<td>2026-11-19</td>
+<td>高（存在）／低（取得）</td>
+</tr>
+<tr>
+<td>[38]</td>
+<td>FT-GAN（AAAI 2024）：程式碼無授權；GOAT CC BY-NC-SA 需申請</td>
+<td><a href="https://github.com/zhengmidon/Gezi-Opera-Synthesis">GitHub</a>、<a href="https://zhengmidon.github.io/FTGAN.github.io/">專案頁</a></td>
+<td>2024-02</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[39]</td>
+<td>openvpi/DiffSinger Apache-2.0</td>
+<td><a href="https://github.com/openvpi/DiffSinger">GitHub</a></td>
+<td>即時頁面</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[40]</td>
+<td>GEMA 對 OpenAI 一審判決</td>
+<td><a href="https://www.taylorwessing.com/de/insights-and-events/insights/2025/11/gema-v-openai">Taylor Wessing</a>、<a href="https://www.gema.de/en/w/landmark-ruling-gema-against-openai">GEMA</a></td>
+<td>2025-11</td>
+<td>2026-11-19</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>[41]</td>
+<td>OpenAI 案上訴中；GEMA 對 Suno 判決</td>
+<td><a href="https://www.reedsmith.com/our-insights/blogs/viewpoints/102nfis/gema-notches-a-second-transatlantic-ai-copyright-win-in-germany/">Reed Smith</a></td>
+<td>2026-07</td>
+<td>2026-11-19</td>
+<td>中（單一來源）</td>
+</tr>
+<tr>
+<td>[42]</td>
+<td>UMG／WMG 與 Udio、Suno 和解</td>
+<td><a href="https://www.musicbusinessworldwide.com/universal-music-settles-udio-lawsuit-strikes-deal-for-licensed-ai-music-platform">MBW</a>、<a href="https://news.bloomberglaw.com/ip-law/warner-music-settles-lawsuit-with-ai-music-startup-suno">Bloomberg Law</a></td>
+<td>2025-10/11</td>
+<td>2026-11-19</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>[43]</td>
+<td>MIDI 2.0 逐音音高</td>
+<td><a href="https://midi.org/the-state-of-midi-2-0-high-resolution-performance-and-the-rise-of-profiles-update-feb-2026">MIDI Association</a></td>
+<td>2026-02</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[44]</td>
+<td>MusicXML 四分之一音、小數 alter</td>
+<td><a href="https://lists.w3.org/Archives/Public/public-music-notation-contrib/2016Jul/0007.html">W3C 郵件列表</a></td>
+<td>2016 / 2020</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[45]</td>
+<td>微分音匯出遺失（Dorico／OpenMusic）</td>
+<td><a href="https://forums.steinberg.net/t/microtonality-and-musicxml/863784">Steinberg 論壇</a></td>
+<td>—</td>
+<td>2026-11-19</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>[46]</td>
+<td>MEI accid／accid.ges</td>
+<td><a href="https://music-encoding.org/guidelines/v5/elements/accid.html">MEI v5</a></td>
+<td>v5</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[47]</td>
+<td>工尺譜光學辨譜，39 張圖評估</td>
+<td><a href="https://asmp-eurasipjournals.springeropen.com/articles/10.1186/1687-4722-2014-7">EURASIP JASMP 2014</a></td>
+<td>2014</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[48]</td>
+<td>簡譜光學辨譜（預印本）</td>
+<td><a href="https://arxiv.org/abs/2512.14758v1">arXiv 2512.14758</a></td>
+<td>2025-12</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[49]</td>
+<td>京劇清唱資料，f0＋音符（ISMIR 2017）</td>
+<td><a href="https://archives.ismir.net/ismir2017/paper/000119.pdf">ISMIR 2017</a>、<a href="https://zenodo.org/records/832736">Zenodo 832736</a></td>
+<td>2017</td>
+<td>2026-11-19</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>[50]</td>
+<td>GaMaDHaNi 音高曲線階層生成（ISMIR 2024）</td>
+<td><a href="https://arxiv.org/abs/2408.12658v2">arXiv 2408.12658</a></td>
+<td>2024-08</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[51]</td>
+<td>VQ-VAE 曲線符號化（韓國傳統音樂，預印本）</td>
+<td><a href="https://arxiv.org/pdf/2608.10979">arXiv 2608.10979</a></td>
+<td>2026-08</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[52]</td>
+<td>計算民族音樂學：離散化是文化慣例</td>
+<td><a href="https://speech.di.uoa.gr/ICMC-SMC-2014/images/VOL_1/0069.pdf">ICMC-SMC 2014</a></td>
+<td>2014</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[53]</td>
+<td>MDT：馬可夫鏈出題、3 個難度因子、R² 0.869（Sci Rep）</td>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5472621">PMC5472621</a></td>
+<td>2017-06</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[54]</td>
+<td>CA-BAT（IRT＋CAT＋AIG）</td>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6097996">PMC6097996</a></td>
+<td>2018</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[55]</td>
+<td>Mistuning Perception Test（BRM 2019）</td>
+<td><a href="https://link.springer.com/article/10.3758/s13428-019-01225-1">Springer</a></td>
+<td>2019</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[56]</td>
+<td>PROMS（PLoS One 2012）</td>
+<td><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3532219/">PMC3532219</a></td>
+<td>2012</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[57]</td>
+<td>AI 音樂刺激研究以標示偏誤為主</td>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12194076/">PMC12194076</a>、<a href="https://arxiv.org/html/2512.02785">arXiv 2512.02785</a></td>
+<td>2025–2026</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[58]</td>
+<td>Jacoby 等人 15 國節奏先驗（NHB 2024）</td>
+<td><a href="https://www.aesthetics.mpg.de/en/research/former-departments-and-research-groups/research-group-computational-auditory-perception/news/news-rg-cap-detail/article/rhythm-diversity-different-cultures-prefer-different-beat-patterns-1.html">MPI 新聞稿</a></td>
+<td>2024-03</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[59]</td>
+<td>生成音樂評估綜述（ACM CSUR）</td>
+<td><a href="https://arxiv.org/abs/2506.05104">arXiv 2506.05104</a></td>
+<td>2025-06</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[60]</td>
+<td>IS／FAD 與主觀評分相關弱</td>
+<td><a href="https://arxiv.org/pdf/2108.01576">arXiv 2108.01576</a></td>
+<td>2021-08</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[61]</td>
+<td>VAE 旋律作為相似度刺激（ICMPC 2023）</td>
+<td><a href="https://mac.kaist.ac.kr/pubs/kim-icmpc2023.pdf">KAIST</a></td>
+<td>2023</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[62]</td>
+<td>UAB 學士論文：AI 音樂刺激資料集</td>
+<td><a href="https://ddd.uab.cat/record/317789/?ln=en">UAB</a></td>
+<td>2025</td>
+<td>2026-11-19</td>
+<td>低</td>
+</tr>
+<tr>
+<td>[63]</td>
+<td>依目標難度生成視奏譜（預印本）</td>
+<td><a href="https://arxiv.org/pdf/2509.16913">arXiv 2509.16913</a></td>
+<td>2025-09</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[64]</td>
+<td>VocalNotes（ISMIR 2023 LBD），日本民謠 9 段</td>
+<td><a href="https://ismir2023program.ismir.net/lbd_354.html">ISMIR 2023</a></td>
+<td>2023-11</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[65]</td>
+<td>中研院台灣原住民祭儀歌舞檔案</td>
+<td><a href="https://www.ethno.sinica.edu.tw/page2-1_e.php">中研院民族所</a></td>
+<td>—</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[68]</td>
+<td>MET 中國樣本驗證</td>
+<td><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10849222/">PMC10849222</a></td>
+<td>2024</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[70]</td>
+<td>YuE2：合一模型優於分段串接；顯式樂譜規劃有幫助（預印本，只讀摘要）</td>
+<td><a href="https://arxiv.org/abs/2609.33757">arXiv 2609.33757</a></td>
+<td>2026-09</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[71]</td>
+<td>DiffSynth-Music：音訊轉接器控制節拍和音高（預印本）</td>
+<td><a href="https://huggingface.co/papers/2609.12774.md">HF Papers 2609.12774</a></td>
+<td>2026-09</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[72]</td>
+<td>JASCO：音訊模型直接吃和弦和旋律條件</td>
+<td><a href="https://arxiv.org/abs/2406.10970">arXiv 2406.10970</a></td>
+<td>2024-06</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[73]</td>
+<td>MazzikaAI：用提示詞引導音訊模型增加 maqam 微分音（預印本）</td>
+<td><a href="https://arxiv.org/abs/2608.10360">arXiv 2608.10360</a></td>
+<td>2026-08</td>
+<td>2026-11-19</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>[74]</td>
+<td>Music for All：非西方資料只占 5.7%（NAACL 2025）</td>
+<td><a href="https://arxiv.org/abs/2502.07328">arXiv 2502.07328</a></td>
+<td>2025-02</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[75]</td>
+<td>採譜研究預設西方五線譜的問題（DSH 2022）</td>
+<td><a href="https://library.soas.ac.uk/Record/eprints-35331">SOAS</a></td>
+<td>2022</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[76]</td>
+<td>京劇歌聲只用音符合成（DurIAN，預印本）</td>
+<td><a href="https://arxiv.org/abs/1912.12010">arXiv 1912.12010</a></td>
+<td>2019-12</td>
+<td>2026-11-19</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>[77]</td>
+<td>找不到支援 MIDI 2.0 逐音音高的合成器清單</td>
+<td><a href="https://www.kvraudio.com/forum/viewtopic.php?p=8160672">KVR Audio 論壇</a></td>
+<td>—</td>
+<td>2026-11-19</td>
+<td>低</td>
+</tr>
+<tr>
+<td>[78]</td>
+<td>OpenMusic 8 匯入時忽略四分之一音記號</td>
+<td><a href="https://discussion.forum.ircam.fr/t/musicxml-import-still-ignores-quarter-tone-accidentals-in-openmusic-8-0/183126">IRCAM 論壇</a></td>
+<td>—</td>
+<td>2026-11-19</td>
+<td>低</td>
+</tr>
+<tr>
+<td>[79]</td>
+<td>主觀評估沒有標準化程序（預印本，搜尋摘要）</td>
+<td><a href="https://arxiv.org/pdf/2308.13736">arXiv 2308.13736</a></td>
+<td>2023-08</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[80]</td>
+<td>過擬合的模型聽起來更連貫、驗證損失卻變差（預印本）</td>
+<td><a href="https://arxiv.org/pdf/2511.07268v2">arXiv 2511.07268</a></td>
+<td>2025-11</td>
+<td>2026-11-19</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>[81]</td>
+<td>Aria-MIDI 從網路音訊轉錄（ICLR 2025）</td>
+<td><a href="https://arxiv.org/abs/2504.15071">arXiv 2504.15071</a></td>
+<td>2025-04</td>
+<td>2026-11-19</td>
+<td>高</td>
+</tr>
+<tr>
+<td>[82]</td>
+<td>民族音樂學：五線譜帶有歐洲的類別預設</td>
+<td><a href="https://resolve.cambridge.org/core/journals/journal-of-the-royal-musical-association/article/notating-deconstruction-what-can-ethnomusicological-transcription-learn-from-the-notational-practices-of-contemporary-composers/77AAD1B39327C096678012C3FF848403">JRMA, Notating Deconstruction</a></td>
+<td>未確認</td>
+<td>2026-11-19</td>
+<td>中</td>
+</tr>
+<tr>
+<td>[83]</td>
+<td>VocalNotes：「音符」是否適合許多傳統的基本單位</td>
+<td><a href="https://journal.iftawm.org/?p=4218">IFTAWM journal</a></td>
+<td>未確認</td>
+<td>2026-11-19</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂端
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.indexes", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

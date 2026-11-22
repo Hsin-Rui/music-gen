@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>伴奏挑選指標 R5</title>
+<style>
+:root{--bg:#fbfaf8;--fg:#1d1d1f;--muted:#5f6368;--card:#ffffff;--line:#e3e0da;--accent:#2f6f8f;
+--hi-bg:#e3f1e6;--hi-fg:#1e5b2c;--mid-bg:#eef0f3;--mid-fg:#3b4350;--lo-bg:#fde7d9;--lo-fg:#8a3a0a;--warn:#fff1b8}
+@media (prefers-color-scheme:dark){:root{--bg:#141517;--fg:#e8e6e3;--muted:#a3a6ab;--card:#1d1f22;--line:#33363b;--accent:#7cb8d6;
+--hi-bg:#1d3a25;--hi-fg:#a8dcb4;--mid-bg:#2a2e34;--mid-fg:#c9ced6;--lo-bg:#4a2a16;--lo-fg:#ffc9a3;--warn:#5a4a10}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+header{padding:32px 16px 16px;max-width:1080px;margin:0 auto}
+header h1{font-size:1.6rem;line-height:1.35;margin:0 0 8px}
+.meta{color:var(--muted);font-size:.9rem}
+.meta b{color:var(--fg)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 64px;display:grid;grid-template-columns:220px 1fr;gap:32px}
+nav{position:sticky;top:16px;align-self:start;font-size:.88rem;display:flex;flex-direction:column;gap:4px;border-left:2px solid var(--line);padding-left:12px}
+nav a{color:var(--muted);text-decoration:none} nav a:hover{color:var(--accent)}
+main{min-width:0}
+h2{font-size:1.25rem;margin:40px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:1.05rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 24px 16px}
+.summary h2{border:0;margin-top:12px}
+a{color:var(--accent)} a.cite{font-size:.8em;text-decoration:none;vertical-align:super;line-height:0}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:12px 0}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.scroll{overflow-x:auto}
+main>table{display:block;overflow-x:auto}
+.badge{display:inline-block;font-size:.75rem;padding:0 8px;border-radius:999px;white-space:nowrap;margin:0 2px}
+.badge.hi{background:var(--hi-bg);color:var(--hi-fg)} .badge.mid{background:var(--mid-bg);color:var(--mid-fg)}
+.badge.lo{background:var(--lo-bg);color:var(--lo-fg);font-weight:600;border:1px solid currentColor}
+mark.warn{background:var(--warn);color:inherit;padding:0 3px;border-radius:3px;font-weight:600}
+code{font-size:.88em;background:var(--mid-bg);padding:1px 5px;border-radius:4px}
+details summary{cursor:pointer;color:var(--accent);margin:8px 0}
+.legend{font-size:.85rem;color:var(--muted);margin-top:8px}
+@media (max-width:760px){.wrap{grid-template-columns:1fr} nav{position:static;border-left:0;padding:0;flex-flow:row wrap;gap:6px 14px}}
+</style></head><body>
+<header>
+<h1>文獻研究 R5：怎麼從 8 份伴奏裡挑出最好的一份</h1>
+<div class="meta"><b>要支援的決定：</b>調參數之前，重新設計 prototype/harmony-first/steps/metrics.py 的挑選分數<br>
+類型：學術文獻（選擇型）· 日期：2026-11-22 · 研究深度：標準（4 個面向 × 最多 2 輪）· 查證：一般（關鍵說法抽查）· 已查證 5、未查證 4</div>
+<div class="legend">圖例：<span class="badge hi">信心：高</span><span class="badge mid">信心：中</span><span class="badge lo">信心：低</span> <mark class="warn">無文獻依據／推論</mark> 是設計者的判斷，不是文獻結論。</div>
+</header>
+<div class="wrap"><nav><a href="#_1">摘要</a><a href="#1">1. 和聲忠實度：怎麼量「有沒有守住和弦表」</a><a href="#2">2. 照抄提示：怎麼量「跟柱式和弦提示有多像」</a><a href="#3">3. 規則與可演奏性</a><a href="#4">4. 變化與創意，以及怎麼合成一個分數</a><a href="#_2">跨面向的發現</a><a href="#metricspy">建議的挑選設計（給 <code>metrics.py</code>）</a><a href="#_3">待解問題</a><a href="#_4">來源</a><a href="#_5">何時要重查</a></nav><main>
+<p><strong>這份研究要支援的決定：</strong> 調參數之前，先重新設計原型 02 的挑選分數（<code>steps/metrics.py</code>）。</p>
+<p><strong>評量理念（使用者提出，當作需求，不需研究）：</strong>
+1. 忠於和弦表的和聲結構。
+2. 不要大量照抄柱式和弦提示。可以回收一部分，但大多數聽起來不該跟提示一樣。
+3. 不違反和聲規則。
+4. 在限制內越有變化越好。
+5. 保留「不抄旋律」這一項。</p>
+<section class="card summary"><h2 id="_1">摘要</h2>
+<p><strong>建議：改成「先過門檻，再排名」的兩階段挑選。</strong> 和聲忠實度改為門檻，不再是越高越好。新增「照抄提示」一項。「變化」改為「接近真人伴奏的範圍」，不再是越多越好。最後用名次加總排名，取代 z 分數加總。</p>
+<p>這個建議根據三個發現：</p>
+<ol>
+<li><strong>現在的分數會獎勵照抄柱式和弦，這是指標本身的問題。</strong> CTnCTR 這類和弦音比例，在柱式和弦上就是滿分。Yeh 等人的原始研究裡，最機械的「模板配和聲」在 CTnCTR 和 PCS 上都比真人作品高（0.91、1.97 對 0.74、1.42）<a class="cite" href="#src-1">[1]</a>。D3PIA 的聽覺測試也顯示，和弦正確率較高的系統，聽起來的和聲反而比較差 <a class="cite" href="#src-3">[3]</a>。所以忠實度只能當「及格線」，過了就不再加分。</li>
+<li><strong>「照抄提示」有現成的公式可以借用。</strong> 沒有論文專門量「伴奏和條件提示有多像」（見第 2 節）。但 Whole-Song 生成論文有一個「抄襲程度」公式：同音級、同起音的音數 ×2 ÷ 兩邊音數和 <a class="cite" href="#src-7">[7]</a>。把它用在「候選伴奏 vs 柱式和弦提示」上，就是我們要的指標。另外可以搭配 mir_eval 的音符比對（起音 ±50 ms，並比對長度），抓出「連長度都一樣」的照抄 <a class="cite" href="#src-8">[8]</a>。</li>
+<li><strong>「變化越多越好」沒有證據支持，「接近真人的範圍」才有。</strong> 真人音樂的音級熵比模型生成的低，小節間節奏一致性也比較高 <a class="cite" href="#src-5">[5]</a>。直接最大化某個品質分數，會讓輸出失去多樣性、跑出怪東西 <a class="cite" href="#src-23">[23]</a>。所以變化要用「離真人參考範圍多近」來評。</li>
+</ol>
+<p><strong>最大的保留：</strong> 找不到任何研究證明這些符號指標和人耳評分逐首相關 <a class="cite" href="#src-4">[4]</a><a class="cite" href="#src-5">[5]</a>；綜述也認為生成音樂還沒有通用的評量方法 <a class="cite" href="#src-25">[25]</a>。指標只能幫你初選，最後仍要靠你的耳朵。建議下一輪順便做一個小驗證：你盲聽「指標選的」和「隨機一份」，看指標是否真的有幫助。</p>
+</section><h2 id="1">1. 和聲忠實度：怎麼量「有沒有守住和弦表」</h2>
+<ul>
+<li><strong>CTnCTR、PCS、MCTD（Yeh 等人，JNMR 2021）。</strong> 公式已從論文原文確認 <a class="cite" href="#src-1">[1]</a>：</li>
+<li>CTnCTR =（和弦音＋合理的非和弦音）÷（和弦音＋全部非和弦音）。「合理」指距離下一個音兩個半音以內。</li>
+<li>PCS：每個音和和弦音之間，同度、三度、五度、六度記 +1，四度記 0，其他記 −1，每十六分音符平均一次。</li>
+<li>MCTD：在 6 維調性空間裡，旋律音和和弦之間的平均距離。</li>
+</ul>
+<p><strong>重點：</strong> 這三個指標原本是用來評「旋律 vs 和弦」，不是評伴奏。作者也提醒只能拿來看趨勢，不能拿來判斷好壞 <a class="cite" href="#src-1">[1]</a>。我們目前把 CTnCTR 套在伴奏上，柱式和弦自然拿滿分。
+- <strong>和弦正確率（Chord Accuracy）。</strong> 用自動和弦辨識辨認生成的伴奏，逐拍和條件和弦比對根音加和弦性質，算吻合比例 <a class="cite" href="#src-2">[2]</a>。D3PIA 另外用和弦嵌入的餘弦相似度（Chord Similarity）給部分分數 <a class="cite" href="#src-3">[3]</a>。FIGARO 則用多標籤 F1 <a class="cite" href="#src-6">[6]</a>。
+- <strong>和弦正確率高，不代表好聽。</strong> 在 D3PIA 的 13 人聽覺測試中，WSG 的和弦正確率（87.6%）比 D3PIA（80.1%）高，和聲評分卻比較低。作者把原因歸於 WSG 有 2.4% 的調外音 <a class="cite" href="#src-3">[3]</a>。這個測試人數少，也沒有算相關係數<span class="badge mid">信心：中</span>。
+- <strong>低音。</strong> 沒找到評「低音／根音有沒有落在和弦換的地方」的已發表指標。和弦辨識只比對和弦名稱的根音，不看實際發出的最低音 <a class="cite" href="#src-2">[2]</a>。
+- <strong>稀疏的陷阱。</strong> 和弦音比例的分母是音數，所以只彈幾個長音的伴奏也會拿高分。這是研究助理的推論，文獻沒有直接說；它跟原型 02 第一版挑到「只有 4 個音」的伴奏的情況一致。</p>
+<h2 id="2">2. 照抄提示：怎麼量「跟柱式和弦提示有多像」</h2>
+<ul>
+<li><strong>沒有現成的「和條件提示相似度」指標。</strong> 文獻中的抄襲指標都是拿生成結果和訓練資料比 <a class="cite" href="#src-11">[11]</a><a class="cite" href="#src-12">[12]</a>。</li>
+<li><strong>最直接可用的公式：Whole-Song 的「抄襲程度」</strong>（Degree of Copying）<a class="cite" href="#src-7">[7]</a>：</li>
+<li>sim = 2 ×（兩邊同音級、同起音的音數）÷（候選音數＋提示音數），範圍 0 到 1。</li>
+<li>原論文用來檢查有沒有背下訓練資料，拿來比「候選 vs 提示」是我們的延伸用法。</li>
+<li><strong>mir_eval 的音符比對</strong> <a class="cite" href="#src-8">[8]</a>：</li>
+<li>預設是起音 ±50 ms、音高 ±50 cent，音的結束時間必須落在參考長度的 20%（至少 50 ms）以內。配對方式是二分圖最大配對。</li>
+<li>可以分成「只看起音」和「連長度也一樣」兩種。後者最能抓到「原封不動照彈柱式和弦」。</li>
+<li><strong>節奏格子相似度（Grooving Similarity）。</strong> 把每小節分成 64 格，標出有起音的格子，再比對兩份 <a class="cite" href="#src-5">[5]</a>。原版用 XOR，兩邊都沒彈的格子也算「相同」，所以稀疏的伴奏會被判成很像提示。FIGARO 和一篇 2026 年的鋼琴編曲論文改用餘弦相似度，可以避開這個問題 <a class="cite" href="#src-6">[6]</a><a class="cite" href="#src-13">[13]</a>。</li>
+<li><strong>SSIMuse</strong> 把影像的結構相似度（SSIM）用在鋼琴捲簾上，能同時比對音高和長度 <a class="cite" href="#src-12">[12]</a>（預印本，信心：中）。</li>
+<li><strong>Yin 等人的原創性報告</strong>（SN Computer Science 2022）以「人類作曲家互相借用的程度」為基準來判斷抄太多 <a class="cite" href="#src-11">[11]</a>。本輪沒拿到全文，<mark class="warn">公式未確認</mark><span class="badge lo">信心：低</span>。</li>
+<li><strong>節奏相似度和人耳感受不一定一致。</strong> 一篇鼓組研究發現，XOR 或漢明距離和人感受到的相似程度相關性較弱 <a class="cite" href="#src-27">[27]</a>（學位論文，信心：低到中）。</li>
+</ul>
+<h2 id="3">3. 規則與可演奏性</h2>
+<ul>
+<li><strong>music21 的聲部進行檢查</strong> <a class="cite" href="#src-14">[14]</a>：</li>
+<li><code>VoiceLeadingQuartet</code> 可以檢查平行五度、八度、同度、隱伏五八度、聲部交錯和聲部重疊。</li>
+<li>它要的是單音線條，所以鋼琴伴奏得先拆出聲部才能用。</li>
+<li>它沒有導音解決、七音解決和聲部間距的檢查。</li>
+<li><strong>拆聲部。</strong> McLeod &amp; Steedman 的 HMM 聲部分離有程式碼，在巴赫作品上測試過 <a class="cite" href="#src-17">[17]</a>。最簡單的做法是「每個起音取最低音當低音聲部」，和旋律配成一對外聲部再檢查。這個做法本輪沒找到驗證，是<mark class="warn">未證實的推論</mark>。</li>
+<li><strong>違規次數要跟風格的正常值比。</strong></li>
+<li>「Bach or Mock?」把平行五八度等錯誤換算成「每個音的錯誤數 ÷ 巴赫本人的比例」<a class="cite" href="#src-15">[15]</a>。它用 6 種特徵的分布距離評分，挑出真巴赫的正確率是 92.6%，專家只有 86.7%。不過專家只有 5 位，而且這是辨真偽，不是和聽感評分的相關<span class="badge mid">信心：中</span>。</li>
+<li>Coconet 的訓練資料本身也有很多平行五八度 <a class="cite" href="#src-16">[16]</a>（<mark class="warn">只讀到搜尋摘要</mark>）。所以平行五八度不應該一出現就淘汰，而是看比例。</li>
+<li><strong>協和度模型。</strong> Harrison &amp; Pearce（Psychological Review 2020）的 <code>incon</code> 套件有 17 種協和度模型，可以直接吃符號和弦 <a class="cite" href="#src-18">[18]</a>。它是 R 套件，用在本專案得另外處理。刺耳音程重疊（我們已經有）是更簡單的替代。</li>
+<li><strong>張力。</strong> Herremans &amp; Chew 的張力帶（Tension Ribbons）在螺旋陣列上算三種張力 <a class="cite" href="#src-19">[19]</a>。定義只部分確認<span class="badge mid">信心：中</span>。</li>
+<li><strong>可演奏性：沒有經過同儕審查的自動指標。</strong></li>
+<li>鋼琴難度模型有 RubricNet（每隻手的音高熵、音域、跳躍率）<a class="cite" href="#src-20">[20]</a>，以及指法模型（PIG 資料集）<a class="cite" href="#src-21">[21]</a>。RubricNet 沒有「手的跨度」「同時幾個音」這類規則，也沒找到任何以這類規則評生成伴奏的研究。</li>
+<li>「一隻手跨度不超過約 14 個半音、同時不超過 5 個音」是常識性門檻，<mark class="warn">沒有文獻依據</mark>。</li>
+</ul>
+<h2 id="4">4. 變化與創意，以及怎麼合成一個分數</h2>
+<ul>
+<li><strong>常用的變化指標</strong> <a class="cite" href="#src-5">[5]</a><a class="cite" href="#src-9">[9]</a><a class="cite" href="#src-10">[10]</a>：</li>
+<li>音級熵：12 個音級的分布有多平均。</li>
+<li>小節間節奏一致性（Grooving Similarity，GS）。</li>
+<li>和弦進行不規則度（CPI）。</li>
+<li>結構性（SI）。</li>
+<li>複音數（同時幾個音）。</li>
+<li>空拍比例。</li>
+<li>音長分布、起音間隔（IOI）。</li>
+</ul>
+<p>有現成程式碼：MusDr、MusPy、mgeval。
+- <strong>真人音樂不在極端值。</strong> 在 Wu &amp; Yang 的資料裡，真人爵士的音級熵比模型低（1 小節 1.94，模型 2.17–2.45），節奏一致性比模型高（0.86，模型 0.69–0.76）<a class="cite" href="#src-5">[5]</a>。Yang &amp; Lerch 的做法是比較「和參考資料的分布有多接近」，不是把某個特徵越拉越高 <a class="cite" href="#src-9">[9]</a>。
+- <strong>只最大化一個分數會出事。</strong> SMART 用一個美感分數當獎勵去強化鋼琴生成，過度優化後多樣性大幅下降，還出現重複樣式。這個分數最後甚至把生成的音樂評得比真人錄音還高 <a class="cite" href="#src-23">[23]</a>。
+- <strong>合成方式：</strong>
+  - YuE2 從 8 份裡挑一份的做法：先刪掉被其他候選全面勝過的（Pareto），再依序只留「和最好的差 0.10 以內」的，最後挑剩下最好的一份 <a class="cite" href="#src-24">[24]</a>（<mark class="warn">只讀到搜尋摘要</mark>，信心：低到中）。
+  - 有比賽用「各指標名次加總」（Borda）<a class="cite" href="#src-28">[28]</a>，好處是不必把不同單位的分數硬放在同一個尺上。
+  - 沒找到比較這幾種方法優劣的研究。
+- <strong>和人耳的相關性：沒有逐首的證據。</strong>
+  - Jazz Transformer 的 59 人聽覺測試沒有算指標和評分的相關 <a class="cite" href="#src-5">[5]</a>。
+  - 2025 年的綜述沒有列出符號指標的人耳相關數字 <a class="cite" href="#src-4">[4]</a>；另一篇綜述認為沒有通用的評量方法 <a class="cite" href="#src-25">[25]</a>。
+  - AccoMontage 的評量只有聽覺測試，沒有客觀指標 <a class="cite" href="#src-26">[26]</a>。
+  - 唯一的正面證據來自一篇工作坊論文：只有 5 位評分者，而且是模型層級的排名，不是逐首 <a class="cite" href="#src-22">[22]</a>。</p>
+<h2 id="_2">跨面向的發現</h2>
+<ul>
+<li><strong>忠實度和不照抄互相拉扯。</strong> 「完美守住和弦表」最便宜的做法，就是照彈柱式和弦。只要忠實度是越高越好，挑選就會一直偏向照抄。所以忠實度必須是門檻（及格就好），照抄度另外扣分。這是現在挑選方式的根本問題。</li>
+<li><strong>三個面向都有「稀疏陷阱」。</strong> 和弦音比例、節奏格子相似度（XOR 版）、刺耳重疊，都會讓「彈得很少」的候選佔便宜。所以「至少要彈多少」得是硬門檻：音數、空拍比例。</li>
+<li><strong>「創意」在文獻裡等於「接近真人範圍內的變化」。</strong> 不能用「變化越多越好」來實現使用者的第 4 條理念。合理的做法是先限制在真人伴奏的範圍內，再在範圍內鼓勵小節之間有變化。</li>
+</ul>
+<h2 id="metricspy">建議的挑選設計（給 <code>metrics.py</code>）</h2>
+<p>以下是根據上面文獻組合出來的設計，<strong>沒有任何一篇論文完整驗證過</strong>，信心以各條引用為準。</p>
+<p><strong>第一階段：門檻。</strong> 沒過的候選不排名；全部都沒過時，才退回原本的作法。</p>
+<table>
+<thead>
+<tr>
+<th>門檻</th>
+<th>指標</th>
+<th>起始值（可調）</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>彈得夠多</td>
+<td>音數 ≥ 小節數，空拍比例 ≤ 25%</td>
+<td>沿用＋新增</td>
+<td><a class="cite" href="#src-10">[10]</a>、稀疏陷阱</td>
+</tr>
+<tr>
+<td>不抄旋律</td>
+<td>抄旋律比例 &lt; 0.5</td>
+<td>沿用</td>
+<td>原型 02</td>
+</tr>
+<tr>
+<td>不照抄提示</td>
+<td>抄襲程度（同音級＋同起音）&lt; 0.5</td>
+<td>新增，對應「大多數不要一樣」</td>
+<td><a class="cite" href="#src-7">[7]</a></td>
+</tr>
+<tr>
+<td>守住和弦</td>
+<td>逐拍和弦吻合率 ≥ 0.7，調外音 ≤ 5%（門檻值<mark class="warn">無文獻依據</mark>）</td>
+<td>改為門檻</td>
+<td>指標 <a class="cite" href="#src-2">[2]</a><a class="cite" href="#src-3">[3]</a>；「當門檻」的理由 <a class="cite" href="#src-1">[1]</a><a class="cite" href="#src-3">[3]</a></td>
+</tr>
+<tr>
+<td>彈得到</td>
+<td>同時發聲的伴奏音 ≤ 5 個，且跨度 ≤ 14 個半音（約一個十度）</td>
+<td>新增，<mark class="warn">無文獻依據</mark></td>
+<td>常識</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第二階段：在通過的候選裡排名。</strong> 每項先算名次（1 到 N），名次加總最小的勝出 <a class="cite" href="#src-28">[28]</a>。不用 z 分數加總：只有 8 份時，一項的極端值就能主導總分（<mark class="warn">這是推論</mark>，沒找到比較過合成方式的研究）。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>指標</th>
+<th>方向</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不像提示</td>
+<td>和提示的音符比對 F1（連長度一起比）＋節奏格子餘弦相似度</td>
+<td>越低越好</td>
+<td><a class="cite" href="#src-7">[7]</a><a class="cite" href="#src-8">[8]</a><a class="cite" href="#src-6">[6]</a><a class="cite" href="#src-13">[13]</a></td>
+</tr>
+<tr>
+<td>不違規</td>
+<td>低音和旋律之間的平行五八度（每個音的比例）＋刺耳重疊</td>
+<td>越低越好</td>
+<td><a class="cite" href="#src-14">[14]</a><a class="cite" href="#src-15">[15]</a>、原型 02</td>
+</tr>
+<tr>
+<td>有變化、但像真人</td>
+<td>小節間節奏相似度、音級熵、起音密度、音長分布，各自離參考範圍多遠</td>
+<td>越近越好</td>
+<td><a class="cite" href="#src-5">[5]</a><a class="cite" href="#src-9">[9]</a><a class="cite" href="#src-10">[10]</a></td>
+</tr>
+<tr>
+<td>低音正確</td>
+<td>和弦換的時候，最低音是不是和弦的低音</td>
+<td>越高越好</td>
+<td>自訂，<mark class="warn">無文獻依據</mark></td>
+</tr>
+</tbody>
+</table>
+<p><strong>參考範圍從哪裡來（2026-11-22 追加討論後決定：下一輪先不放這一項）：</strong></p>
+<ul>
+<li>POP909 都是 4/4 流行歌，風格不合。</li>
+<li>用每格 8 份候選的中位數，其實是「像其他候選」，8 份都照抄時反而獎勵照抄，所以不採用。</li>
+<li>古典方面有現成的人聲加鋼琴伴奏語料：</li>
+<li>OpenScore Lieder：約 1,300 首 19 世紀藝術歌曲，MusicXML，專案方說明為 CC0 <a class="cite" href="#src-29">[29]</a>。</li>
+<li>When in Rome：有羅馬數字分析，可當和弦參照，但哪些 Lieder 有分析還沒逐首確認 <a class="cite" href="#src-30">[30]</a>。</li>
+<li>Schubert《冬之旅》資料集只有 24 首 <a class="cite" href="#src-31">[31]</a>；Florence Price 藝術歌曲 112 首（R4 <a class="cite" href="#src-8">[8]</a>）。</li>
+<li>藝術歌曲伴奏常比我們的目標繁複，而且有純鋼琴的前奏和間奏。所以要先篩選曲子，例如民謠風的分節歌；只算人聲在唱的小節；再驗證它能不能把照抄柱式和弦和好伴奏分開（<mark><mark class="warn">這是推論</mark>，尚未試驗</mark>）。</li>
+<li>使用者決定：下一輪只實作不需參照資料的門檻和排序，「像真人」這一項等之後用 Lieder 做小規模試驗，站得住才加入。</li>
+</ul>
+<p><strong>頁面呈現：</strong> 試聽頁的每一格要列出每個候選在各項的名次，並標出被哪一道門檻擋掉。這樣你可以用耳朵判斷指標選得對不對。</p>
+<h2 id="_3">待解問題</h2>
+<ul>
+<li><strong>指標和人耳的關係：</strong> 建議下一輪讓你盲聽「指標選的」vs「隨機一份」，用十幾格的結果判斷指標有沒有幫助。</li>
+<li><strong>參考範圍：</strong> 已決定先不放。之後用 OpenScore Lieder 的篩選子集做試驗：照抄 prompt 的候選要落在範圍外，使用者聽了覺得好的要落在範圍內 <a class="cite" href="#src-29">[29]</a>。</li>
+<li><strong>門檻值：</strong> 抄襲程度 0.5、吻合率 0.7、空拍 25%、跨度 14 個半音都是起始值，要看第一輪結果再調。</li>
+<li><strong>本輪沒確認的：</strong></li>
+<li>Yin 等人的基數分數（cardinality score）公式 <a class="cite" href="#src-11">[11]</a>。</li>
+<li>music21 <code>theoryAnalyzer</code> 的用法。</li>
+<li>Polyffusion 和 GETMusic 的評量定義。</li>
+<li>一篇號稱「保證可演奏」的鋼琴簡化論文（arXiv 2511.16228）怎麼定義可演奏。</li>
+</ul>
+<h2 id="_4">來源</h2>
+<details open><summary>展開／收合 31 筆來源</summary><div class="scroll"><table class="sources"><thead><tr><th>#</th><th>支持的說法</th><th>出處</th><th>發表</th><th>查閱</th><th>信心</th></tr></thead><tbody><tr id="src-1"><td>[1]</td><td>CTnCTR、PCS、MCTD 公式；模板配和聲在 CTnCTR、PCS 上高於真人；作者提醒只看趨勢</td><td><a href="https://arxiv.org/abs/2001.02360" target="_blank" rel="noopener">Yeh et al., JNMR（arXiv 2001.02360）</a></td><td>2021</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-2"><td>[2]</td><td>逐拍和弦正確率（根音＋性質，自動和弦辨識）</td><td><a href="https://arxiv.org/abs/2310.16334" target="_blank" rel="noopener">Zhao et al., NeurIPS 2024（arXiv 2310.16334）</a></td><td>2024</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-3"><td>[3]</td><td>和弦正確率、和弦相似度、調外音；WSG 正確率較高但和聲評分較低</td><td><a href="https://arxiv.org/html/2602.03523" target="_blank" rel="noopener">D3PIA（arXiv 2602.03523，預印本）</a></td><td>2026-02</td><td>2026-11-22</td><td><span class="badge hi">高（定義）／中（聽測）</span></td></tr><tr id="src-4"><td>[4]</td><td>綜述：符號和聲指標沒有人耳相關證據；小節色度相似度</td><td><a href="https://arxiv.org/abs/2509.00051" target="_blank" rel="noopener">Kader &amp; Karmaker（arXiv 2509.00051，預印本）</a></td><td>2025-08</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-5"><td>[5]</td><td>音級熵、GS、CPI、SI 的定義與真人／模型數值；聽測未算相關；MusDr 程式碼</td><td><a href="https://arxiv.org/abs/2008.01307" target="_blank" rel="noopener">Wu &amp; Yang, ISMIR 2020（arXiv 2008.01307）</a>、[MusDr](https://github.com/slSeanWU/MusDr)</td><td>2020</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-6"><td>[6]</td><td>和弦 F1、起音密度 NRMSE、逐小節重疊面積、節奏／色度餘弦相似度</td><td><a href="https://arxiv.org/abs/2201.10936" target="_blank" rel="noopener">FIGARO, ICLR 2023（arXiv 2201.10936）</a></td><td>2023</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-7"><td>[7]</td><td>抄襲程度公式（同音級＋同起音）；ILS 結構指標</td><td><a href="https://arxiv.org/abs/2405.09901" target="_blank" rel="noopener">Whole-Song Generation, ICLR 2024（arXiv 2405.09901）</a></td><td>2024</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-8"><td>[8]</td><td>音符比對預設值（起音 50 ms、長度 20%、二分圖配對）</td><td><a href="https://github.com/craffel/mir_eval/blob/main/mir_eval/transcription.py" target="_blank" rel="noopener">mir_eval transcription.py</a></td><td>持續更新</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-9"><td>[9]</td><td>特徵分布與參考資料比較，不最大化；mgeval 特徵</td><td><a href="https://musicinformatics.gatech.edu/wp-content_nondefault/uploads/2018/11/postprint.pdf" target="_blank" rel="noopener">Yang &amp; Lerch, Neural Computing and Applications</a>、[mgeval](https://github.com/RichardYang40148/mgeval)</td><td>2018／2020</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-10"><td>[10]</td><td>複音數、空拍比例、音級熵等指標與程式碼</td><td><a href="https://salu133445.github.io/muspy/doc/metrics.html" target="_blank" rel="noopener">MusPy, ISMIR 2020（arXiv 2008.01951）</a></td><td>2020</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-11"><td>[11]</td><td>原創性報告：以人類互相借用的程度為基準</td><td><a href="https://link.springer.com/article/10.1007/s42979-022-01220-y" target="_blank" rel="noopener">Yin et al., SN Computer Science</a></td><td>2022</td><td>2026-11-22</td><td><span class="badge lo">低到中</span></td></tr><tr id="src-12"><td>[12]</td><td>SSIMuse：鋼琴捲簾的結構相似度</td><td><a href="https://arxiv.org/abs/2509.13658" target="_blank" rel="noopener">arXiv 2509.13658（預印本）</a></td><td>2025-09</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-13"><td>[13]</td><td>節奏相似度的餘弦版（4 小節片段）</td><td><a href="https://arxiv.org/pdf/2608.03050" target="_blank" rel="noopener">arXiv 2608.03050（預印本）</a></td><td>2026</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-14"><td>[14]</td><td>music21 聲部進行檢查（平行、隱伏、交錯、重疊）</td><td><a href="https://music21.org/music21docs/moduleReference/moduleVoiceLeading.html" target="_blank" rel="noopener">music21 voiceLeading 文件</a></td><td>現行</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-15"><td>[15]</td><td>Bach or Mock：6 種特徵、錯誤數相對巴赫比例、92.6% 對 86.7%</td><td><a href="https://arxiv.org/abs/2006.13329" target="_blank" rel="noopener">Fang et al., ICML 2020 工作坊（arXiv 2006.13329）</a></td><td>2020-06</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-16"><td>[16]</td><td>Coconet 訓練資料本身常有平行五八度</td><td><a href="https://arxiv.org/pdf/1907.06637" target="_blank" rel="noopener">Bach Doodle（arXiv 1907.06637）</a></td><td>2019</td><td>2026-11-22</td><td><span class="badge lo">低到中</span></td></tr><tr id="src-17"><td>[17]</td><td>HMM 聲部分離，有程式碼</td><td><a href="https://github.com/apmcleod/voice-splitting" target="_blank" rel="noopener">McLeod &amp; Steedman, JNMR 2016</a></td><td>2016</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-18"><td>[18]</td><td>協和度是複合的；incon 17 種模型</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7032667" target="_blank" rel="noopener">Harrison &amp; Pearce, Psychological Review</a>、[incon](https://github.com/pmcharrison/incon)</td><td>2020</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-19"><td>[19]</td><td>張力帶三種張力量</td><td><a href="https://dorienherremans.com/content/tension-ribbons-quantifying-and-visualising-tonal-tension" target="_blank" rel="noopener">Herremans &amp; Chew, TENOR 2016</a></td><td>2016</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-20"><td>[20]</td><td>RubricNet 鋼琴難度特徵（無手跨度）</td><td><a href="https://arxiv.org/abs/2408.00473" target="_blank" rel="noopener">arXiv 2408.00473</a>、[GitHub](https://github.com/pramoneda/rubricnet)</td><td>2024-08</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-21"><td>[21]</td><td>PIG 指法資料集與模型</td><td><a href="https://arxiv.org/abs/1904.10237" target="_blank" rel="noopener">Nakamura et al.（arXiv 1904.10237）</a></td><td>2019</td><td>2026-11-22</td><td><span class="badge hi">高</span></td></tr><tr id="src-22"><td>[22]</td><td>FMD、KLD、OA 和聽者排名相符（5 人、模型層級）</td><td><a href="https://arxiv.org/abs/2511.07268" target="_blank" rel="noopener">Lehmkuhl et al.（arXiv 2511.07268）</a></td><td>2026-01</td><td>2026-11-22</td><td><span class="badge lo">中到低</span></td></tr><tr id="src-23"><td>[23]</td><td>過度優化單一分數使多樣性大降</td><td><a href="https://arxiv.org/abs/2504.16839" target="_blank" rel="noopener">SMART（arXiv 2504.16839）</a></td><td>2025-04</td><td>2026-11-22</td><td><span class="badge mid">中到高</span></td></tr><tr id="src-24"><td>[24]</td><td>YuE2 從 8 份挑選：Pareto＋容差</td><td><a href="https://arxiv.org/abs/2609.33757" target="_blank" rel="noopener">YuE2（arXiv 2609.33757）</a></td><td>2026-09</td><td>2026-11-22</td><td><span class="badge lo">低到中</span></td></tr><tr id="src-25"><td>[25]</td><td>綜述：沒有通用的生成音樂評量方法</td><td><a href="https://arxiv.org/abs/2506.05104" target="_blank" rel="noopener">Lerch et al.（arXiv 2506.05104）</a></td><td>2025</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-26"><td>[26]</td><td>AccoMontage 只做聽覺測試；挑樂句用節奏＋調性向量餘弦</td><td><a href="https://arxiv.org/abs/2108.11213" target="_blank" rel="noopener">Zhao &amp; Xia, ISMIR 2021（arXiv 2108.11213）</a></td><td>2021</td><td>2026-11-22</td><td><span class="badge mid">中到高</span></td></tr><tr id="src-27"><td>[27]</td><td>漢明距離和人感受到的節奏相似度相關較弱</td><td><a href="https://duo.uio.no/handle/10852/84395" target="_blank" rel="noopener">GrooveToolbox（奧斯陸大學）</a></td><td>2021</td><td>2026-11-22</td><td><span class="badge lo">低到中</span></td></tr><tr id="src-28"><td>[28]</td><td>各指標名次加總（Borda）</td><td><a href="https://arxiv.org/abs/2605.21538" target="_blank" rel="noopener">Academic Text-to-Music Challenge（arXiv 2605.21538）</a></td><td>2026</td><td>2026-11-22</td><td><span class="badge lo">低到中</span></td></tr><tr id="src-29"><td>[29]</td><td>約 1,300 首藝術歌曲（人聲＋鋼琴，MusicXML），CC0；衍生版有標 CC BY-SA；少數曲子版權狀態可能有誤</td><td><a href="https://github.com/OpenScore/Lieder" target="_blank" rel="noopener">OpenScore Lieder（GitHub）</a>、[授權說明（MuseScore 論壇）](https://musescore.org/en/node/315935)、[HF 衍生版](https://huggingface.co/datasets/zzsi/openscore/blob/main/README.md)</td><td>持續更新</td><td>2026-11-22</td><td><span class="badge hi">高（內容）／中（授權細節）</span></td></tr><tr id="src-30"><td>[30]</td><td>人工羅馬數字分析的總匯語料庫，並引用 OpenScore Lieder 作為 CC0 樂譜來源</td><td><a href="https://github.com/MarkGotham/When-in-Rome" target="_blank" rel="noopener">When in Rome（GitHub）</a></td><td>2023</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr><tr id="src-31"><td>[31]</td><td>Schubert《冬之旅》24 首的多模態資料集（Zenodo）</td><td><a href="https://research-portal.uu.nl/en/publications/schubert-winterreise-dataset-a-multimodal-scenario-for-music-anal/" target="_blank" rel="noopener">Weiß et al., JOCCH 2021</a></td><td>2021</td><td>2026-11-22</td><td><span class="badge mid">中</span></td></tr></tbody></table></div></details>
+<h2 id="_5">何時要重查</h2>
+<table>
+<thead>
+<tr>
+<th>說法</th>
+<th>類別</th>
+<th>重查日期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>符號指標沒有逐首的人耳相關證據 <a class="cite" href="#src-4">[4]</a></td>
+<td>研究前沿（6 個月）</td>
+<td><strong>已過期（2026-02），本輪重查仍沒找到</strong></td>
+</tr>
+<tr>
+<td>YuE2 的從 8 份挑選做法 <a class="cite" href="#src-24">[24]</a></td>
+<td>研究前沿（6 個月）</td>
+<td>2027-03</td>
+</tr>
+<tr>
+<td>D3PIA：和弦正確率高但聽起來較差 <a class="cite" href="#src-3">[3]</a></td>
+<td>實證</td>
+<td>2036-02</td>
+</tr>
+<tr>
+<td>其他公式與定義 <a class="cite" href="#src-1">[1]</a><a class="cite" href="#src-5">[5]</a><a class="cite" href="#src-7">[7]</a><a class="cite" href="#src-8">[8]</a></td>
+<td>定義／實證</td>
+<td>2030 年以後</td>
+</tr>
+</tbody>
+</table>
+<p>最早要重查的是 2027-03：看有沒有新的「符號音樂評分模型」或指標與人耳相關的研究。</p>
+</main></div></body></html>

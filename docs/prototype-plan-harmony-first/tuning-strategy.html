@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>伴奏調參策略</title>
+<style>
+:root{--bg:#fbfaf8;--fg:#1d1d1f;--muted:#5f6368;--card:#fff;--line:#e3e0da;--accent:#2f6f8f;--soft:#eef4f7;--warn:#fff1b8;--ok:#e3f1e6;--okfg:#1e5b2c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141517;--fg:#e8e6e3;--muted:#a3a6ab;--card:#1d1f22;--line:#33363b;--accent:#7cb8d6;--soft:#1f2a30;--warn:#5a4a10;--ok:#1d3a25;--okfg:#a8dcb4}}
+:root[data-theme="dark"]{--bg:#141517;--fg:#e8e6e3;--muted:#a3a6ab;--card:#1d1f22;--line:#33363b;--accent:#7cb8d6;--soft:#1f2a30;--warn:#5a4a10;--ok:#1d3a25;--okfg:#a8dcb4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.6rem;line-height:1.35;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+h2{font-size:1.25rem;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:24px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 20px;margin:14px 0}
+.summary{background:var(--soft)}
+.why{border-left:4px solid var(--accent);background:var(--card);padding:10px 16px;margin:10px 0;border-radius:0 8px 8px 0}
+.why b:first-child{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.scroll{overflow-x:auto}
+.tag{display:inline-block;font-size:.75rem;padding:0 8px;border-radius:999px;background:var(--ok);color:var(--okfg);white-space:nowrap}
+mark{background:var(--warn);color:inherit;padding:0 3px;border-radius:3px}
+ol.steps>li{margin:8px 0}
+code{font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:4px}
+nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem;margin:8px 0 0}
+nav a{color:var(--accent);text-decoration:none}
+</style></head><body><div class="wrap">
+
+<h1>原型 02：伴奏模型怎麼調參數，以及為什麼這樣調</h1>
+<div class="meta">2026-11-22 · John（PM）· 給使用者決定用 · 範圍：AMT、AccoMontage、Compose &amp; Embellish（Claude、Gemini 寫伴奏這輪不動）</div>
+<nav><a href="#s0">一句話</a><a href="#s1">目標</a><a href="#s2">六個原則</a><a href="#s3">參數</a><a href="#s4">步驟</a><a href="#s5">工作量</a><a href="#s6">不做的事</a><a href="#s7">待你決定</a></nav>
+
+<section class="card summary" id="s0">
+<h2 style="border:0;margin-top:8px;padding-top:0">一句話</h2>
+<p>先修好給錯的輸入，再<b>一次只改一個參數</b>，所有設定都用<b>同一組隨機種子和同一套評分標準</b>；先跑便宜的模型，先用一份和弦；<b>指標只負責初選，最後由你盲聽決定</b>；調完再用沒調過的和弦（甚至沒調過的曲子）確認，避免調出只對這兩首歌有效的設定。</p>
+</section>
+
+<h2 id="s1">一、我們要調出什麼</h2>
+<p>調參數的目標就是你給的伴奏理想，每一條都對應到我們能看到的東西：</p>
+<div class="scroll"><table>
+<tr><th>你的理想</th><th>調參時看什麼</th></tr>
+<tr><td>忠於和聲結構</td><td>逐拍和弦吻合率、調外音（新指標的「守住和弦」門檻）</td></tr>
+<tr><td>不要照抄柱式和弦提示（可以部分回收）</td><td>和提示的抄襲程度（DoC）、「不像提示」名次</td></tr>
+<tr><td>不違反和聲規則</td><td>平行五八度、刺耳重疊</td></tr>
+<tr><td>在限制內越有創意越好</td><td>8 份裡有幾份「能用」（通過全部門檻）；能用的越多，挑選的空間越大；最後靠你的耳朵</td></tr>
+<tr><td>（第三輪新增）彈得到</td><td>「彈得到」門檻</td></tr>
+</table></div>
+<p>所以「好的設定」不是某個分數最高，而是：<b>8 份裡能用的變多、照抄變少、你聽起來比較好</b>。</p>
+
+<h2 id="s2">二、六個原則，和背後的理由</h2>
+
+<h3>1. 先修正輸入，再調參數</h3>
+<p>AccoMontage 現在有兩個輸入給得不對：樂句分段是自動每 4 小節切一段，沒有照兩首歌真正的樂句；綠袖子開頭的弱起拍沒有告訴模型（官方有 <code>PICK_UP_BEAT</code> 參數）。</p>
+<div class="why"><b>為什麼：</b>AccoMontage 是「依樂句從 POP909 找伴奏片段再拼起來」的模型，樂句切錯、拍子錯位，挑到的片段本來就對不上。在錯的輸入上調參數，調出來的「最佳值」其實是在補償錯誤，修好輸入後可能就不成立了。修正比調參便宜，而且一定該做。</div>
+
+<h3>2. 一次只改一個參數</h3>
+<p>其他參數維持預設，每個參數試 2 到 3 個值；各參數的好值找到後，再組合起來跑一次。</p>
+<div class="why"><b>為什麼：</b>你最後是用耳朵判斷。如果一次改兩個參數，聽到變好或變差時分不出是誰造成的，也就學不到東西。缺點是參數之間如果互相影響（例如溫度和 <code>top_p</code> 都在控制「多大膽」），單獨調出的好值組合起來不一定最好——所以第 4 步要把組合再跑一次確認。全部組合都試（網格搜尋）理論上最完整，但 3 個參數 × 3 個值就是 27 種設定，聽不完，對原型來說不划算。</div>
+
+<h3>3. 所有設定用同一組隨機種子（0 到 7）</h3>
+<div class="why"><b>為什麼：</b>這些模型每次生成都有隨機性，同一個設定換一組種子，結果可能差很多。每個設定都用同樣的種子，設定之間的差別就比較可能來自參數，而不是運氣（統計上叫「共同隨機數」，用來降低比較時的雜訊）。每格只有 8 份，雜訊本來就大，這一步很重要。</div>
+
+<h3>4. 評分標準固定不動</h3>
+<p>調參期間，新舊兩套指標、所有門檻值（0.5、0.7、5 個音、14 個半音……）都不改；兩套指標都算、都給你看。</p>
+<div class="why"><b>為什麼：</b>如果參數和評分標準一起改，分數變好時說不清是伴奏變好了，還是尺換了。你也決定兩套指標下一輪再選，所以這輪兩套並列，正好順便看哪一套跟你的耳朵比較一致。</div>
+
+<h3>5. 指標只初選，你的耳朵做決定</h3>
+<div class="why"><b>為什麼：</b>R5 文獻研究的結論是：<b>沒有任何研究證明這些符號指標和人耳的評價逐首相關</b>；而且只追一個分數會越調越偏——SMART 研究把一個品質分數優化到極致後，輸出多樣性大降、出現重複模式，分數甚至高過真人演奏（典型的 Goodhart 定律：指標一旦變成目標，就不再是好指標）。所以指標的角色是把 8 份縮小到值得聽的幾份，以及在你聽之前先擋掉明顯不合格的（彈不到、照抄、和弦不對）。</div>
+
+<h3>6. 先便宜後昂貴、先一份和弦，最後換一份確認</h3>
+<p>先跑 AccoMontage 和 Compose &amp; Embellish（每格 1 到 2 分鐘），AMT（每格 4 到 23 分鐘）在背景慢慢跑；先只用你覺得最好的 Gemini 和弦，最後換 Claude 和弦確認，可以的話再拿茉莉花當「沒調過的那一首」。</p>
+<div class="why"><b>為什麼：</b>
+<ul>
+<li><b>便宜的先跑</b>：你可以早點聽到結果、早點修正方向，不用等 AMT 好幾個小時。</li>
+<li><b>先一份和弦</b>：時間減半；用最好的和弦，聽到的問題比較可能來自伴奏模型，而不是和弦本身。</li>
+<li><b>最後換和弦、換曲子確認</b>：只用快樂頌和綠袖子調，參數可能只對這兩首有效（機器學習裡叫「過度擬合」）。用沒參與調參的和弦、曲子再測一次，才知道設定是不是真的比較好。這也是為什麼茉莉花適合留作最後的測試曲。</li>
+</ul></div>
+
+<h2 id="s3">三、要試哪些參數，以及每個參數想解決什麼</h2>
+<p>下列參數都已對過程式碼或官方範例確認存在。「想解決的問題」是根據前幾輪的觀察提出的假設，<mark>還沒驗證</mark>。</p>
+<div class="scroll"><table>
+<tr><th>模型</th><th>參數</th><th>目前</th><th>試的值</th><th>想解決的問題（假設）</th></tr>
+<tr><td rowspan="3"><b>AccoMontage</b><br><span class="tag">每格約 1 分鐘</span></td><td>（先修正）樂句分段、弱起拍</td><td>自動 4 小節；無弱起</td><td>照實際樂句；綠袖子設弱起拍</td><td>挑到的伴奏片段和樂句、拍子對不上</td></tr>
+<tr><td>織體預先篩選：節奏密度 0–4 × 同時發聲數 0–4</td><td>沒開</td><td>(2,1)、(3,2)、(4,2)</td><td>常被「彈得到」擋下（有橫跨三個音域、兩手撐不開的和弦）；同時發聲數設低一點可能直接改善</td></tr>
+<tr><td>挑樂句的隨機程度</td><td>0.1（官方範例）</td><td>0.1、0.3、0.5</td><td>8 份之間差異太小，挑選空間有限</td></tr>
+<tr><td rowspan="2"><b>Compose &amp; Embellish</b><br><span class="tag">每格約 2 分鐘</span></td><td>取樣溫度</td><td>1.2（官方）</td><td>1.0、1.2、1.4</td><td>伴奏偏稀疏、可能偏保守；溫度高一點可能更有變化，但也可能更亂</td></tr>
+<tr><td><code>top_p</code></td><td>0.97（官方）</td><td>0.90、0.97、0.99</td><td>同上，控制「冷門選擇」被選到的機會</td></tr>
+<tr><td rowspan="3"><b>AMT</b><br><span class="tag">每格 4–23 分鐘</span></td><td>柱式和弦提示怎麼給</td><td>每次換和弦給一個長和弦</td><td>每拍重按一次；只給低音＋和弦音</td><td>照抄柱式和弦的根源：提示長什麼樣，模型就容易學什麼樣</td></tr>
+<tr><td><code>top_p</code></td><td>0.98</td><td>0.95、1.0</td><td>空白輸出（綠袖子 8 份裡有 5 份一個音都沒有）、照抄或亂彈</td></tr>
+<tr><td>提前看多遠（anticipation）</td><td>5 秒</td><td>2 秒、8 秒</td><td>伴奏和旋律、和弦對齊的程度</td></tr>
+</table></div>
+<p><b>Claude、Gemini 寫伴奏這輪不動：</b>它們的變化來自語言模型寫的規劃，能調的只有展開規則；Gemini 已鎖定不能再呼叫。</p>
+
+<h2 id="s4">四、步驟</h2>
+<ol class="steps">
+<li><b>修正 AccoMontage 的輸入</b>（樂句分段、弱起拍），跑一次當新的基準。</li>
+<li><b>單參數試驗</b>：只用 Gemini 和弦、快樂頌＋綠袖子，每個參數 2 到 3 個值，其他維持預設，種子 0–7。</li>
+<li><b>你盲聽</b>：試聽頁把同一格、不同設定挑出的版本排在一起，順序打亂、名稱隱藏；旁邊列出兩套指標的結果（能用幾份、照抄程度、違規程度）。</li>
+<li><b>組合</b>：把你選的好值組合起來再跑一次，確認組合起來仍然好。</li>
+<li><b>確認</b>：換 Claude 和弦跑一次；你同意的話，加茉莉花。</li>
+<li><b>記錄</b>：每個設定的參數、種子、指標、你的判斷都寫進計畫和知識庫，作為之後「完整建置」的依據。</li>
+</ol>
+
+<h2 id="s5">五、工作量（只用 Gemini 和弦，步驟 2）</h2>
+<div class="scroll"><table>
+<tr><th>模型</th><th>設定數</th><th>電腦時間</th><th>你要聽的段數</th></tr>
+<tr><td>AccoMontage</td><td>修正後基準 1 ＋ 5</td><td>約 10 分鐘</td><td>約 12</td></tr>
+<tr><td>Compose &amp; Embellish</td><td>5</td><td>約 20 分鐘</td><td>10</td></tr>
+<tr><td>AMT</td><td>4</td><td>約 2 到 3 小時（背景）</td><td>8</td></tr>
+<tr><td colspan="3"><b>合計</b></td><td><b>約 30 段</b>（每段約 30 秒）</td></tr>
+</table></div>
+<p>嫌多的話，可以每個參數只試兩個值（預設＋一個方向），大約減少三分之一。</p>
+
+<h2 id="s6">六、這輪刻意不做的事</h2>
+<ul>
+<li><b>不改指標和門檻</b>：理由見原則 4。</li>
+<li><b>不做網格搜尋或自動優化</b>（讓程式自己找最高分的設定）：理由見原則 2 和 5——聽不完，而且自動追分數容易被指標帶偏。</li>
+<li><b>不微調（重新訓練）模型</b>：沿用一開始的決定，只用現成模型。</li>
+<li><b>不做表情演奏</b>（PianoFlow、Pianist Transformer）：先專注在樂譜品質。</li>
+<li><b>不再呼叫 Gemini</b>：兩輪都已用完、鎖定。</li>
+</ul>
+
+<h2 id="s7">七、待你決定</h2>
+<ol>
+<li>AccoMontage 的樂句分段和弱起拍，要不要先修正？（建議：要）</li>
+<li>要不要把茉莉花拿回來，當最後的測試曲？</li>
+<li>一次約 30 段的聆聽量可以嗎？還是每個參數只試兩個值？</li>
+</ol>
+<p>你決定後，John 把這份策略寫進原型計畫，然後開始跑。</p>
+
+</div></body></html>
