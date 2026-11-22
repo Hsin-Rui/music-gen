@@ -1,7 +1,7 @@
 ---
 id: when-in-rome
 type: dataset
-updated: '2026-11-21'
+updated: '2026-11-22'
 ---
 
 # When-in-Rome
@@ -19,6 +19,8 @@ updated: '2026-11-21'
 
 含 371 首巴哈聖詠、貝多芬四重奏、莫札特奏鳴曲等。
 
+它引用 [OpenScore Lieder](openscore-lieder.md) 作為 CC0 樂譜來源，也收了部分 Lieder 的分析；哪些曲子有分析尚未逐首確認。若配得上，可以當「伴奏忠於和弦」的真人參照（R5 追加討論，2026-11-22）。
+
 ## 出處
 
-[R3 [29]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
+[R3 [29]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)、[R5 [30]](../../docs/research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.md)

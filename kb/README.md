@@ -91,11 +91,13 @@
 | [NeuraLLMuse 配和聲資料集](datasets/neurallmuse-melodic-harmonization.md) | 兩聲部 MIDI（旋律＋和聲） | Apache-2.0 | 未查 |
 | [Opencpop](datasets/opencpop.md) | 中文歌聲＋樂譜 | CC BY-NC-ND 4.0；商用需洽談 | 中文流行歌聲 |
 | [OpenGufeng](datasets/opengufeng.md) | 旋律＋三和弦 | MIT | 中國風流行（古風） |
+| [OpenScore Lieder Corpus](datasets/openscore-lieder.md) | 藝術歌曲樂譜（人聲＋鋼琴，MusicXML／MuseScore） | CC0（專案方說明；HF 衍生版標 CC BY-SA 4.0） | 19 世紀西方藝術歌曲（Schubert、Schumann、Brahms 等） |
 | [PDMX](datasets/pdmx.md) | 符號（MusicXML 樂譜） | CC BY 4.0（12.29% 授權資訊互相矛盾） | 西方為主 |
 | [Pop1K7](datasets/pop1k7.md) | 流行鋼琴演奏 MIDI（含樂譜標記） | 未查 | 流行鋼琴 |
 | [POP909](datasets/pop909.md) | 旋律＋副旋律＋鋼琴伴奏＋和弦／調／拍 | MIT（repo 標籤） | 流行（華語未確認） |
 | [prototype-01 範例旋律（自製）](datasets/prototype-examples.md) | 單旋律 MIDI | 公有領域曲目，本專案自行打譜 | 西方古典、英格蘭民謠、中國民歌 |
 | [Saraga](datasets/saraga.md) | 印度古典音訊＋標註 | CC BY-NC-SA | 印度（Carnatic／Hindustani） |
+| [Schubert Winterreise Dataset](datasets/schubert-winterreise.md) | 多模態：樂譜、錄音與分析標註 | 開放（Zenodo，DOI 10.5281/zenodo.10839767；授權細節未查） | 西方藝術歌曲（Schubert） |
 | [中研院台灣原住民祭儀歌舞檔案](datasets/sinica-indigenous.md) | 影音 | 頁面沒有寫重用條款 | 台灣原住民 |
 | [Slakh2100](datasets/slakh2100.md) | 多樂器合成音訊＋MIDI | CC BY 4.0（未在 R4 查證） | 流行多軌 |
 | [SymbTr](datasets/symbtr.md) | 土耳其 makam 符號樂譜 | CC BY-NC-SA | 土耳其古典 |
