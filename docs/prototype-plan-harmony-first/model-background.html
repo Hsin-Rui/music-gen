@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三個伴奏模型的來歷</title>
+<style>
+:root{--bg:#fbfaf8;--fg:#1d1d1f;--muted:#5f6368;--card:#fff;--line:#e3e0da;--accent:#2f6f8f;--soft:#eef4f7;--warn:#fff1b8;--ok:#e3f1e6;--okfg:#1e5b2c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141517;--fg:#e8e6e3;--muted:#a3a6ab;--card:#1d1f22;--line:#33363b;--accent:#7cb8d6;--soft:#1f2a30;--warn:#5a4a10;--ok:#1d3a25;--okfg:#a8dcb4}}
+:root[data-theme="dark"]{--bg:#141517;--fg:#e8e6e3;--muted:#a3a6ab;--card:#1d1f22;--line:#33363b;--accent:#7cb8d6;--soft:#1f2a30;--warn:#5a4a10;--ok:#1d3a25;--okfg:#a8dcb4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.6rem;line-height:1.35;margin:0 0 6px}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+h2{font-size:1.25rem;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:22px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 20px;margin:14px 0}
+.summary{background:var(--soft)}
+.why{border-left:4px solid var(--accent);background:var(--card);padding:10px 16px;margin:10px 0;border-radius:0 8px 8px 0}
+.why b:first-child{color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.scroll{overflow-x:auto}
+mark{background:var(--warn);color:inherit;padding:0 3px;border-radius:3px}
+code{font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:4px}
+nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem}
+nav a,.src a{color:var(--accent)}
+.src{font-size:.88rem;color:var(--muted)}
+.src li{margin:4px 0}
+</style></head><body><div class="wrap">
+
+<h1>三個伴奏模型的來歷：訓練資料、訓練方式、原始論文</h1>
+<div class="meta">原型 02（和聲優先）· 2026-11-22 · 依原始論文全文整理，並對照第三、四輪實際聽到與量到的現象</div>
+<nav><a href="#sum">一頁看完</a><a href="#amt">AMT</a><a href="#acco">AccoMontage</a><a href="#ce">Compose &amp; Embellish</a><a href="#common">三者共同的限制</a><a href="#src">來源</a></nav>
+
+<div class="card summary" id="sum">
+<p><b>一句話：</b>三個模型都沒有學過古典或藝術歌曲的伴奏，學的都是流行或一般 MIDI 音樂；而且三個「怎麼學會伴奏」的方式完全不同：</p>
+<ul>
+<li><b>AMT</b> 是<b>通用的 MIDI 接龍模型</b>：讀了 17.8 萬首各種樂器的 MIDI，學會「給一部分音、補其他的音」。它<b>沒有和弦的概念</b>，我們是把和弦當成另一件樂器的音塞給它。</li>
+<li><b>AccoMontage</b> 是<b>「剪貼＋改和弦」</b>：從 909 首專業編曲的中文流行歌鋼琴伴奏裡挑樂句，再用小型神經網路把挑到的織體改成你的和弦。伴奏的織體是真人寫的。</li>
+<li><b>Compose &amp; Embellish</b> 是<b>「樂譜 → 鋼琴演奏」</b>：從約 1,700 首自動採譜的流行鋼琴翻奏學會「看旋律＋和弦，一小節一小節彈出整首」。</li>
+</ul>
+</div>
+
+<div class="scroll"><table>
+<tr><th></th><th>AMT</th><th>AccoMontage</th><th>Compose &amp; Embellish</th></tr>
+<tr><td>原始論文</td><td>Thickstun、Hall、Donahue、Liang，<i>Anticipatory Music Transformer</i>，TMLR 2024（arXiv 2023）</td><td>Zhao、Xia，<i>AccoMontage: Accompaniment Arrangement via Phrase Selection and Style Transfer</i>，ISMIR 2021</td><td>Wu、Yang，<i>Compose &amp; Embellish: Well-Structured Piano Performance Generation via a Two-Stage Approach</i>，ICASSP 2023</td></tr>
+<tr><td>團隊</td><td>史丹佛大學（另有 Google DeepMind／CMU）</td><td>紐約大學上海分校 Music X Lab</td><td>台灣人工智慧實驗室 Yating 團隊、CMU、中研院</td></tr>
+<tr><td>訓練資料</td><td>Lakh MIDI：178,561 個 MIDI 檔、約 8,943 小時，各種樂器與曲風（以西方流行為主）</td><td>POP909：909 首中文流行歌，由專業音樂人編寫的鋼琴伴奏；只留 2/4、4/4，得到 857 首、11,032 個樂句</td><td>Pop1K7：約 1,700 首西方、日本、韓國流行歌的鋼琴翻奏，從音檔自動採譜成 MIDI</td></tr>
+<tr><td>方法類型</td><td>大型語言模型式的接龍（Transformer）</td><td>檢索（挑樂句）＋小型 VAE 改和弦</td><td>Transformer，一小節樂譜、一小節演奏交錯</td></tr>
+<tr><td>大小</td><td>我們用 Medium：3.6 億參數，訓練 80 萬步</td><td>小（VAE 加一個轉場評分網路）</td><td>演奏模型約 3,800 萬參數</td></tr>
+<tr><td>原本設計的任務</td><td>補寫：給定某些音（某件樂器、某段時間），補出其餘的音</td><td>給民謠或流行歌的「旋律＋和弦＋樂句標記」，編一整首鋼琴伴奏</td><td>從零寫一整首鋼琴曲（先寫樂譜，再潤飾成演奏）</td></tr>
+<tr><td>我們怎麼用</td><td>旋律＋柱式和弦都當「給定的音」，讓它補鋼琴</td><td>照原設計用；Ode 樂句設成 A4A4B4A4</td><td>只用第二段：拿我們的旋律＋和弦表當樂譜，讓它潤飾成演奏</td></tr>
+<tr><td>有沒有「和弦」的概念</td><td><mark>沒有</mark>，只認得音</td><td>有：用 12 維的和弦音色向量，以拍為單位</td><td>有：和弦記號（12 個根音 × 11 種性質）</td></tr>
+</table></div>
+
+<h2 id="amt">1. AMT（Anticipatory Music Transformer）</h2>
+
+<h3>訓練資料</h3>
+<ul>
+<li><b>Lakh MIDI 資料集</b>（Raffel 2016）：178,561 個 MIDI 檔，處理成約 6.6 億個音符事件、約 8,943 小時的音樂。內容是網路上蒐集的各種 MIDI：流行歌、電影配樂、古典等都有，但以西方流行為主，品質參差。</li>
+<li>資料是<b>多樂器</b>的，不是專門的鋼琴伴奏，也沒有任何「旋律」或「和弦」標記。</li>
+<li>作者特別提醒：Lakh MIDI 名義上是 CC-BY 4.0，但很多檔案是翻扒商業歌曲，<b>輸出應推定有侵權風險</b>。這也表示我們的知識庫之前寫的「約 45 萬張商業唱片轉譜」是錯的，已改正。</li>
+</ul>
+
+<h3>訓練方式</h3>
+<ul>
+<li><b>表示法：</b>每個音是「出現時間（10 毫秒格）＋長度＋音高×樂器」三個符號，不用小節或拍子。所以模型<b>不知道小節線和拍子在哪裡</b>。</li>
+<li><b>「預先看見」（anticipation）：</b>這是論文的核心發明。訓練時從一首曲子裡挑出一部分音當「條件」，把這些條件音放到序列裡比它實際發生<b>早 5 秒</b>的位置。這樣模型寫到某一刻時，已經看得到接下來 5 秒內會出現的條件音，可以預先準備。</li>
+<li><b>挑哪些音當條件（訓練時的比例）：</b>
+  <ul>
+  <li>10%：不挑，就是一般的往下接；</li>
+  <li>10%：一段隨機時間裡的所有音；</li>
+  <li><b>40%：隨機挑幾件樂器的所有音</b>，也就是「給你這幾件樂器，補其他樂器」；</li>
+  <li>40%：隨機挑一部分的音。</li>
+  </ul>
+  每首曲子用不同的挑法擴增 30 倍，總共約 520 億個符號。</li>
+<li><b>規模：</b>有 Small（1.28 億參數）、Medium（3.6 億）和 Large（7.8 億）三種大小。我們用的是 Medium、訓練 80 萬步的版本，是論文裡最好的一個。訓練用 Google TPU v3-32；每次看 1,024 個符號，大約十幾到幾十秒的音樂。</li>
+</ul>
+
+<h3>論文怎麼評估伴奏</h3>
+<ul>
+<li>伴奏測試：先給 5 秒開頭，再給完整 20 秒的旋律，讓模型補後 15 秒的伴奏。<b>「旋律」被粗略地定義成音最高的那件樂器。</b></li>
+<li>請 Amazon Mechanical Turk 上的人做 A/B 比較，選「哪一段比較有音樂性」，和真人原曲比。結果是 18 勝、31 平、11 負（p = 0.19），和真人原曲沒有顯著差別。</li>
+<li>注意：測試用的是 Lakh MIDI 裡的流行曲片段，<b>有開頭可以參考</b>，而且沒有「要符合某個和弦表」的要求。</li>
+</ul>
+
+<div class="why"><b>對照我們看到的現象：</b>
+<ul>
+<li><b>和弦對不上、常照抄提示：</b>模型沒有和弦概念。我們給的柱式和弦只是「另一件樂器的音」，而它訓練時 40% 在練「看到某幾件樂器、補其他樂器」。所以照著那件樂器的音彈，或者乾脆抄一遍，是很自然的行為。</li>
+<li><b>抄旋律（高八度、平行三度）：</b>在 Lakh MIDI 裡，同一條旋律常由好幾件樂器重疊演奏，模型學到「其他聲部跟著旋律走」很常見。</li>
+<li><b>空白、極稀疏或極密：</b>我們沒有給它開頭，論文和 issue #18 都指出這會讓品質變差。第四輪同一個設定裡，就出現了 4 個音和 946 個音的兩段。</li>
+<li><b>top_p 從 0.95 改成 0.98 常產生一模一樣的結果：</b>這表示模型在這些地方非常有把握，前幾個選擇已經占了 98% 以上的機率，所以這個參數對它影響很小。</li>
+</ul></div>
+
+<h2 id="acco">2. AccoMontage</h2>
+
+<h3>訓練資料</h3>
+<ul>
+<li><b>POP909</b>：909 首中文流行歌，每首都由專業音樂人分成旋律、和弦、鋼琴伴奏三軌。作者稱它是「細緻鋼琴織體的好來源」。</li>
+<li>只留 2/4 和 4/4、量化到十六分音符（和弦到四分音符），得到 857 首、<b>11,032 個樂句</b>。樂句切分由另一份研究人工標註；四小節和八小節的樂句最多。</li>
+<li>每個樂句再<b>移到 12 個調</b>，擴充可挑的範圍。</li>
+<li>論文測試時用的旋律來自 <b>Nottingham 資料集</b>（約 1,000 首英美民謠），樂句由人工標註。這和我們的快樂頌、綠袖子性質很接近。</li>
+</ul>
+
+<h3>訓練方式（其實大部分不是「訓練」，是「挑選」）</h3>
+<ol>
+<li><b>挑樂句：</b>把你的旋律切成樂句，對每一句從 1.1 萬個樂句裡找候選。整首的挑法用動態規劃（Viterbi）一次算出分數最高的一條路徑。
+  <ul>
+  <li><b>這一句合不合（規則式）：</b>旋律節奏的相似度 × 0.5，加上和弦的相似度 × 0.5。和弦相似度用「調性區間向量」（TIV）算餘弦。</li>
+  <li><b>上下句接不接得順（學出來的）：</b>用對比學習訓練一個小網路，學會分辨「原曲裡真的相鄰的兩句」和「隨便配的兩句」。如果你的兩句樂句標記相同，例如都是 A，還會額外加分，偏好挑旋律也一樣的伴奏。</li>
+  <li>整條路徑的分數 = 0.3 × 每句合不合 + 0.7 × 上下句接得順不順。換句話說，<b>它比較在乎整首結構順，和弦只是弱條件</b>，作者說這是故意的，免得資料太少時被和弦卡死。</li>
+  </ul></li>
+<li><b>改和弦（風格轉換）：</b>把挑到的伴奏用預訓練的「和弦與織體拆開」的 VAE（Wang 等人 2020，也是用 POP909 訓練）拆成「織體」和「和弦」兩部分，換成你的和弦，再組回去。伴奏的織體因此保留，音高則改成符合新和弦。</li>
+<li><b>可控制的地方：</b>密度（多少時間點有新音）和發聲數（平均同時幾個音）。論文分成低、中、高三級；我們的程式用的是 0–4 五級。<mark>這只篩第一個樂句</mark>，後面的樂句是順著「接得順」往下挑的。</li>
+<li>轉場網路訓練了 50 個 epoch，POP909 的 95% 拿來訓練、5% 驗證。</li>
+</ol>
+
+<h3>論文怎麼評估</h3>
+<ul>
+<li>72 位受試者，每人聽 1–3 首。曲目是 14 首 Nottingham 民謠，各配三種伴奏：AccoMontage、純學習式的模型、只檢索不改和弦的版本。</li>
+<li>受試者用 5 分量表評「和旋律配不配」「有沒有跟著結構走」「整體音樂性」。AccoMontage 在前兩項顯著較好（p &lt; 0.05），音樂性接近顯著（p = 0.053）。</li>
+<li>沒有測「兩隻手彈不彈得到」，也沒有用客觀的和弦符合度指標。</li>
+</ul>
+
+<div class="why"><b>對照我們看到的現象：</b>
+<ul>
+<li><b>聽起來最像「真的鋼琴伴奏」：</b>織體直接來自專業編曲，不是模型憑空生成的。</li>
+<li><b>30 段裡 21 段沒過「彈得到」：</b>POP909 的鋼琴伴奏是給錄音用的編曲，不一定是一個人兩隻手彈得到的譜。VAE 換和弦時也可能把音拉開。</li>
+<li><b>同一個設定的三段差很多：</b>密度、發聲數只決定第一句，後面靠「接得順」與隨機度 0.1 決定。</li>
+<li><b>只吃 2/4、4/4：</b>資料篩選時就只留了這兩種拍子，所以綠袖子（3/4）要重新分小節。</li>
+</ul></div>
+
+<h2 id="ce">3. Compose &amp; Embellish</h2>
+
+<h3>訓練資料</h3>
+<ul>
+<li><b>Pop1K7</b>（Hsiao 等人 2021，同一團隊）：約 1,700 首西方、日本動漫、韓國流行歌的鋼琴翻奏，從網路音檔用 Kong 等人的鋼琴採譜模型<b>自動轉成 MIDI</b>，所以包含真人演奏的力度和快慢。清理後留 1,591 首，平均每首 104 小節。</li>
+<li>每首的「樂譜」（lead sheet）是自動抽出來的：
+  <ul>
+  <li>旋律用 skyline 法，每個時間點只留最高音，對流行歌約有八成準確；</li>
+  <li>和弦和樂句結構也是用程式分析出來的；</li>
+  <li>樂句超過 32 小節的歌丟掉。</li>
+  </ul></li>
+<li>第一階段（寫樂譜）另外先用 <b>Lakh MIDI</b> 的 14,934 首有歌詞的歌預訓練，再用 Pop1K7 微調。<b>我們沒有用第一階段</b>，用的是自己的旋律和 Gemini 的和弦表。</li>
+<li>1,591 首裡 10% 拿來驗證。</li>
+</ul>
+
+<h3>訓練方式</h3>
+<ul>
+<li><b>兩階段分開訓練：</b>
+  <ul>
+  <li>第一階段「Compose」學寫樂譜，也就是旋律＋和弦＋樂句記號；</li>
+  <li>第二階段「Embellish」學「看樂譜 → 彈成鋼琴演奏」，包括伴奏、力度和速度變化。</li>
+  </ul></li>
+<li><b>交錯排列：</b>第二階段把「第 1 小節樂譜、第 1 小節演奏、第 2 小節樂譜、第 2 小節演奏……」排成一條序列。所以彈每一小節時，最近的參考永遠是這一小節的樂譜，鼓勵它忠於樂譜。</li>
+<li><b>表示法：</b>以小節和十六分音符位置記錄（REMI），每個音記錄音高、長度和 32 級力度，和弦記號是 12 個根音 × 11 種性質。所以它<b>知道小節和拍子</b>，但只會 4/4。</li>
+<li><b>規模：</b>12 層 Transformer，約 3,800 萬參數。每次隨機截 3,072 個符號（約 40 小節）來訓練，在一張 RTX 3090 Ti 上訓練約 3 天。</li>
+<li>論文版本用的是 Performer 注意力。後來作者另外放出<b>相同資料、相同大小的 GPT-2 版</b>，我們用的就是這個，因為 Performer 依賴的套件已經過時。</li>
+<li><b>取樣參數：</b>第一階段用溫度 1.2、top_p 0.97（這是用「生成結果的困惑度最接近真實資料」挑出來的）。<mark>第二階段，也就是我們用的這段，作者用的是溫度 1.1、top_p 0.99</mark>，理由是「我們聽起來最好聽」。我們第三輪預設的 1.2／0.97 其實是第一階段的值；第四輪的組合裡有 top_p 0.99，但沒有溫度 1.1。</li>
+</ul>
+
+<h3>論文怎麼評估</h3>
+<ul>
+<li>論文評的是<b>從零寫一整首</b>，不是替指定旋律配伴奏。15 位受試者，每人聽三組；每組三首都從同一段 8 小節開頭寫起，分別是真人、Compose &amp; Embellish、以及基準模型 CP Transformer。</li>
+<li>受試者用 5 分量表評連貫、正確、結構、豐富、整體五項。Compose &amp; Embellish 每項都顯著勝過基準（p &lt; 0.01），整體 3.18 分，但仍明顯低於真人的 4.40 分。</li>
+<li>第二階段會把樂譜上的旋律音<b>幾乎原封不動彈出來</b>，符合率超過 98%。</li>
+</ul>
+
+<div class="why"><b>對照我們看到的現象：</b>
+<ul>
+<li><b>旋律一音不差地被彈出來（快樂頌 62/62）：</b>它就是被訓練成這樣，旋律是演奏的一部分。所以我們轉換時要把旋律音拿掉，剩下的才是伴奏。</li>
+<li><b>和弦守得好、五道門檻全過：</b>它真的有和弦記號可讀，而且每小節都緊貼著樂譜。</li>
+<li><b>伴奏偏稀疏：</b>可能因為 skyline 抽旋律時拿掉的只有最高音，翻奏裡很多「伴奏」其實是右手的和聲填充；這些音被我們當成和旋律同位置而刪掉，或者原本就不多。這一點還沒證實。</li>
+<li><b>和弦被簡化：</b>只有 11 種性質，轉位低音被丟掉。資料裡的和弦是程式自動辨識的流行和弦，沒有古典的轉位與功能標記。</li>
+</ul></div>
+
+<h2 id="common">4. 三者共同的限制</h2>
+<div class="card">
+<ul>
+<li><b>都沒學過古典或藝術歌曲的伴奏。</b>資料都是流行或一般 MIDI：中文流行、日韓與西方流行翻奏、Lakh MIDI。所以「像舒伯特那樣的伴奏」不在它們的經驗裡，這也是之前把 OpenScore Lieder 留作日後參考資料的原因。</li>
+<li><b>和弦都沒有被「嚴格遵守」的訓練目標。</b>AMT 完全沒有和弦；AccoMontage 刻意把和弦設成弱條件，事後再用 VAE 修；Compose &amp; Embellish 有和弦記號，但只是「參考」，沒有懲罰。</li>
+<li><b>都沒有考慮「人彈不彈得到」。</b>POP909 是錄音用的編曲，Pop1K7 是採譜結果，Lakh MIDI 是多樂器；三篇論文都沒有評估可彈性。</li>
+<li><b>拍子：</b>AccoMontage 和 Compose &amp; Embellish 只會 4/4（AccoMontage 加上 2/4）；AMT 不認得拍子，只看秒數。</li>
+<li><b>三篇的聽覺測試都很小，而且情境跟我們不同。</b>AMT 用 Mechanical Turk 聽 20 秒；AccoMontage 有 72 人，曲目是民謠；Compose &amp; Embellish 只有 15 人，評的是整首從零寫。沒有一篇測過「給定旋律＋和弦表、配可彈的鋼琴伴奏」這件事。</li>
+</ul>
+</div>
+
+<h2 id="src">來源</h2>
+<ol class="src">
+<li>Thickstun, J., Hall, D., Donahue, C., &amp; Liang, P. (2024). Anticipatory Music Transformer. <i>TMLR</i>. <a href="https://arxiv.org/abs/2306.08620">arXiv 2306.08620</a>（全文讀過：第 4 節、附錄 D、G、J 與表 1–3、5）</li>
+<li>Zhao, J., &amp; Xia, G. (2021). AccoMontage: Accompaniment Arrangement via Phrase Selection and Style Transfer. <i>ISMIR</i>. <a href="https://arxiv.org/abs/2108.11213">arXiv 2108.11213</a>（全文讀過）</li>
+<li>Wu, S.-L., &amp; Yang, Y.-H. (2023). Compose &amp; Embellish: Well-Structured Piano Performance Generation via a Two-Stage Approach. <i>ICASSP</i>. <a href="https://arxiv.org/abs/2209.08212">arXiv 2209.08212</a>（全文讀過）</li>
+<li>Compose &amp; Embellish 權重說明（GPT-2 版與 Performer 版，同為 Pop1K7、38.2M 參數）：<a href="https://huggingface.co/slseanwu/compose-and-embellish-pop1k7">Hugging Face</a></li>
+<li>Pop1K7 資料集說明：<a href="https://zenodo.org/records/13167761">Zenodo</a>；採譜模型來源：Chou 等人 2021 <a href="https://arxiv.org/abs/2107.05223">arXiv 2107.05223</a></li>
+<li>本專案的實測：第三輪報告、第四輪調參設計（<code>tuning-design-r4.html</code>）與 <code>prototype/harmony-first/reports/round4-manifest.json</code></li>
+</ol>
+</div></body></html>

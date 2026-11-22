@@ -117,10 +117,10 @@
 | [Jazz Transformer（Wu & Yang，ISMIR 2020）](literature/arxiv-2008.01307.md) | 2020-08 | 高 |
 | [MusPy（ISMIR 2020）](literature/arxiv-2008.01951.md) | 2020 | 高 |
 | [IS／FAD 與主觀評分相關弱](literature/arxiv-2108.01576.md) | 2021-08 | 中 |
-| [AccoMontage（ISMIR 2021）](literature/arxiv-2108.11213.md) | 2021 | 中 |
+| [AccoMontage（ISMIR 2021）](literature/arxiv-2108.11213.md) | 2021 | 高 |
 | [FIGARO（ICLR 2023）](literature/arxiv-2201.10936.md) | 2023 | 高 |
 | [AccoMontage2 聽覺測試：和聲性顯著優於 BLSTM](literature/arxiv-2209.00353.md) | 2022 | 中 |
-| [Compose & Embellish：先寫樂譜再潤飾成鋼琴演奏](literature/arxiv-2209.08212.md) | 2022 / ICASSP 2023 | 中 |
+| [Compose & Embellish：先寫樂譜再潤飾成鋼琴演奏](literature/arxiv-2209.08212.md) | 2022 / ICASSP 2023 | 高 |
 | [AMT 補寫與伴奏能力（TMLR）](literature/arxiv-2306.08620.md) | 2023-06 | 高 |
 | [主觀評估沒有標準化程序（預印本，搜尋摘要）](literature/arxiv-2308.13736.md) | 2023-08 | 中 |
 | [AccoMontage-3：樂譜 → 鋼琴 → 多軌，聽測勝過 AMT](literature/arxiv-2310.16334.md) | 2024-11 | 高 |

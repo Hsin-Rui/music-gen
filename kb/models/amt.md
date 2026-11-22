@@ -3,7 +3,7 @@ id: amt
 type: model
 task: '符號生成：補寫、給旋律生伴奏'
 status: '已用於 prototype-01'
-updated: '2026-11-21'
+updated: '2026-11-22'
 ---
 
 # Anticipatory Music Transformer (AMT)
@@ -13,7 +13,7 @@ updated: '2026-11-21'
 | 做什麼 | 符號生成：補寫、給旋律生伴奏 |
 | 連結 | [GitHub](https://github.com/jthickstun/anticipation)、[HF music-medium-800k](https://huggingface.co/stanford-crfm/music-medium-800k) |
 | 程式碼授權 | Apache-2.0 |
-| 權重授權 | Apache-2.0（訓練資料含約 45 萬張商業唱片轉譜，作者提醒輸出推定有侵權風險） |
+| 權重授權 | Apache-2.0（訓練資料 Lakh MIDI 多為翻扒商業歌曲，作者提醒輸出應推定有侵權風險） |
 | 大小 | small／medium 約 3.6 億參數／large |
 | 輸入 | MIDI 事件（time, dur, note）；`controls=` 當條件 |
 | 輸出 | 多樂器 MIDI |
@@ -41,3 +41,4 @@ updated: '2026-11-21'
 ## 更新紀錄
 
 - **原型 02（2026-11-21）：** 加上柱式和弦當額外條件（program 48）。64 份裡 12 份是空的；**常把旋律原樣、高八度或平行三度抄一遍**（旋律放在鋼琴類音色、輸出限定鋼琴時）。舊的挑選指標（含 PCS）會挑到這些抄的；已改成排除抄旋律 ≥ 50% 的候選。MPS 約每份 1 分鐘，CPU 加和弦條件 5–8 分鐘。
+- **論文精讀（2026-11-22）：** 訓練資料是 Lakh MIDI（178,561 檔、約 8,943 小時、多樂器，以西方流行為主），先前寫的「45 萬張唱片轉譜」是錯的。時間以 10 毫秒為單位，沒有小節與拍子；條件音提前 5 秒放進序列。訓練時挑條件的比例：10% 不挑、10% 時間片段、40% 整件樂器、40% 隨機音；擴增 30 倍，約 520 億符號。Medium 3.6 億參數、80 萬步（我們用的版本）。伴奏評估：旋律定義為最高音的樂器，有 5 秒開頭，Mechanical Turk A/B，對真人 18 勝 31 平 11 負（p = 0.19）。[模型來歷報告](../../docs/prototype-plan-harmony-first/model-background.html)

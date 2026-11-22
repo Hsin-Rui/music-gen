@@ -3,7 +3,7 @@ id: arxiv-2108.11213
 type: literature
 source: https://arxiv.org/abs/2108.11213
 published: '2021'
-confidence: '中'
+confidence: '高'
 added: '2026-11-22'
 ---
 
@@ -21,4 +21,4 @@ added: '2026-11-22'
 
 ## 筆記
 
-（尚未精讀。上面的說法來自研究報告的查證，信心欄位沿用報告的判定。）
+已精讀（2026-11-22）。重點見 [accomontage](../models/accomontage.md) 的更新紀錄與 [模型來歷報告](../../docs/prototype-plan-harmony-first/model-background.html)。
