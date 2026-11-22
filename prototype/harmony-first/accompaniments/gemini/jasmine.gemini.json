@@ -1,0 +1,27 @@
+{
+ "melody": "jasmine",
+ "chart_source": "gemini",
+ "bars": [
+  "open8",
+  "open8",
+  "open8",
+  "open8",
+  "open8",
+  "sustain",
+  "sustain",
+  "open8",
+  "sustain",
+  "open8",
+  "sustain",
+  "open8",
+  "sustain",
+  "final"
+ ],
+ "why": [
+  "第1至第4小節：使用無三音的「open8」伴奏（根-五-八-五），完美契合《茉莉花》傳統五聲音階的空靈與流動感。",
+  "第5至第8小節：在和弦維持兩拍的第5與第8小節繼續使用「open8」；第6、7小節因一拍換一個和弦，改用「sustain」保持平穩，避免伴奏過於擁擠。",
+  "第9至第12小節：第9與第11小節和弦變化較快，同樣採用「sustain」；第10與第12小節則回到「open8」填補旋律的長音，維持前進的動力。",
+  "第13至第14小節：第13小節以「sustain」平穩鋪墊V-I終止式的過渡，第14小節使用「final」優雅的琶音收尾，為全曲畫上圓滿句號。"
+ ],
+ "author": "gemini-3.1-pro-preview (API, 2026-11-22 08:23)"
+}

@@ -173,7 +173,8 @@ details.explain li { margin-bottom:8px; }
     <b>AMT 加和弦條件</b>（原型 01 的 AMT，這次把柱式和弦當成額外的「條件」一起給它看，輸出時只留它寫的鋼琴）、
     <b>AccoMontage</b>（ISMIR 2021，從 POP909 流行歌的鋼琴伴奏裡挑樂句，再照我們的和弦改編）、
     <b>Polyffusion</b>（ISMIR 2023，擴散模型）、
-    <b>Claude 寫伴奏</b>（Claude 在對話裡替每段旋律逐小節選伴奏型態：柱式、分解和弦、圓舞曲、空心五度等，並寫下理由，存在 <code>accompaniments/claude/</code>；程式再依和弦表把型態展開成音符，和弦一律放在旋律下方。它不是模型，沒有隨機性，每格一份）。<br>
+    <b>Claude 寫伴奏</b>（Claude 在對話裡替每段旋律逐小節選伴奏型態：柱式、分解和弦、圓舞曲、空心五度等，並寫下理由，存在 <code>accompaniments/claude/</code>；程式再依和弦表把型態展開成音符，和弦一律放在旋律下方。它不是模型，沒有隨機性，每格一份）、
+    <b>Gemini 寫伴奏</b>（同一個任務交給 Gemini 3.1 Pro：同樣的伴奏型態清單、同樣的展開程式。差別是 Gemini 針對每份和弦表各寫一份規劃，Claude 則是每段旋律一份；只有 Claude 和 Gemini 自己的和弦表有這一欄。規劃存在 <code>accompaniments/gemini/</code>）。<br>
     <span class="why">意圖：和弦都用同一份，比較的就只是「誰把和聲彈成伴奏比較好」。Polyffusion 的權重下載不到，所以那一欄是空的。AccoMontage 只會 4/4，綠袖子（3/4）和茉莉花（2/4）的拍子被重新分成 4 拍一小節：和弦仍然對齊每一拍，但伴奏的強弱拍是 4/4 的，綠袖子聽起來可能會「拍子不對」。</span></li>
   <li><b>多生幾份挑最好的</b>：每格生 8 份，用四項指標合成一個分數，挑最高分的一份（見下方〈指標怎麼算〉）。<br>
     <span class="why">意圖：模型每次生成都不一樣，挑掉明顯不好的。分數只負責初選，最後由你的耳朵決定。</span></li>

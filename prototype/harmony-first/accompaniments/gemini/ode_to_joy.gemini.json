@@ -1,0 +1,30 @@
+{
+ "melody": "ode_to_joy",
+ "chart_source": "gemini",
+ "bars": [
+  "sustain",
+  "sustain",
+  "sustain",
+  "sustain",
+  "alberti",
+  "alberti",
+  "alberti",
+  "alberti",
+  "broken8",
+  "broken8",
+  "broken8",
+  "broken8",
+  "halves",
+  "halves",
+  "halves",
+  "final"
+ ],
+ "why": [
+  "第1至4小節（A段）：使用 sustain，以平穩長按的柱式和弦營造莊嚴、神聖的開場氛圍。",
+  "第5至8小節（A'段）：轉用 alberti，透過經典的阿爾貝蒂低音八分音符增添流動感與古典時期的活力。",
+  "第9至12小節（B段）：進入發展段落，使用 broken8，以八分音符琶音的上下起伏為逐漸高昂的旋律線建立張力與層次。",
+  "第13至15小節（再現部）：改用 halves，以沈穩有力的二分音符節奏帶來飽滿且雄壯的高潮，呈現進行曲般的氣勢。",
+  "第16小節（結尾）：使用 final，透過俐落飽滿的滾奏和弦（V-I 終止式）為整首樂曲畫下完美而輝煌的句點。"
+ ],
+ "author": "gemini-3.1-pro-preview (API, 2026-11-22 08:23)"
+}

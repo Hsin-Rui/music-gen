@@ -107,6 +107,8 @@ inputs:
 - （2026-11-21）「參數只用預設值」不再是規定，之後可以系統性地調參數。原因：使用者認為應該調，而這條原本是 John 的預設，不是使用者的要求。
 - （2026-11-22）依 R4 研究（`docs/research-accompaniment-candidates-r4/`），配和聲加入 HarmonyRL、VeeHarmGen（規則查表基準），以及 Gemini 3.1 Pro（用 API 呼叫一次，拿到和弦後不再呼叫）。生伴奏不加新模型。原因：使用者選擇；HarmonyRL 是唯一跑得動、又支援 3/4 和 2/4 的新模型；VeeHarmGen 能回答「模型有沒有比查表好」；Gemini 能看出是 Claude 特別好，還是語言模型都行。
 - （2026-11-22）不再追 Polyffusion。原因：使用者決定。
+- （2026-11-22）使用者聽過後認為 Gemini 的和弦整體最好。HarmonyRL 這輪不跑（權重需登入 Hugging Face）。
+- （2026-11-22）調參數之前，加一欄「Gemini 寫伴奏」：使用者同意第二輪、也是最後一輪 Gemini 呼叫，讓 Gemini 替自己和 Claude 的和弦表逐小節選伴奏型態，用和「Claude 寫伴奏」相同的型態清單與展開程式。原因：使用者想比較兩個語言模型寫伴奏的差別。
 
 ## 建置
 

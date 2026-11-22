@@ -1,0 +1,27 @@
+{
+  "bars": [
+    "rest",
+    "oompah",
+    "oompah",
+    "oompah",
+    "oompah",
+    "oompah",
+    "oompah",
+    "oompah",
+    "oompah",
+    "broken8",
+    "broken8",
+    "broken8",
+    "broken8",
+    "broken8",
+    "broken8",
+    "sustain",
+    "final"
+  ],
+  "why": [
+    "第1小節：弱起小節，使用 rest 留白，讓旋律自然且清晰地引入。",
+    "第2至9小節：使用 oompah 伴奏，為這首經典的三拍子民謠建立穩定的古典質樸舞曲節奏基底。",
+    "第10至15小節：旋律重複且發展，改用 broken8 流動的八分音符分解和弦，增加音樂的層次感與情感推動力。",
+    "第16至17小節：結尾段落，第16小節以 sustain 穩定和聲停留，第17小節用 final 的華麗琶音和弦完美收尾。"
+  ]
+}

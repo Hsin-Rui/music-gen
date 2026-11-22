@@ -85,7 +85,11 @@ def realise(texture, start, beats, beat, bass, upper):
     return out
 
 
-def main():
+def claude_plan(melody, chart):
+    return ROOT / "accompaniments" / "claude" / f"{melody.stem}.json"
+
+
+def main(plan_for=claude_plan, author="claude"):
     ap = argparse.ArgumentParser()
     ap.add_argument("melody")
     ap.add_argument("chart")
@@ -97,11 +101,11 @@ def main():
     import pretty_midi
 
     melody = Path(args.melody)
-    plan_path = ROOT / "accompaniments" / "claude" / f"{melody.stem}.json"
-    if not plan_path.exists():
-        sys.exit(f"no Claude accompaniment plan at {plan_path}")
-    plan = json.loads(plan_path.read_text())
     chart = C.load(args.chart)
+    plan_path = plan_for(melody, chart)
+    if not plan_path.exists():
+        sys.exit(f"no {author} accompaniment plan at {plan_path}")
+    plan = json.loads(plan_path.read_text())
     meta = C.melody_meta(melody)
     if len(plan["bars"]) != meta["n_bars"] or len(chart["bars"]) != meta["n_bars"]:
         sys.exit(f"bar count mismatch: plan {len(plan['bars'])}, chart {len(chart['bars'])}, melody {meta['n_bars']}")
@@ -125,7 +129,7 @@ def main():
     out = Path(args.outdir)
     out.mkdir(parents=True, exist_ok=True)
     pm = pretty_midi.PrettyMIDI(initial_tempo=meta["bpm"])
-    inst = pretty_midi.Instrument(program=0, name="claude accompaniment")
+    inst = pretty_midi.Instrument(program=0, name=f"{author} accompaniment")
     inst.notes = [pretty_midi.Note(v, p, s, s + d) for s, d, p, v in notes]
     pm.instruments.append(inst)
     pm.write(str(out / "cand-0.mid"))

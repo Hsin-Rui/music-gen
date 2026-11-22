@@ -1,0 +1,62 @@
+You are an experienced piano arranger. Plan a piano accompaniment for this melody over the given chord chart.
+
+Title: Ode to Joy (Beethoven, Symphony No. 9)
+Key: D major
+Meter: 4/4 (4 beats per bar)
+Tempo: 132 bpm
+Bars: 16 (bar 1 is the first bar of the file; a pickup bar counts as a full bar)
+
+Melody notes, per bar ("pitch@beat b for d" = starts on beat b of the bar, lasts d beats):
+bar 1: F#4@beat 1 for 1, F#4@beat 2 for 1, G4@beat 3 for 1, A4@beat 4 for 1
+bar 2: A4@beat 1 for 1, G4@beat 2 for 1, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 3: D4@beat 1 for 1, D4@beat 2 for 1, E4@beat 3 for 1, F#4@beat 4 for 1
+bar 4: F#4@beat 1 for 1.5, E4@beat 2.5 for 0.5, E4@beat 3 for 2
+bar 5: F#4@beat 1 for 1, F#4@beat 2 for 1, G4@beat 3 for 1, A4@beat 4 for 1
+bar 6: A4@beat 1 for 1, G4@beat 2 for 1, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 7: D4@beat 1 for 1, D4@beat 2 for 1, E4@beat 3 for 1, F#4@beat 4 for 1
+bar 8: E4@beat 1 for 1.5, D4@beat 2.5 for 0.5, D4@beat 3 for 2
+bar 9: E4@beat 1 for 1, E4@beat 2 for 1, F#4@beat 3 for 1, D4@beat 4 for 1
+bar 10: E4@beat 1 for 1, F#4@beat 2 for 0.5, G4@beat 2.5 for 0.5, F#4@beat 3 for 1, D4@beat 4 for 1
+bar 11: E4@beat 1 for 1, F#4@beat 2 for 0.5, G4@beat 2.5 for 0.5, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 12: D4@beat 1 for 1, E4@beat 2 for 1, A3@beat 3 for 2
+bar 13: F#4@beat 1 for 1, F#4@beat 2 for 1, G4@beat 3 for 1, A4@beat 4 for 1
+bar 14: A4@beat 1 for 1, G4@beat 2 for 1, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 15: D4@beat 1 for 1, D4@beat 2 for 1, E4@beat 3 for 1, F#4@beat 4 for 1
+bar 16: E4@beat 1 for 1.5, D4@beat 2.5 for 0.5, D4@beat 3 for 2
+
+Chord chart (fixed, do not change it):
+bar 1: D(4 beats)
+bar 2: A7(4 beats)
+bar 3: D(4 beats)
+bar 4: D(2 beats) A(2 beats)
+bar 5: D(4 beats)
+bar 6: A7(4 beats)
+bar 7: D(4 beats)
+bar 8: A(2 beats) D(2 beats)
+bar 9: A(2 beats) D(2 beats)
+bar 10: A(2 beats) D(2 beats)
+bar 11: A(2 beats) D(1 beat) A(1 beat)
+bar 12: D(1 beat) A(3 beats)
+bar 13: D(4 beats)
+bar 14: A7(4 beats)
+bar 15: D(4 beats)
+bar 16: A(2 beats) D(2 beats)
+
+Choose ONE accompaniment texture per bar from this list (exact names):
+- "halves": block chord (bass + chord) on beats 1 and 3 (half notes)
+- "broken8": held bass + eighth-note broken chord going up and down
+- "alberti": held bass + eighth-note Alberti figure (low-high-middle-high)
+- "oompah": bass on beat 1, chord on each other beat (waltz/march feel)
+- "open8": eighth notes root-fifth-octave-fifth, no third (open, hollow)
+- "sustain": one held block chord for the whole chord span
+- "bass": a single held bass note only
+- "final": held bass with a quick rolled chord (ending)
+- "rest": nothing
+
+How it is played: the melody stays on its own piano part; the accompaniment chord is voiced below the melody (top note at least a minor third under the lowest melody note, never above G4), the bass between E2 and D#3; a bar with two chords applies the texture to each chord's span.
+
+Return JSON only, in exactly this shape:
+{"bars": ["<texture for bar 1>", "<texture for bar 2>", ...],
+ "why": ["<short reasons, in Traditional Chinese, one item per bar group>"]}
+
+Rules: exactly 16 items in "bars", each one of the names above.

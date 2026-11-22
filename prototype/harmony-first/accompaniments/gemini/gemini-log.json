@@ -1,0 +1,144 @@
+{
+ "model": "gemini-3.1-pro-preview",
+ "date": "2026-11-22 08:23",
+ "plans": {
+  "ode_to_joy.gemini": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 38.0,
+     "usage": {
+      "promptTokenCount": 1471,
+      "candidatesTokenCount": 346,
+      "totalTokenCount": 6620,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 1471
+       }
+      ],
+      "thoughtsTokenCount": 4803,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  },
+  "ode_to_joy.llm": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 21.7,
+     "usage": {
+      "promptTokenCount": 1391,
+      "candidatesTokenCount": 326,
+      "totalTokenCount": 4337,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 1391
+       }
+      ],
+      "thoughtsTokenCount": 2620,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  },
+  "greensleeves.gemini": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 22.4,
+     "usage": {
+      "promptTokenCount": 1119,
+      "candidatesTokenCount": 281,
+      "totalTokenCount": 4332,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 1119
+       }
+      ],
+      "thoughtsTokenCount": 2932,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  },
+  "greensleeves.llm": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 21.8,
+     "usage": {
+      "promptTokenCount": 1118,
+      "candidatesTokenCount": 339,
+      "totalTokenCount": 3971,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 1118
+       }
+      ],
+      "thoughtsTokenCount": 2514,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  },
+  "jasmine.gemini": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 23.3,
+     "usage": {
+      "promptTokenCount": 1563,
+      "candidatesTokenCount": 344,
+      "totalTokenCount": 5173,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 1563
+       }
+      ],
+      "thoughtsTokenCount": 3266,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  },
+  "jasmine.llm": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 24.3,
+     "usage": {
+      "promptTokenCount": 1567,
+      "candidatesTokenCount": 370,
+      "totalTokenCount": 5391,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 1567
+       }
+      ],
+      "thoughtsTokenCount": 3454,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  }
+ }
+}

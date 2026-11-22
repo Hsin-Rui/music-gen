@@ -20,6 +20,7 @@ PY = {
     "accomontage": ROOT / "envs" / "accomontage" / "bin" / "python",
     "polyffusion": ROOT / "envs" / "polyffusion" / "bin" / "python",
     "claude": ROOT / ".venv" / "bin" / "python",
+    "gemini": ROOT / ".venv" / "bin" / "python",
     "veeharmgen": ROOT / "envs" / "veeharmgen" / "bin" / "python",
     "harmonyrl": ROOT / "envs" / "harmonyrl" / "bin" / "python",
     "amt": P01_PY["amt"],
@@ -42,6 +43,7 @@ MODELS = {
     "accomontage": ("accomontage", "accomp_accomontage.py", "AccoMontage"),
     "polyffusion": ("polyffusion", "accomp_polyffusion.py", "Polyffusion"),
     "claude": ("claude", "accomp_claude.py", "Claude 寫伴奏"),
+    "gemini": ("gemini", "accomp_gemini.py", "Gemini 寫伴奏"),
 }
 RENDERERS = {
     "pianoflow": ("pianoflow", "render_pianoflow.py", "SyMuPe/PianoFlow-base"),

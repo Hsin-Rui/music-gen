@@ -39,7 +39,7 @@ uv run run.py ../melody-to-performance/examples/jasmine.mid --amt-device mps
 uv run make_player.py && open output/player.html
 ```
 
-選項：`--samples 8`（每格幾份）、`--seed 0`、`--device cpu|mps`（全部模型）、`--amt-device`（只給 AMT）、`--sources llm,gemini,melodyt5,accomontage2,veeharmgen,harmonyrl`、`--models amt,accomontage,claude,polyffusion`、`--resume`（已有的和弦和完整的 8 份候選不重跑，只重做挑選、演奏、轉檔）。
+選項：`--samples 8`（每格幾份）、`--seed 0`、`--device cpu|mps`（全部模型）、`--amt-device`（只給 AMT）、`--sources llm,gemini,melodyt5,accomontage2,veeharmgen,harmonyrl`、`--models amt,accomontage,claude,gemini,polyffusion`、`--resume`（已有的和弦和完整的 8 份候選不重跑，只重做挑選、演奏、轉檔）。
 
 AMT 在 CPU 上加了和弦條件之後很慢（控制音變多，同時跑三段時一份要 5–8 分鐘），所以完整執行時 AMT 用 MPS（一份約 1 分鐘），其他模型都用 CPU。
 
@@ -59,6 +59,8 @@ steps/accomp_accomontage.py    旋律＋和弦 → AccoMontage × N 份
 steps/accomp_polyffusion.py    旋律＋和弦 → Polyffusion × N 份（沒有權重，沒實際跑過）
 steps/metrics.py               CTnCTR、PCS（不計分）、調外音比例、刺耳重疊比例、抄旋律比例、總分
 steps/accomp_claude.py         Claude 寫伴奏：照 accompaniments/claude/<旋律>.json 的逐小節型態展開成音符
+steps/accomp_gemini.py         Gemini 寫伴奏：同一支展開程式，讀 accompaniments/gemini/<旋律>.<和弦來源>.json
+steps/plan_gemini_accomp.py    一次性（第二輪 Gemini）：請 Gemini 替自己和 Claude 的和弦表逐小節選伴奏型態
 steps/paths.py                 路徑、環境、沿用原型 01 的 runner
 output/<旋律>/harmony/<來源>.{json,mid,wav}            和弦＋「旋律＋柱式和弦」
 output/<旋律>/<來源>/<模型>/candidates/                 8 份候選＋scores.json
@@ -90,6 +92,7 @@ output/player.html                                     試聽頁
 - **MelodyT5** 用上游的預設取樣參數（top_p 0.8、top_k 8、temperature 2.6）。在配和聲模式下它逐小節照抄旋律，只取樣引號裡的和弦。和弦記號對齊到最近的一拍；沒有和弦記號的小節沿用前一個和弦。輸出小節數不對就換下一個種子（最多 3 次）。
 - **Gemini**（2026-11-22 使用者同意，只呼叫一次）：模型 `gemini-3.1-pro-preview`，預設取樣。給它的資訊和 Claude 一樣：曲名、調、拍號、速度、逐小節每個音（音名、拍點、長度）。三段都一次就成功；之後不再呼叫，`harmonizations/gemini/LOCK` 會擋住腳本。
 - **VeeHarmGen**：照每小節旋律的音級集合，查風格表裡最常見的和弦。設定 BAR1（一小節一個和弦，跟 Claude／Gemini 一樣）、風格 folk_1、rank 100（最常見）。它的表是在 C 大調／A 小調建的，上游預設不移調，所以包裝程式先把旋律移到 C／Am 查表，再把和弦移回原調。上游 `offsets` 預設值會讓步長變 0（ZeroDivisionError），本地改成 None。
+- **Gemini 寫伴奏**（2026-11-22 使用者同意第二輪、也是最後一輪呼叫）：給 Gemini 和 Claude 一樣的資訊和同一份型態清單，替 Gemini 自己和 Claude 的和弦表各寫一份逐小節規劃（共 6 份，都一次成功），用同一支程式展開。和 Claude 的差別：Gemini 每份和弦表一份規劃，Claude 每段旋律一份。`accompaniments/gemini/LOCK` 擋住再次呼叫。
 - **Claude 寫伴奏 × 其他和弦來源**：逐小節的伴奏型態（`accompaniments/claude/`）是照旋律寫的，套到 Gemini、VeeHarmGen 的和弦上時型態不變，只換和弦音。
 - **Polyffusion**：計畫寫 `--inpaint_type=above`，但上游程式和 README 把「替旋律補伴奏」定義為 `below`，包裝程式用 `below`。
 
