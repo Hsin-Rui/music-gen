@@ -23,6 +23,8 @@ cd prototype/harmony-first
 | AccoMontage2（配和聲） | `envs/accomontage2`：Python 3.10、`numpy<2`、`pandas<2.2` | `models/AccoMontage2` | 只用和弦模組；需要的資料檔已經在 repo 裡 |
 | AccoMontage（伴奏） | `envs/accomontage`：Python 3.10 | `models/AccoMontage` | Google Drive `checkpoints.zip`（317MB，用 gdown 下載） |
 | Polyffusion（伴奏） | `envs/polyffusion`：Python 3.10、`torch==2.1.2` | `models/polyffusion` | **下載不到**（見〈限制〉） |
+| VeeHarmGen（配和聲，規則查表） | `envs/veeharmgen`：Python 3.11、`music21==9.1.0`、pretty_midi | `models/veeharmgen`（git clone，v3.1.0，本地修一行 `offsets` 預設） | 風格表隨 repo |
+| HarmonyRL（配和聲，這輪沒跑） | `envs/harmonyrl`：Python 3.12、`harmonyrl==1.0.0` | pip | HF `CloudHolic/harmonyrl-*`，**需登入並同意條款** |
 | AMT（伴奏，加和弦條件） | 沿用原型 01 的 `envs/amt` | 原型 01 的 `models/anticipation` | 原型 01 的 HF 快取 |
 
 `models/`、`envs/`、`output/`、`*.wav`、`*.sf2` 都被 `.gitignore` 擋掉，不會進 git。音色庫沿用原型 01：用路徑指向你的 GeneralUser GS（`SOUNDFONT=` 或 `--soundfont` 可以換）。
@@ -37,7 +39,7 @@ uv run run.py ../melody-to-performance/examples/jasmine.mid --amt-device mps
 uv run make_player.py && open output/player.html
 ```
 
-選項：`--samples 8`（每格幾份）、`--seed 0`、`--device cpu|mps`（全部模型）、`--amt-device`（只給 AMT）、`--sources llm,melodyt5,accomontage2`、`--models amt,accomontage,polyffusion`、`--resume`（已有的和弦和完整的 8 份候選不重跑，只重做挑選、演奏、轉檔）。
+選項：`--samples 8`（每格幾份）、`--seed 0`、`--device cpu|mps`（全部模型）、`--amt-device`（只給 AMT）、`--sources llm,gemini,melodyt5,accomontage2,veeharmgen,harmonyrl`、`--models amt,accomontage,claude,polyffusion`、`--resume`（已有的和弦和完整的 8 份候選不重跑，只重做挑選、演奏、轉檔）。
 
 AMT 在 CPU 上加了和弦條件之後很慢（控制音變多，同時跑三段時一份要 5–8 分鐘），所以完整執行時 AMT 用 MPS（一份約 1 分鐘），其他模型都用 CPU。
 
@@ -45,9 +47,13 @@ AMT 在 CPU 上加了和弦條件之後很慢（控制音變多，同時跑三�
 
 ```
 harmonizations/llm/*.json      語言模型配的和弦（原封不動使用）
+harmonizations/gemini/         Gemini 配的和弦、提示詞、原始回覆、gemini-log.json、LOCK（只呼叫過一次）
 steps/chart.py                 和弦格式：解析和弦記號、檢查每小節拍數、做柱式和弦、逐拍和弦
 steps/harmonize_melodyt5.py    旋律 → MelodyT5 → 和弦 JSON
 steps/harmonize_accomontage2.py 旋律 → AccoMontage2 和弦模組 → 和弦 JSON
+steps/harmonize_gemini.py      一次性：請 Gemini 配和弦（有 LOCK 就拒絕執行）
+steps/harmonize_veeharmgen.py  旋律 → VeeHarmGen（移到 C/Am 查表再移回）→ 和弦 JSON
+steps/harmonize_harmonyrl.py   旋律 → HarmonyRL → 和弦 JSON（沒實際跑過）
 steps/accomp_amt.py            旋律＋和弦 → AMT（和弦當條件）× N 份
 steps/accomp_accomontage.py    旋律＋和弦 → AccoMontage × N 份
 steps/accomp_polyffusion.py    旋律＋和弦 → Polyffusion × N 份（沒有權重，沒實際跑過）
@@ -82,6 +88,9 @@ output/player.html                                     試聽頁
 - **AccoMontage 的和弦直接從我們的和弦表給**，不經過它自己的和弦辨識（避免辨識錯誤）。
 - **AMT 的和弦條件**：柱式和弦放在 program 48（弦樂合奏）當額外的 `controls`，旋律在 program 1；生成時只允許鋼琴（program 0），輸出只有 AMT 自己寫的音。上游會丟掉前 50 毫秒的控制音，所以第一個和弦和旋律第一個音 AMT 看不到（原型 01 就有的限制）。AMT 偶爾整份不寫任何音，這種候選記為 0 音、不參與排名。
 - **MelodyT5** 用上游的預設取樣參數（top_p 0.8、top_k 8、temperature 2.6）。在配和聲模式下它逐小節照抄旋律，只取樣引號裡的和弦。和弦記號對齊到最近的一拍；沒有和弦記號的小節沿用前一個和弦。輸出小節數不對就換下一個種子（最多 3 次）。
+- **Gemini**（2026-11-22 使用者同意，只呼叫一次）：模型 `gemini-3.1-pro-preview`，預設取樣。給它的資訊和 Claude 一樣：曲名、調、拍號、速度、逐小節每個音（音名、拍點、長度）。三段都一次就成功；之後不再呼叫，`harmonizations/gemini/LOCK` 會擋住腳本。
+- **VeeHarmGen**：照每小節旋律的音級集合，查風格表裡最常見的和弦。設定 BAR1（一小節一個和弦，跟 Claude／Gemini 一樣）、風格 folk_1、rank 100（最常見）。它的表是在 C 大調／A 小調建的，上游預設不移調，所以包裝程式先把旋律移到 C／Am 查表，再把和弦移回原調。上游 `offsets` 預設值會讓步長變 0（ZeroDivisionError），本地改成 None。
+- **Claude 寫伴奏 × 其他和弦來源**：逐小節的伴奏型態（`accompaniments/claude/`）是照旋律寫的，套到 Gemini、VeeHarmGen 的和弦上時型態不變，只換和弦音。
 - **Polyffusion**：計畫寫 `--inpaint_type=above`，但上游程式和 README 把「替旋律補伴奏」定義為 `below`，包裝程式用 `below`。
 
 ## 授權
@@ -92,6 +101,9 @@ output/player.html                                     試聽頁
 | AccoMontage2 | MIT（`chorderator/__init__.py` 另寫 GPL v3，兩者不一致） | 資料檔隨 repo |
 | AccoMontage | MIT | checkpoints（含 POP909 樂句，POP909 為 MIT 標籤） |
 | Polyffusion | MIT | 未取得 |
+| VeeHarmGen | LGPL-3.0 | 風格表隨 repo |
+| HarmonyRL | MIT | CC BY-NC-SA 3.0（非商用，HF 需同意條款） |
+| Gemini | — | 輸出依 Google API 條款 |
 | AMT | Apache-2.0 | Apache-2.0 |
 | PianoFlow | Apache-2.0 | CC BY-NC-SA（非商用） |
 | Pianist Transformer | Apache-2.0 | Apache-2.0 |
@@ -105,6 +117,13 @@ output/player.html                                     試聽頁
 - 只測過三段範例旋律（都是 2/4、3/4、4/4、量化好、單軌）。
 - AccoMontage 上游的 `dp_search` 在只有一個樂句時會當掉（`topk` 未定義），所以至少要 5 小節（4/4）；煙霧測試因此用前 8 小節。
 - `--resume` 重用候選時，生成時間和記憶體沿用上一次的紀錄；和聲重用時時間記為 0（MelodyT5、AccoMontage2 各約 5–10 秒，見煙霧測試）。
+
+## 第二輪：加入 Gemini、VeeHarmGen（2026-11-22）
+
+- **產出：** 兩個新和弦來源 × 三段旋律，每段配 AMT、AccoMontage、Claude 寫伴奏，共 18 格、54 個伴奏 WAV，都不是靜音。HarmonyRL 這輪沒跑（權重要登入 Hugging Face，使用者決定先不跑）。
+- **Gemini 的和弦接近 Claude：** 功能和聲為主，句尾有屬七解決（A7–D、E7–A、C G7）；快樂頌每小節換 2–3 個和弦，比 Claude 密。
+- **VeeHarmGen 只看音級集合、不管上下文：** 快樂頌第 10–11 小節冒出 G、C（D 大調裡的 C 是調外和弦）；綠袖子從 F 開始，還有 Cm/Eb、Dmaj7/F#；茉莉花出現 Fm/G#。可以當「沒有音樂常識的規則基準」。
+- **三段改成一段一段跑：** 同時跑三段時 AMT 搶 GPU、記憶體換頁，一份從 1 分鐘變 15 分鐘。
 
 ## 初步觀察（2026-11-21，還沒有人聽過，只看數字）
 

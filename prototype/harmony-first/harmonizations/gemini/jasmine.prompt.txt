@@ -1,0 +1,30 @@
+You are an experienced arranger. Write a chord chart (chord symbols) for this melody, to be used as the harmony of a piano accompaniment.
+
+Title: Mo Li Hua / Jasmine Flower (Chinese folk tune)
+Key: F major
+Meter: 2/4 (2 beats per bar)
+Tempo: 72 bpm
+Bars: 14 (bar 1 is the first bar of the file; a pickup bar counts as a full bar)
+
+Melody notes, per bar ("pitch@beat b for d" = starts on beat b of the bar, lasts d beats):
+bar 1: A4@beat 1 for 0.5, A4@beat 1.5 for 0.25, C5@beat 1.75 for 0.25, D5@beat 2 for 0.25, F5@beat 2.25 for 0.25, F5@beat 2.5 for 0.25, D5@beat 2.75 for 0.25
+bar 2: C5@beat 1 for 0.5, C5@beat 1.5 for 0.25, D5@beat 1.75 for 0.25, C5@beat 2 for 1
+bar 3: A4@beat 1 for 0.5, A4@beat 1.5 for 0.25, C5@beat 1.75 for 0.25, D5@beat 2 for 0.25, F5@beat 2.25 for 0.25, F5@beat 2.5 for 0.25, D5@beat 2.75 for 0.25
+bar 4: C5@beat 1 for 0.5, C5@beat 1.5 for 0.25, D5@beat 1.75 for 0.25, C5@beat 2 for 1
+bar 5: C5@beat 1 for 0.5, C5@beat 1.5 for 0.5, C5@beat 2 for 0.5, A4@beat 2.5 for 0.25, C5@beat 2.75 for 0.25
+bar 6: D5@beat 1 for 0.5, D5@beat 1.5 for 0.5, C5@beat 2 for 1
+bar 7: A4@beat 1 for 0.5, G4@beat 1.5 for 0.25, A4@beat 1.75 for 0.25, C5@beat 2 for 0.5, A4@beat 2.5 for 0.25, G4@beat 2.75 for 0.25
+bar 8: F4@beat 1 for 0.5, F4@beat 1.5 for 0.25, G4@beat 1.75 for 0.25, F4@beat 2 for 1
+bar 9: A4@beat 1 for 0.25, G4@beat 1.25 for 0.25, F4@beat 1.5 for 0.25, A4@beat 1.75 for 0.25, G4@beat 2 for 0.75, A4@beat 2.75 for 0.25
+bar 10: C5@beat 1 for 0.5, D5@beat 1.5 for 0.25, F5@beat 1.75 for 0.25, C5@beat 2 for 1
+bar 11: G4@beat 1 for 0.5, A4@beat 1.5 for 0.25, C5@beat 1.75 for 0.25, G4@beat 2 for 0.25, A4@beat 2.25 for 0.25, F4@beat 2.5 for 0.25, D4@beat 2.75 for 0.25
+bar 12: C4@beat 1 for 2
+bar 13: D4@beat 1 for 0.5, F4@beat 1.5 for 0.5, G4@beat 2 for 0.5, A4@beat 2.5 for 0.25, G4@beat 2.75 for 0.25
+bar 14: F4@beat 1 for 2
+
+Return JSON only, in exactly this shape:
+{"key": "<key>", "meter": "2/4", "beats_per_bar": 2,
+ "bars": [[["<chord>", <beats>], ...], ...],
+ "why": ["<short reasons, in Traditional Chinese, one item per bar group>"]}
+
+Rules: exactly 14 bars; inside each bar the beats are whole numbers and add up to 2; chord symbols like C, Am, G7, Bb, F#m, Dm7, Bdim, Csus4, C/E.

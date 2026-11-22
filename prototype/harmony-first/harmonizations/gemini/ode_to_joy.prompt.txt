@@ -1,0 +1,32 @@
+You are an experienced arranger. Write a chord chart (chord symbols) for this melody, to be used as the harmony of a piano accompaniment.
+
+Title: Ode to Joy (Beethoven, Symphony No. 9)
+Key: D major
+Meter: 4/4 (4 beats per bar)
+Tempo: 132 bpm
+Bars: 16 (bar 1 is the first bar of the file; a pickup bar counts as a full bar)
+
+Melody notes, per bar ("pitch@beat b for d" = starts on beat b of the bar, lasts d beats):
+bar 1: F#4@beat 1 for 1, F#4@beat 2 for 1, G4@beat 3 for 1, A4@beat 4 for 1
+bar 2: A4@beat 1 for 1, G4@beat 2 for 1, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 3: D4@beat 1 for 1, D4@beat 2 for 1, E4@beat 3 for 1, F#4@beat 4 for 1
+bar 4: F#4@beat 1 for 1.5, E4@beat 2.5 for 0.5, E4@beat 3 for 2
+bar 5: F#4@beat 1 for 1, F#4@beat 2 for 1, G4@beat 3 for 1, A4@beat 4 for 1
+bar 6: A4@beat 1 for 1, G4@beat 2 for 1, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 7: D4@beat 1 for 1, D4@beat 2 for 1, E4@beat 3 for 1, F#4@beat 4 for 1
+bar 8: E4@beat 1 for 1.5, D4@beat 2.5 for 0.5, D4@beat 3 for 2
+bar 9: E4@beat 1 for 1, E4@beat 2 for 1, F#4@beat 3 for 1, D4@beat 4 for 1
+bar 10: E4@beat 1 for 1, F#4@beat 2 for 0.5, G4@beat 2.5 for 0.5, F#4@beat 3 for 1, D4@beat 4 for 1
+bar 11: E4@beat 1 for 1, F#4@beat 2 for 0.5, G4@beat 2.5 for 0.5, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 12: D4@beat 1 for 1, E4@beat 2 for 1, A3@beat 3 for 2
+bar 13: F#4@beat 1 for 1, F#4@beat 2 for 1, G4@beat 3 for 1, A4@beat 4 for 1
+bar 14: A4@beat 1 for 1, G4@beat 2 for 1, F#4@beat 3 for 1, E4@beat 4 for 1
+bar 15: D4@beat 1 for 1, D4@beat 2 for 1, E4@beat 3 for 1, F#4@beat 4 for 1
+bar 16: E4@beat 1 for 1.5, D4@beat 2.5 for 0.5, D4@beat 3 for 2
+
+Return JSON only, in exactly this shape:
+{"key": "<key>", "meter": "4/4", "beats_per_bar": 4,
+ "bars": [[["<chord>", <beats>], ...], ...],
+ "why": ["<short reasons, in Traditional Chinese, one item per bar group>"]}
+
+Rules: exactly 16 bars; inside each bar the beats are whole numbers and add up to 4; chord symbols like C, Am, G7, Bb, F#m, Dm7, Bdim, Csus4, C/E.

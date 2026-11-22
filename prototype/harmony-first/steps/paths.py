@@ -20,6 +20,8 @@ PY = {
     "accomontage": ROOT / "envs" / "accomontage" / "bin" / "python",
     "polyffusion": ROOT / "envs" / "polyffusion" / "bin" / "python",
     "claude": ROOT / ".venv" / "bin" / "python",
+    "veeharmgen": ROOT / "envs" / "veeharmgen" / "bin" / "python",
+    "harmonyrl": ROOT / "envs" / "harmonyrl" / "bin" / "python",
     "amt": P01_PY["amt"],
     "pianoflow": P01_PY["pianoflow"],
     "pianist": P01_PY["pianist"],
@@ -30,7 +32,11 @@ SOURCES = {
     "llm": "語言模型（Claude）",
     "melodyt5": "MelodyT5",
     "accomontage2": "AccoMontage2",
+    "gemini": "Gemini 3.1 Pro",
+    "harmonyrl": "HarmonyRL",
+    "veeharmgen": "VeeHarmGen（規則查表）",
 }
+GIVEN_CHARTS = {"llm": ROOT / "harmonizations" / "llm", "gemini": ROOT / "harmonizations" / "gemini"}
 MODELS = {
     "amt": ("amt", "accomp_amt.py", "AMT + 和弦條件"),
     "accomontage": ("accomontage", "accomp_accomontage.py", "AccoMontage"),

@@ -4,7 +4,7 @@ template: prototype-plan
 version: 1.1.0
 status: final
 created: "2026-11-21"
-updated: "2026-11-21"
+updated: "2026-11-22"
 inputs:
   - kb/experiments/prototype-01-melody-to-performance.md
   - docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md
@@ -80,8 +80,8 @@ inputs:
 
 | 階段 | 選項 | 怎麼決定 |
 |---|---|---|
-| 配和聲 | MelodyT5、AccoMontage2（只配 4/4）、語言模型 | 你盲聽「旋律＋柱式和弦」，比較哪份最順耳 |
-| 生伴奏 | AMT 加和弦條件、AccoMontage、Polyffusion | 每份和弦 × 每個模型各生 8 份，用指標挑最好的一份，你再盲聽比較 |
+| 配和聲 | MelodyT5、AccoMontage2（只配 4/4）、語言模型（Claude）；第二批：Gemini 3.1 Pro、HarmonyRL、VeeHarmGen | 你盲聽「旋律＋柱式和弦」，比較哪份最順耳 |
+| 生伴奏 | AMT 加和弦條件、AccoMontage、Claude 寫伴奏（Polyffusion 權重拿不到，已放棄） | 每份和弦 × 每個模型各生 8 份（Claude 寫伴奏每格一份），用指標挑最好的一份，你再盲聽比較 |
 
 **數量：** 快樂頌、茉莉花各有 3 份和弦，綠袖子 2 份（AccoMontage2 不支援 3/4），共 8 份和弦。8 份和弦 × 3 個伴奏模型 = 24 份伴奏，每份 3 個版本，共 72 個音檔，加上 8 個「旋律＋柱式和弦」。AMT 估計要跑 2 到 3 小時。
 
@@ -102,6 +102,11 @@ inputs:
 - 表情演奏兩個都保留。原因：使用者想繼續觀察 PianoFlow。
 - 一開始「先不要太 critical」：配和聲的結果只要聽起來大致對就往下走，不追求完美。原因：使用者的指示，避免卡在第一階段。
 - D3PIA 評價最好，但找不到程式碼；FGG 沒有授權。兩個都不納入，記在知識庫持續觀察。
+- （2026-11-21）挑選指標拿掉「協和」，改成懲罰「抄旋律」（同音、八度、平移某個音程）。原因：使用者聽出 AMT 選中的伴奏常是在抄旋律，而協和指標會獎勵這種情況。
+- （2026-11-21）加入「Claude 寫伴奏」：Claude 逐小節規劃伴奏型態，程式依和弦展開。原因：使用者想知道 Claude 用自己的和弦生成伴奏，和 AMT、AccoMontage 比起來如何。
+- （2026-11-21）「參數只用預設值」不再是規定，之後可以系統性地調參數。原因：使用者認為應該調，而這條原本是 John 的預設，不是使用者的要求。
+- （2026-11-22）依 R4 研究（`docs/research-accompaniment-candidates-r4/`），配和聲加入 HarmonyRL、VeeHarmGen（規則查表基準），以及 Gemini 3.1 Pro（用 API 呼叫一次，拿到和弦後不再呼叫）。生伴奏不加新模型。原因：使用者選擇；HarmonyRL 是唯一跑得動、又支援 3/4 和 2/4 的新模型；VeeHarmGen 能回答「模型有沒有比查表好」；Gemini 能看出是 Claude 特別好，還是語言模型都行。
+- （2026-11-22）不再追 Polyffusion。原因：使用者決定。
 
 ## 建置
 

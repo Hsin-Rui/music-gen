@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "steps"))
 import chart as C  # noqa: E402
 import metrics as M  # noqa: E402
-from paths import (DEFAULT_SOUNDFONT, LLM_CHARTS, MODELS, P01_STEPS, PY, RENDERERS, SOURCES, STEPS,  # noqa: E402
+from paths import (DEFAULT_SOUNDFONT, GIVEN_CHARTS, LLM_CHARTS, MODELS, P01_STEPS, PY, RENDERERS, SOURCES, STEPS,  # noqa: E402
                    VERSIONS, compare, excerpt, run, wav_stats)
 
 SKIPPED = 3  # harmonizer exit code for "not applicable to this melody"
@@ -52,14 +52,15 @@ def harmonize(source, inp, meta, hdir, logs, args):
     rec = {"source": source}
     if args.resume and out.exists() and not C.validate(C.load(out), meta["n_bars"]):
         rec.update(ok=True, reused=True, sec=0)
-    elif source == "llm":
-        src = LLM_CHARTS / f"{inp.stem}.json"
+    elif source in GIVEN_CHARTS:
+        src = GIVEN_CHARTS[source] / f"{inp.stem}.json"
         if not src.exists():
-            return {**rec, "ok": False, "reason": f"no LLM chart at {rel(src)}"}
+            return {**rec, "ok": False, "reason": f"no {SOURCES[source]} chart at {rel(src)}"}
         shutil.copy(src, out)  # used as given, never edited
         rec.update(ok=True, sec=0, given=rel(src))
     else:
-        script = {"melodyt5": "harmonize_melodyt5.py", "accomontage2": "harmonize_accomontage2.py"}[source]
+        script = {"melodyt5": "harmonize_melodyt5.py", "accomontage2": "harmonize_accomontage2.py",
+                  "veeharmgen": "harmonize_veeharmgen.py", "harmonyrl": "harmonize_harmonyrl.py"}[source]
         out.unlink(missing_ok=True)
         r = run([PY[source], STEPS / script, inp, out, "--seed", args.seed], logs / f"harmony-{source}.log")
         rec.update(sec=r["sec"], peak_rss_mb=r["peak_rss_mb"], result=r["result"], warnings=r["warnings"])
@@ -178,10 +179,11 @@ def main():
     if not (out / "input.wav").exists():
         to_wav(out / "input.mid", out / "input.wav", args.soundfont, logs / "input-wav.log")
 
-    prev_notes = {}
+    prev_notes, prev_all = {}, {}
     if args.resume and (out / "run-notes.json").exists():
         try:
-            prev_notes = json.loads((out / "run-notes.json").read_text()).get("cells", {})
+            prev_all = json.loads((out / "run-notes.json").read_text())
+            prev_notes = prev_all.get("cells", {})
         except json.JSONDecodeError:
             pass
     sources = [s for s in args.sources.split(",") if s]
@@ -189,6 +191,10 @@ def main():
     notes = {"melody": name, "input": rel(inp), "started": f"{started:%Y-%m-%d %H:%M}",
              "args": {k: v for k, v in vars(args).items() if k != "input"},
              "meta": {k: v for k, v in meta.items() if k != "notes"}, "harmony": {}, "cells": {}}
+    if args.resume:  # keep earlier sources/cells that this run does not redo (e.g. --sources gemini)
+        notes["harmony"] = {k: v for k, v in prev_all.get("harmony", {}).items() if k in SOURCES}
+        notes["cells"] = {s: {m: c for m, c in row.items() if s not in sources or m not in models}
+                          for s, row in prev_all.get("cells", {}).items() if s in SOURCES}
 
     for source in sources:
         print(f"[{name}] harmony: {SOURCES[source]} ...", flush=True)

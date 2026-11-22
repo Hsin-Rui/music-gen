@@ -1,0 +1,75 @@
+{
+ "model": "gemini-3.1-pro-preview",
+ "date": "2026-11-22 00:10",
+ "melodies": {
+  "ode_to_joy": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 64.1,
+     "usage": {
+      "promptTokenCount": 993,
+      "candidatesTokenCount": 715,
+      "totalTokenCount": 10549,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 993
+       }
+      ],
+      "thoughtsTokenCount": 8841,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  },
+  "greensleeves": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 38.8,
+     "usage": {
+      "promptTokenCount": 752,
+      "candidatesTokenCount": 460,
+      "totalTokenCount": 6196,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 752
+       }
+      ],
+      "thoughtsTokenCount": 4984,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  },
+  "jasmine": {
+   "attempts": [
+    {
+     "ok": true,
+     "problems": [],
+     "sec": 32.0,
+     "usage": {
+      "promptTokenCount": 1202,
+      "candidatesTokenCount": 409,
+      "totalTokenCount": 5943,
+      "promptTokensDetails": [
+       {
+        "modality": "TEXT",
+        "tokenCount": 1202
+       }
+      ],
+      "thoughtsTokenCount": 4332,
+      "serviceTier": "standard"
+     },
+     "model_version": "gemini-3.1-pro-preview"
+    }
+   ]
+  }
+ }
+}
