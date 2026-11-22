@@ -130,6 +130,8 @@ output/player.html                                     試聽頁
 
 ## 第三輪：新挑選指標（2026-11-22）
 
+**追加：Compose & Embellish（第五個伴奏模型）。** `steps/accomp_compose_embellish.py`，環境 `envs/compose-embellish`（Python 3.11、PyTorch、transformers<4.50、miditoolkit、pyyaml、pretty_midi），原始碼 clone 到 `models/compose-embellish/`，權重放 `models/compose-embellish/compose-and-embellish-pop1k7/embellish_model_gpt2_pop1k7_loss0.398.bin`（Hugging Face `slseanwu/compose-and-embellish-pop1k7`，MIT）。候選用 `envs/compose-embellish/bin/python steps/accomp_compose_embellish.py <melody> <chart> <outdir>/candidates --samples 8 --device mps` 產生，舊指標的挑選另外算好存成 `candidates/scores.json`，再由 `round3.py` 一起挑。
+
 建置計畫：`docs/plan-harmony-first-round3.md`。舊的挑選（z 分數加總）不動，`run.py` 照舊使用；第三輪改用「先過門檻、再排名」，只重新挑選第二輪存下的候選，不重跑任何模型、不呼叫 Gemini、不做表情演奏。
 
 - **範圍：** 快樂頌、綠袖子 × Claude、Gemini 的和弦 × AMT、AccoMontage、Claude 寫伴奏、Gemini 寫伴奏 = 16 格。AMT、AccoMontage 從 8 份候選裡挑；Claude、Gemini 寫伴奏每格只有一份，只計算、顯示，不挑選。

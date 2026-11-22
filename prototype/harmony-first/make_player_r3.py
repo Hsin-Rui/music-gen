@@ -21,7 +21,7 @@ R3 = OUT / "round3"
 
 TITLES = {"ode_to_joy": "快樂頌（貝多芬）", "greensleeves": "綠袖子 Greensleeves", "jasmine": "茉莉花"}
 SOURCE_LABELS = {"llm": "Claude 的和弦", "gemini": "Gemini 的和弦"}
-MODEL_LABELS = {"amt": "AMT + 和弦條件", "accomontage": "AccoMontage", "claude": "Claude 寫伴奏", "gemini": "Gemini 寫伴奏"}
+MODEL_LABELS = {"amt": "AMT + 和弦條件", "accomontage": "AccoMontage", "claude": "Claude 寫伴奏", "gemini": "Gemini 寫伴奏", "compose_embellish": "Compose & Embellish"}
 GATE_LABELS = {"enough_notes": "彈得夠多", "melody_copy": "不抄旋律", "prompt_copy": "不照抄提示",
                "chord_fit": "守住和弦", "playable": "彈得到"}
 AXIS_LABELS = {"prompt_sim": "不像提示", "rules": "不違規", "bass_ok": "低音正確"}
@@ -118,7 +118,7 @@ details.explain li { margin-bottom:6px; }
 <li><b>名次</b>（只在通過門檻的候選之間排，1 = 最好）：不像提示（越不像越好）、不違規（平行五八度＋刺耳重疊，越少越好）、低音正確（換和弦時最低音是和弦低音，越多越好）。</li>
 <li>★ = 新指標挑的，○ = 第二輪舊指標挑的。「退回」= 沒有任何一份過全部門檻，只好在擋掉最少的幾份裡排。</li>
 <li>AMT、AccoMontage 每格 8 份，新指標實際替它們挑選。Claude、Gemini 寫伴奏每格只有一份：只計算、顯示，不參與挑選。</li>
-<li><b>盲聽一</b>：每份和弦的四個模型打亂、隱藏名稱。<b>盲聽二</b>：新舊挑得不同的格子，A／B 順序隨機，猜哪個是新指標挑的。</li>
+<li><b>盲聽一</b>：每份和弦的五個模型打亂、隱藏名稱。<b>盲聽二</b>：新舊挑得不同的格子，A／B 順序隨機，猜哪個是新指標挑的。</li>
 </ul>
 </details>
 <div class="bar">
@@ -227,7 +227,7 @@ function render() {
     app.append(s);
   }
   document.getElementById("reveal").hidden = mode === "normal";
-  document.getElementById("hint").textContent = mode === "blind1" ? "四個模型已打亂、隱藏名稱與分數。先記下你喜歡哪幾個，再按揭曉。"
+  document.getElementById("hint").textContent = mode === "blind1" ? "五個模型已打亂、隱藏名稱與分數。先記下你喜歡哪幾個，再按揭曉。"
     : mode === "blind2" ? "每格 A／B 一個是新指標挑的、一個是舊的，順序隨機。先記下你喜歡哪個，再按揭曉。" : "";
 }
 

@@ -23,6 +23,7 @@ PY = {
     "gemini": ROOT / ".venv" / "bin" / "python",
     "veeharmgen": ROOT / "envs" / "veeharmgen" / "bin" / "python",
     "harmonyrl": ROOT / "envs" / "harmonyrl" / "bin" / "python",
+    "compose_embellish": ROOT / "envs" / "compose-embellish" / "bin" / "python",
     "amt": P01_PY["amt"],
     "pianoflow": P01_PY["pianoflow"],
     "pianist": P01_PY["pianist"],
@@ -44,6 +45,7 @@ MODELS = {
     "polyffusion": ("polyffusion", "accomp_polyffusion.py", "Polyffusion"),
     "claude": ("claude", "accomp_claude.py", "Claude 寫伴奏"),
     "gemini": ("gemini", "accomp_gemini.py", "Gemini 寫伴奏"),
+    "compose_embellish": ("compose_embellish", "accomp_compose_embellish.py", "Compose & Embellish"),
 }
 RENDERERS = {
     "pianoflow": ("pianoflow", "render_pianoflow.py", "SyMuPe/PianoFlow-base"),

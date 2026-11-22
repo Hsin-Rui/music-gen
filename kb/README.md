@@ -29,7 +29,7 @@
 | [Basic Pitch (Spotify)](models/basic-pitch.md) | 採譜：音訊 → MIDI | 未試 |
 | [Claude 寫伴奏（本專案）](models/claude-accompaniment.md) | 伴奏（Claude 逐小節規劃織體 → 規則展開） | 原型 02 使用中 |
 | [CoCoMulla](models/cocomulla.md) | 音訊生成（MusicGen 加和弦／旋律控制） | 不適用（輸出音訊） |
-| [Compose & Embellish](models/compose-embellish.md) | 伴奏（旋律＋和弦 → 鋼琴演奏） | 未試 |
+| [Compose & Embellish](models/compose-embellish.md) | 伴奏（旋律＋和弦 → 鋼琴演奏） | 原型 02 使用中（第三輪加入） |
 | [CPFG-Net](models/cpfg-net.md) | 配和聲（可控制緊張度） | 未試 |
 | [D3PIA](models/d3pia.md) | 伴奏（離散擴散） | 觀察中（沒找到程式碼） |
 | [DExter](models/dexter.md) | 表情演奏（擴散模型） | 未試 |

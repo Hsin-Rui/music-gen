@@ -3,7 +3,7 @@
     uv run round3.py [--melodies ode_to_joy,greensleeves] [--soundfont PATH]
 
 Scope (docs/plan-harmony-first-round3.md): melodies ode_to_joy, greensleeves x chart sources llm (Claude),
-gemini x models amt, accomontage, claude, gemini = 16 cells. Nothing is generated: AMT and AccoMontage
+gemini x models amt, accomontage, compose_embellish, claude, gemini = 20 cells. Nothing is generated: AMT, AccoMontage and Compose & Embellish
 select among their saved output/<m>/<s>/<model>/candidates/cand-*.mid; Claude and Gemini cells have one
 candidate, which is scored and shown but not "selected". Round-2 files are only read.
 
@@ -28,8 +28,8 @@ from paths import DEFAULT_SOUNDFONT, MODELS, OUTPUT, P01_STEPS, SOURCES, run, wa
 
 MELODIES = ["ode_to_joy", "greensleeves"]
 R3_SOURCES = ["llm", "gemini"]
-R3_MODELS = ["amt", "accomontage", "claude", "gemini"]
-SELECTABLE = {"amt", "accomontage"}
+R3_MODELS = ["amt", "accomontage", "compose_embellish", "claude", "gemini"]
+SELECTABLE = {"amt", "accomontage", "compose_embellish"}
 REPORT_COPY = ROOT / "reports" / "round3-scores.json"
 
 

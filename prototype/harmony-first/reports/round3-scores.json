@@ -1,5 +1,5 @@
 {
- "created": "2026-11-22 11:49",
+ "created": "2026-11-22 12:48",
  "plan": "docs/plan-harmony-first-round3.md",
  "melodies": [
   "ode_to_joy",
@@ -12,6 +12,7 @@
  "models": {
   "amt": "AMT + 和弦條件",
   "accomontage": "AccoMontage",
+  "compose_embellish": "Compose & Embellish",
   "claude": "Claude 寫伴奏",
   "gemini": "Gemini 寫伴奏"
  },
@@ -693,6 +694,349 @@
    "wav": {
     "duration_sec": 32.2,
     "rms_dbfs": -24.8,
+    "audible": true
+   },
+   "wav_error": null
+  },
+  {
+   "melody": "ode_to_joy",
+   "source": "llm",
+   "model": "compose_embellish",
+   "selectable": true,
+   "missing": false,
+   "n": 8,
+   "n_bars": 16,
+   "chosen": 0,
+   "old_chosen": 0,
+   "same_as_old": true,
+   "fallback": false,
+   "passers": 8,
+   "selected": true,
+   "candidates": [
+    {
+     "k": 0,
+     "file": "cand-0.mid",
+     "notes": 102,
+     "copy": 0.1373,
+     "copy_interval": [
+      -29,
+      -28
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0,
+     "empty_beat_rate": 0.0156,
+     "chord_match": 0.9524,
+     "prompt_doc": 0.2874,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0,
+     "groove_cos": 0.5115,
+     "prompt_sim": 0.2557,
+     "parallels": 1,
+     "parallel_rate": 0.0161,
+     "rules": 0.0161,
+     "bass_ok": 0.6522,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 1,
+      "rules": 2,
+      "bass_ok": 2
+     },
+     "borda": 5
+    },
+    {
+     "k": 1,
+     "file": "cand-1.mid",
+     "notes": 71,
+     "copy": 0.1549,
+     "copy_interval": [
+      -17,
+      -16
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0375,
+     "empty_beat_rate": 0.0156,
+     "chord_match": 0.9524,
+     "prompt_doc": 0.3217,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0559,
+     "groove_cos": 0.613,
+     "prompt_sim": 0.3345,
+     "parallels": 3,
+     "parallel_rate": 0.0484,
+     "rules": 0.0859,
+     "bass_ok": 0.6087,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 4,
+      "rules": 7,
+      "bass_ok": 5
+     },
+     "borda": 16
+    },
+    {
+     "k": 2,
+     "file": "cand-2.mid",
+     "notes": 103,
+     "copy": 0.1845,
+     "copy_interval": [
+      -5,
+      -4
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0184,
+     "empty_beat_rate": 0.0156,
+     "chord_match": 0.9524,
+     "prompt_doc": 0.4571,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.1486,
+     "groove_cos": 0.6916,
+     "prompt_sim": 0.4201,
+     "parallels": 1,
+     "parallel_rate": 0.0161,
+     "rules": 0.0345,
+     "bass_ok": 0.6522,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 8,
+      "rules": 4,
+      "bass_ok": 2
+     },
+     "borda": 14
+    },
+    {
+     "k": 3,
+     "file": "cand-3.mid",
+     "notes": 98,
+     "copy": 0.1531,
+     "copy_interval": [
+      -8,
+      -7
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.045,
+     "empty_beat_rate": 0.0312,
+     "chord_match": 1.0,
+     "prompt_doc": 0.4706,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.1412,
+     "groove_cos": 0.6621,
+     "prompt_sim": 0.4016,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.045,
+     "bass_ok": 0.7391,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 7,
+      "rules": 5,
+      "bass_ok": 1
+     },
+     "borda": 13
+    },
+    {
+     "k": 4,
+     "file": "cand-4.mid",
+     "notes": 106,
+     "copy": 0.1509,
+     "copy_interval": [
+      -17,
+      -16
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0287,
+     "empty_beat_rate": 0.0156,
+     "chord_match": 1.0,
+     "prompt_doc": 0.4045,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0787,
+     "groove_cos": 0.6916,
+     "prompt_sim": 0.3851,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0287,
+     "bass_ok": 0.5217,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 6,
+      "rules": 3,
+      "bass_ok": 7
+     },
+     "borda": 16
+    },
+    {
+     "k": 5,
+     "file": "cand-5.mid",
+     "notes": 50,
+     "copy": 0.18,
+     "copy_interval": [
+      -12,
+      -11
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.068,
+     "empty_beat_rate": 0.0156,
+     "chord_match": 0.9365,
+     "prompt_doc": 0.3607,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0492,
+     "groove_cos": 0.6513,
+     "prompt_sim": 0.3502,
+     "parallels": 1,
+     "parallel_rate": 0.0161,
+     "rules": 0.0841,
+     "bass_ok": 0.4348,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 5,
+      "rules": 6,
+      "bass_ok": 8
+     },
+     "borda": 19
+    },
+    {
+     "k": 6,
+     "file": "cand-6.mid",
+     "notes": 94,
+     "copy": 0.1596,
+     "copy_interval": [
+      -5,
+      -4
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0158,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9375,
+     "prompt_doc": 0.3253,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.012,
+     "groove_cos": 0.5948,
+     "prompt_sim": 0.3034,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0158,
+     "bass_ok": 0.6522,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 2,
+      "rules": 1,
+      "bass_ok": 2
+     },
+     "borda": 5
+    },
+    {
+     "k": 7,
+     "file": "cand-7.mid",
+     "notes": 74,
+     "copy": 0.1486,
+     "copy_interval": [
+      -6,
+      -5
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0804,
+     "empty_beat_rate": 0.0,
+     "chord_match": 1.0,
+     "prompt_doc": 0.3288,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0685,
+     "groove_cos": 0.5922,
+     "prompt_sim": 0.3304,
+     "parallels": 1,
+     "parallel_rate": 0.0161,
+     "rules": 0.0965,
+     "bass_ok": 0.6087,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 3,
+      "rules": 8,
+      "bass_ok": 5
+     },
+     "borda": 16
+    }
+   ],
+   "wav": {
+    "duration_sec": 32.6,
+    "rms_dbfs": -29.7,
     "audible": true
    },
    "wav_error": null
@@ -1493,6 +1837,349 @@
   {
    "melody": "ode_to_joy",
    "source": "gemini",
+   "model": "compose_embellish",
+   "selectable": true,
+   "missing": false,
+   "n": 8,
+   "n_bars": 16,
+   "chosen": 7,
+   "old_chosen": 1,
+   "same_as_old": false,
+   "fallback": false,
+   "passers": 8,
+   "selected": true,
+   "candidates": [
+    {
+     "k": 0,
+     "file": "cand-0.mid",
+     "notes": 64,
+     "copy": 0.2812,
+     "copy_interval": [
+      -29,
+      -28
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0495,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9688,
+     "prompt_doc": 0.4286,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.011,
+     "groove_cos": 0.7875,
+     "prompt_sim": 0.3992,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0495,
+     "bass_ok": 0.5263,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 5,
+      "rules": 5,
+      "bass_ok": 2
+     },
+     "borda": 12
+    },
+    {
+     "k": 1,
+     "file": "cand-1.mid",
+     "notes": 59,
+     "copy": 0.1525,
+     "copy_interval": [
+      -17,
+      -16
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0113,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9688,
+     "prompt_doc": 0.3842,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0226,
+     "groove_cos": 0.7437,
+     "prompt_sim": 0.3832,
+     "parallels": 1,
+     "parallel_rate": 0.0161,
+     "rules": 0.0274,
+     "bass_ok": 0.5263,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 2,
+      "rules": 2,
+      "bass_ok": 2
+     },
+     "borda": 6
+    },
+    {
+     "k": 2,
+     "file": "cand-2.mid",
+     "notes": 65,
+     "copy": 0.2615,
+     "copy_interval": [
+      -5,
+      -4
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0673,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9844,
+     "prompt_doc": 0.459,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0656,
+     "groove_cos": 0.8208,
+     "prompt_sim": 0.4432,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0673,
+     "bass_ok": 0.4474,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 7,
+      "rules": 8,
+      "bass_ok": 6
+     },
+     "borda": 21
+    },
+    {
+     "k": 3,
+     "file": "cand-3.mid",
+     "notes": 97,
+     "copy": 0.1649,
+     "copy_interval": [
+      -13,
+      -12
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0194,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9375,
+     "prompt_doc": 0.4744,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.1023,
+     "groove_cos": 0.7881,
+     "prompt_sim": 0.4452,
+     "parallels": 1,
+     "parallel_rate": 0.0161,
+     "rules": 0.0355,
+     "bass_ok": 0.6316,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 8,
+      "rules": 4,
+      "bass_ok": 1
+     },
+     "borda": 13
+    },
+    {
+     "k": 4,
+     "file": "cand-4.mid",
+     "notes": 142,
+     "copy": 0.1549,
+     "copy_interval": [
+      -4,
+      -3
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.023,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.8594,
+     "prompt_doc": 0.4308,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0923,
+     "groove_cos": 0.7571,
+     "prompt_sim": 0.4247,
+     "parallels": 2,
+     "parallel_rate": 0.0323,
+     "rules": 0.0553,
+     "bass_ok": 0.2895,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 6,
+      "rules": 7,
+      "bass_ok": 8
+     },
+     "borda": 21
+    },
+    {
+     "k": 5,
+     "file": "cand-5.mid",
+     "notes": 70,
+     "copy": 0.1714,
+     "copy_interval": [
+      -16,
+      -15
+     ],
+     "ook": 0.0143,
+     "dissonant_overlap": 0.0268,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9219,
+     "prompt_doc": 0.3617,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0319,
+     "groove_cos": 0.7539,
+     "prompt_sim": 0.3929,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0268,
+     "bass_ok": 0.4737,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 4,
+      "rules": 1,
+      "bass_ok": 5
+     },
+     "borda": 10
+    },
+    {
+     "k": 6,
+     "file": "cand-6.mid",
+     "notes": 131,
+     "copy": 0.145,
+     "copy_interval": [
+      -9,
+      -8
+     ],
+     "ook": 0.0076,
+     "dissonant_overlap": 0.0511,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.8906,
+     "prompt_doc": 0.3775,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.1285,
+     "groove_cos": 0.6435,
+     "prompt_sim": 0.386,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0511,
+     "bass_ok": 0.3947,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 3,
+      "rules": 6,
+      "bass_ok": 7
+     },
+     "borda": 16
+    },
+    {
+     "k": 7,
+     "file": "cand-7.mid",
+     "notes": 60,
+     "copy": 0.2,
+     "copy_interval": [
+      -16,
+      -15
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0322,
+     "empty_beat_rate": 0.0156,
+     "chord_match": 0.9524,
+     "prompt_doc": 0.3596,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0225,
+     "groove_cos": 0.7064,
+     "prompt_sim": 0.3644,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0322,
+     "bass_ok": 0.5263,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 1,
+      "rules": 3,
+      "bass_ok": 2
+     },
+     "borda": 6
+    }
+   ],
+   "wav": {
+    "duration_sec": 32.4,
+    "rms_dbfs": -29.6,
+    "audible": true
+   },
+   "wav_error": null
+  },
+  {
+   "melody": "ode_to_joy",
+   "source": "gemini",
    "model": "claude",
    "selectable": false,
    "missing": false,
@@ -2261,6 +2948,349 @@
    "wav": {
     "duration_sec": 28.7,
     "rms_dbfs": -26.6,
+    "audible": true
+   },
+   "wav_error": null
+  },
+  {
+   "melody": "greensleeves",
+   "source": "llm",
+   "model": "compose_embellish",
+   "selectable": true,
+   "missing": false,
+   "n": 8,
+   "n_bars": 17,
+   "chosen": 0,
+   "old_chosen": 3,
+   "same_as_old": false,
+   "fallback": false,
+   "passers": 8,
+   "selected": true,
+   "candidates": [
+    {
+     "k": 0,
+     "file": "cand-0.mid",
+     "notes": 102,
+     "copy": 0.0588,
+     "copy_interval": [
+      -28,
+      -27
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0537,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9412,
+     "prompt_doc": 0.1702,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0,
+     "groove_cos": 0.3606,
+     "prompt_sim": 0.1803,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0537,
+     "bass_ok": 0.6154,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 1,
+      "rules": 5,
+      "bass_ok": 1
+     },
+     "borda": 7
+    },
+    {
+     "k": 1,
+     "file": "cand-1.mid",
+     "notes": 40,
+     "copy": 0.125,
+     "copy_interval": [
+      -25,
+      -24
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.039,
+     "empty_beat_rate": 0.0,
+     "chord_match": 1.0,
+     "prompt_doc": 0.2532,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0,
+     "groove_cos": 0.4885,
+     "prompt_sim": 0.2443,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.039,
+     "bass_ok": 0.3077,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 5,
+      "rules": 3,
+      "bass_ok": 7
+     },
+     "borda": 15
+    },
+    {
+     "k": 2,
+     "file": "cand-2.mid",
+     "notes": 62,
+     "copy": 0.129,
+     "copy_interval": [
+      -17,
+      -16
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0287,
+     "empty_beat_rate": 0.0392,
+     "chord_match": 1.0,
+     "prompt_doc": 0.2178,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0,
+     "groove_cos": 0.4623,
+     "prompt_sim": 0.2311,
+     "parallels": 1,
+     "parallel_rate": 0.0263,
+     "rules": 0.055,
+     "bass_ok": 0.5385,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 3,
+      "rules": 6,
+      "bass_ok": 4
+     },
+     "borda": 13
+    },
+    {
+     "k": 3,
+     "file": "cand-3.mid",
+     "notes": 44,
+     "copy": 0.1364,
+     "copy_interval": [
+      -16,
+      -15
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0082,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9804,
+     "prompt_doc": 0.3373,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0241,
+     "groove_cos": 0.5085,
+     "prompt_sim": 0.2663,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0082,
+     "bass_ok": 0.5385,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 8,
+      "rules": 1,
+      "bass_ok": 4
+     },
+     "borda": 13
+    },
+    {
+     "k": 4,
+     "file": "cand-4.mid",
+     "notes": 78,
+     "copy": 0.1154,
+     "copy_interval": [
+      -9,
+      -8
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0574,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9412,
+     "prompt_doc": 0.3248,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0,
+     "groove_cos": 0.4949,
+     "prompt_sim": 0.2475,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0574,
+     "bass_ok": 0.3077,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 6,
+      "rules": 7,
+      "bass_ok": 7
+     },
+     "borda": 20
+    },
+    {
+     "k": 5,
+     "file": "cand-5.mid",
+     "notes": 38,
+     "copy": 0.1579,
+     "copy_interval": [
+      -28,
+      -27
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0,
+     "empty_beat_rate": 0.0392,
+     "chord_match": 1.0,
+     "prompt_doc": 0.2338,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0519,
+     "groove_cos": 0.4281,
+     "prompt_sim": 0.24,
+     "parallels": 1,
+     "parallel_rate": 0.0263,
+     "rules": 0.0263,
+     "bass_ok": 0.6154,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 4,
+      "rules": 2,
+      "bass_ok": 1
+     },
+     "borda": 7
+    },
+    {
+     "k": 6,
+     "file": "cand-6.mid",
+     "notes": 106,
+     "copy": 0.3019,
+     "copy_interval": [
+      -13,
+      -12
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0685,
+     "empty_beat_rate": 0.0784,
+     "chord_match": 1.0,
+     "prompt_doc": 0.331,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0552,
+     "groove_cos": 0.4529,
+     "prompt_sim": 0.254,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0685,
+     "bass_ok": 0.6154,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 7,
+      "rules": 8,
+      "bass_ok": 1
+     },
+     "borda": 16
+    },
+    {
+     "k": 7,
+     "file": "cand-7.mid",
+     "notes": 86,
+     "copy": 0.0814,
+     "copy_interval": [
+      -28,
+      -27
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0472,
+     "empty_beat_rate": 0.0,
+     "chord_match": 1.0,
+     "prompt_doc": 0.192,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.016,
+     "groove_cos": 0.4031,
+     "prompt_sim": 0.2096,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0472,
+     "bass_ok": 0.4615,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 2,
+      "rules": 4,
+      "bass_ok": 6
+     },
+     "borda": 12
+    }
+   ],
+   "wav": {
+    "duration_sec": 28.8,
+    "rms_dbfs": -29.5,
     "audible": true
    },
    "wav_error": null
@@ -3046,6 +4076,349 @@
    "wav": {
     "duration_sec": 28.5,
     "rms_dbfs": -23.2,
+    "audible": true
+   },
+   "wav_error": null
+  },
+  {
+   "melody": "greensleeves",
+   "source": "gemini",
+   "model": "compose_embellish",
+   "selectable": true,
+   "missing": false,
+   "n": 8,
+   "n_bars": 17,
+   "chosen": 0,
+   "old_chosen": 0,
+   "same_as_old": true,
+   "fallback": false,
+   "passers": 8,
+   "selected": true,
+   "candidates": [
+    {
+     "k": 0,
+     "file": "cand-0.mid",
+     "notes": 99,
+     "copy": 0.0707,
+     "copy_interval": [
+      -17,
+      -16
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0526,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9608,
+     "prompt_doc": 0.156,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0,
+     "groove_cos": 0.3492,
+     "prompt_sim": 0.1746,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0526,
+     "bass_ok": 0.6429,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 1,
+      "rules": 1,
+      "bass_ok": 1
+     },
+     "borda": 3
+    },
+    {
+     "k": 1,
+     "file": "cand-1.mid",
+     "notes": 45,
+     "copy": 0.1556,
+     "copy_interval": [
+      -24,
+      -23
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0804,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.8235,
+     "prompt_doc": 0.2529,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0,
+     "groove_cos": 0.5009,
+     "prompt_sim": 0.2504,
+     "parallels": 2,
+     "parallel_rate": 0.0526,
+     "rules": 0.133,
+     "bass_ok": 0.3571,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 2,
+      "rules": 8,
+      "bass_ok": 6
+     },
+     "borda": 16
+    },
+    {
+     "k": 2,
+     "file": "cand-2.mid",
+     "notes": 54,
+     "copy": 0.1111,
+     "copy_interval": [
+      -12,
+      -11
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0424,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.8431,
+     "prompt_doc": 0.2083,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0208,
+     "groove_cos": 0.48,
+     "prompt_sim": 0.2504,
+     "parallels": 1,
+     "parallel_rate": 0.0263,
+     "rules": 0.0687,
+     "bass_ok": 0.2143,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 2,
+      "rules": 3,
+      "bass_ok": 8
+     },
+     "borda": 13
+    },
+    {
+     "k": 3,
+     "file": "cand-3.mid",
+     "notes": 42,
+     "copy": 0.0952,
+     "copy_interval": [
+      -16,
+      -15
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0468,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9412,
+     "prompt_doc": 0.3333,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0238,
+     "groove_cos": 0.5203,
+     "prompt_sim": 0.272,
+     "parallels": 2,
+     "parallel_rate": 0.0526,
+     "rules": 0.0994,
+     "bass_ok": 0.5,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 7,
+      "rules": 6,
+      "bass_ok": 4
+     },
+     "borda": 17
+    },
+    {
+     "k": 4,
+     "file": "cand-4.mid",
+     "notes": 82,
+     "copy": 0.1341,
+     "copy_interval": [
+      -9,
+      -8
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0774,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.902,
+     "prompt_doc": 0.3226,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0323,
+     "groove_cos": 0.5068,
+     "prompt_sim": 0.2695,
+     "parallels": 1,
+     "parallel_rate": 0.0263,
+     "rules": 0.1037,
+     "bass_ok": 0.4286,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 5,
+      "rules": 7,
+      "bass_ok": 5
+     },
+     "borda": 17
+    },
+    {
+     "k": 5,
+     "file": "cand-5.mid",
+     "notes": 50,
+     "copy": 0.14,
+     "copy_interval": [
+      -28,
+      -27
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0419,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9608,
+     "prompt_doc": 0.2826,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0435,
+     "groove_cos": 0.4963,
+     "prompt_sim": 0.2699,
+     "parallels": 1,
+     "parallel_rate": 0.0263,
+     "rules": 0.0682,
+     "bass_ok": 0.5714,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 6,
+      "rules": 2,
+      "bass_ok": 2
+     },
+     "borda": 10
+    },
+    {
+     "k": 6,
+     "file": "cand-6.mid",
+     "notes": 83,
+     "copy": 0.4096,
+     "copy_interval": [
+      -13,
+      -12
+     ],
+     "ook": 0.0,
+     "dissonant_overlap": 0.0862,
+     "empty_beat_rate": 0.0784,
+     "chord_match": 0.8936,
+     "prompt_doc": 0.352,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.016,
+     "groove_cos": 0.4963,
+     "prompt_sim": 0.2562,
+     "parallels": 0,
+     "parallel_rate": 0.0,
+     "rules": 0.0862,
+     "bass_ok": 0.3571,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 4,
+      "rules": 4,
+      "bass_ok": 6
+     },
+     "borda": 14
+    },
+    {
+     "k": 7,
+     "file": "cand-7.mid",
+     "notes": 50,
+     "copy": 0.12,
+     "copy_interval": [
+      -28,
+      -27
+     ],
+     "ook": 0.02,
+     "dissonant_overlap": 0.0434,
+     "empty_beat_rate": 0.0,
+     "chord_match": 0.9216,
+     "prompt_doc": 0.2826,
+     "playable": true,
+     "playable_bad_groups": 0,
+     "playable_first_bad_sec": null,
+     "prompt_f1": 0.0435,
+     "groove_cos": 0.5292,
+     "prompt_sim": 0.2863,
+     "parallels": 2,
+     "parallel_rate": 0.0526,
+     "rules": 0.096,
+     "bass_ok": 0.5714,
+     "gates": {
+      "enough_notes": true,
+      "melody_copy": true,
+      "prompt_copy": true,
+      "chord_fit": true,
+      "playable": true
+     },
+     "failed": [],
+     "pool": true,
+     "ranks": {
+      "prompt_sim": 8,
+      "rules": 5,
+      "bass_ok": 2
+     },
+     "borda": 15
+    }
+   ],
+   "wav": {
+    "duration_sec": 28.7,
+    "rms_dbfs": -29.6,
     "audible": true
    },
    "wav_error": null

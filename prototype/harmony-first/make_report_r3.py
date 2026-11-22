@@ -243,7 +243,7 @@ code {{ background:var(--chip); border-radius:5px; padding:0 4px; font-size:13px
 <p><b>下一步：請你盲聽。</b>打開 <code>prototype/harmony-first/output/round3/player.html</code>：</p>
 <ol>
 <li>用「盲聽二：新 vs 舊」聽新舊挑得不同的 {n_diff} 格，每格記下 A 或 B 哪個比較好、為什麼，再按揭曉。</li>
-<li>用「盲聽一：模型」聽每份和弦的四個模型，看新指標挑的 AMT、AccoMontage 和 Claude、Gemini 寫的比起來如何。</li>
+<li>用「盲聽一：模型」聽每份和弦的五個模型，看新指標挑的 AMT、AccoMontage、Compose &amp; Embellish 和 Claude、Gemini 寫的比起來如何。</li>
 </ol>
 <p>如果新指標挑的多半比較好，下一步才開始調參數；如果沒有比較好，先回頭看是哪道門檻或哪一項名次判斷錯了。</p>
 </div>
