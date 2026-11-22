@@ -23,6 +23,34 @@ Ranking (revised 2026-11-21 at the user's request: PCS dropped, copying penalise
 score = z(ctnctr) - z(ook) - z(dissonant_overlap) - z(copy), z-scores within the ranked candidates
 (a metric with zero spread contributes 0). PCS is still computed and reported, not scored.
 Not ranked, unless no candidate passes both: fewer notes than bars (min_notes), or copy >= COPY_MAX.
+
+Round 3 (2026-11-22, docs/plan-harmony-first-round3.md): gate-then-rank. `compute`/`rank` above stay
+as they were (run.py still uses them); round3.py uses `compute_r3`, `gates_r3` and `select_r3`.
+Notation: beat = beat_sec, bar = numerator * beat, prompt = chart.block_notes(chart, beat) (the block
+chords AMT is conditioned on), tolerance 0.04 s unless stated.
+Gates (a candidate passes only if all five pass):
+- enough_notes  notes >= n_bars and empty_beat_rate <= 0.25; a beat (0 .. n_bars*bar) is empty when no
+                accompaniment note sounds anywhere in it (sounding, not onsets: sustained chords count).
+- melody_copy   `copy` (above) < 0.5.
+- prompt_copy   Degree of Copying vs the prompt < 0.5: 2m / (n_acc + n_prompt), m = one-to-one greedy
+                matches on (same pitch class, |onset diff| <= tol).
+- chord_fit     chord_match >= 0.7 and ook <= 0.05; chord_match = share of non-empty beats in which >= 50%
+                of the sounding accompaniment duration is chord tones of the chord at the beat start.
+- playable      two-hand check per onset group (notes starting within tol): the group passes when it fits
+                one hand, or when some split of its sorted pitches gives a lower and an upper part that
+                each have <= 5 notes and span <= 14 semitones (two hands).
+Axes (ranked among passers, 1 = best, ties share the minimum rank; Borda sum lowest wins; ties broken by
+lower prompt_sim, then lower k):
+- prompt_sim  (lower better) mean(F1, groove_cos). F1: mir_eval-style note matching vs the prompt (same
+              MIDI pitch, onset within 0.05 s, offset within max(0.2 * prompt duration, 0.05 s), greedy
+              one-to-one), 2m / (n_acc + n_prompt). groove_cos: cosine of binary 16th-grid onset vectors.
+- rules       (lower better) parallel_rate + (dissonant_overlap or 0). At each melody onset the bass is the
+              lowest sounding accompaniment pitch (onsets without one are skipped); consecutive onsets where
+              melody and bass move in the same direction and the interval mod 12 stays 7->7 or 0->0 count
+              one parallel; parallel_rate = count / melody notes.
+- bass_ok     (higher better) share of chord spans whose lowest accompaniment onset in
+              [start - tol, start + beat/2) has the chord's bass pitch class (no such note = not OK).
+Fallback: with no passers, the candidates with the fewest failed gates are ranked the same way.
 """
 import json
 import math
@@ -170,6 +198,233 @@ def rank(results, min_notes=1):
         r["score"] = round(sum(sign * (r.get("z_" + k) or 0.0) for k, sign in signs.items()), 3)
     best = max((i for i, r in enumerate(results) if r["score"] is not None), key=lambda i: results[i]["score"])
     return best
+
+
+# ------------------------------------------------------------------ round 3: gate-then-rank
+
+R3_GATES = ["enough_notes", "melody_copy", "prompt_copy", "chord_fit", "playable"]
+R3_AXES = {"prompt_sim": "low", "rules": "low", "bass_ok": "high"}
+EMPTY_BEAT_MAX = 0.25
+DOC_MAX = 0.5
+CHORD_MATCH_MIN = 0.7
+OOK_MAX = 0.05
+HAND_NOTES = 5
+HAND_SPAN = 14
+
+
+def _doc(acc, prompt, tol=ONSET_TOL):
+    """Degree of Copying: one-to-one greedy (pitch class, onset) matches -> 2m / (n_acc + n_prompt)."""
+    used = [False] * len(prompt)
+    m = 0
+    for n in acc:
+        best, bd = None, None
+        for j, (s, _e, p, _v) in enumerate(prompt):
+            d = abs(s - n.start)
+            if not used[j] and p % 12 == n.pitch % 12 and d <= tol and (bd is None or d < bd):
+                best, bd = j, d
+        if best is not None:
+            used[best] = True
+            m += 1
+    return 2 * m / (len(acc) + len(prompt)) if (acc or prompt) else None
+
+
+def _note_f1(acc, prompt, onset_tol=0.05):
+    """mir_eval-style note F1 vs the prompt: same pitch, onset and offset within tolerance, greedy one-to-one."""
+    used = [False] * len(prompt)
+    m = 0
+    for n in acc:
+        best, bd = None, None
+        for j, (s, e, p, _v) in enumerate(prompt):
+            if used[j] or p != n.pitch:
+                continue
+            d = abs(s - n.start)
+            if d <= onset_tol and abs(e - n.end) <= max(0.2 * (e - s), 0.05) and (bd is None or d < bd):
+                best, bd = j, d
+        if best is not None:
+            used[best] = True
+            m += 1
+    return 2 * m / (len(acc) + len(prompt)) if (acc or prompt) else None
+
+
+def _groove_cos(acc_onsets, prompt_onsets, step, total):
+    n = max(1, int(math.ceil(total / step + 1e-6)) + 1)
+    a, b = [0] * n, [0] * n
+    for t in acc_onsets:
+        a[min(n - 1, max(0, int(round(t / step))))] = 1
+    for t in prompt_onsets:
+        b[min(n - 1, max(0, int(round(t / step))))] = 1
+    na, nb = sum(a), sum(b)
+    if not na or not nb:
+        return 0.0
+    return sum(x * y for x, y in zip(a, b)) / math.sqrt(na * nb)
+
+
+def _playable(acc, tol=ONSET_TOL):
+    """Two-hand check per onset group. -> (ok, n_groups, n_bad, first_bad_onset_sec)."""
+    groups, cur = [], []
+    for n in sorted(acc, key=lambda n: n.start):
+        if cur and n.start - cur[0].start > tol:
+            groups.append(cur)
+            cur = []
+        cur.append(n)
+    if cur:
+        groups.append(cur)
+
+    def hand_ok(ps):
+        return len(ps) <= HAND_NOTES and ps[-1] - ps[0] <= HAND_SPAN
+
+    bad, first = 0, None
+    for g in groups:
+        ps = sorted({n.pitch for n in g})
+        # one hand, or any split of the sorted pitches into a left- and a right-hand part
+        ok = hand_ok(ps) or any(hand_ok(ps[:i]) and hand_ok(ps[i:]) for i in range(1, len(ps)))
+        if not ok:
+            bad += 1
+            if first is None:
+                first = round(g[0].start, 3)
+    return bad == 0, len(groups), bad, first
+
+
+def compute_r3(melody_path, chart_obj, acc_path):
+    """Round-3 metrics for one candidate (see the module docstring). Raises if the MIDI is unreadable."""
+    meta = C.melody_meta(melody_path)
+    mel = meta["notes"]
+    beat = meta["beat_sec"]
+    bar = meta["numerator"] * beat
+    n_bars = meta["n_bars"]
+    acc = _notes(acc_path)
+    base = compute(melody_path, chart_obj, acc_path)
+    res = {"notes": len(acc), "copy": base.get("copy"), "copy_interval": base.get("copy_interval"),
+           "ook": base.get("ook"), "dissonant_overlap": base.get("dissonant_overlap")}
+    keys = ["empty_beat_rate", "prompt_doc", "chord_match", "playable", "playable_bad_groups",
+            "playable_first_bad_sec", "prompt_f1", "groove_cos", "prompt_sim", "parallels",
+            "parallel_rate", "rules", "bass_ok"]
+    if not acc:
+        return {**res, **{k: None for k in keys}}
+    sp = C.spans(chart_obj, beat)
+    prompt = C.block_notes(chart_obj, beat)
+
+    # empty beats and per-beat chord match (sounding duration)
+    n_beats = n_bars * meta["numerator"]
+    empty = matched = nonempty = 0
+    for i in range(n_beats):
+        b0, b1 = i * beat, (i + 1) * beat
+        dur = tone = 0.0
+        for n in acc:
+            ov = min(n.end, b1) - max(n.start, b0)
+            if ov > 1e-6:
+                dur += ov
+                c = C.chord_at(sp, b0)
+                if c is not None and n.pitch % 12 in c["pcs"]:
+                    tone += ov
+        if dur <= 0:
+            empty += 1
+            continue
+        if C.chord_at(sp, b0) is None:
+            continue
+        nonempty += 1
+        if tone >= 0.5 * dur:
+            matched += 1
+    res["empty_beat_rate"] = round(empty / n_beats, 4) if n_beats else None
+    res["chord_match"] = round(matched / nonempty, 4) if nonempty else None
+
+    doc = _doc(acc, prompt)
+    res["prompt_doc"] = None if doc is None else round(doc, 4)
+    ok, _ng, nbad, first = _playable(acc)
+    res["playable"], res["playable_bad_groups"], res["playable_first_bad_sec"] = ok, nbad, first
+
+    f1 = _note_f1(acc, prompt)
+    total = max(n_bars * bar, max(n.start for n in acc), max(s for s, *_ in prompt) if prompt else 0)
+    gc = _groove_cos([n.start for n in acc], [s for s, *_ in prompt], beat / 4, total)
+    res["prompt_f1"] = round(f1, 4)
+    res["groove_cos"] = round(gc, 4)
+    res["prompt_sim"] = round((f1 + gc) / 2, 4)
+
+    # parallel fifths / octaves between melody and bass
+    def bass_at(t):
+        ps = [n.pitch for n in acc if n.start - ONSET_TOL <= t < n.end - 1e-6]
+        return min(ps) if ps else None
+    pairs = [(m.pitch, bass_at(m.start)) for m in mel]
+    par = 0
+    for (m1, b1_), (m2, b2_) in zip(pairs, pairs[1:]):
+        if b1_ is None or b2_ is None:
+            continue
+        dm, db = m2 - m1, b2_ - b1_
+        if dm * db > 0 and (m1 - b1_) % 12 == (m2 - b2_) % 12 and (m1 - b1_) % 12 in (0, 7):
+            par += 1
+    res["parallels"] = par
+    res["parallel_rate"] = round(par / len(mel), 4) if mel else 0.0
+    res["rules"] = round(res["parallel_rate"] + (res["dissonant_overlap"] or 0), 4)
+
+    # bass at chord changes
+    okc = 0
+    for s, _e, c in sp:
+        lows = [n.pitch for n in acc if s - ONSET_TOL <= n.start < s + beat / 2]
+        if lows and min(lows) % 12 == c["bass"]:
+            okc += 1
+    res["bass_ok"] = round(okc / len(sp), 4) if sp else None
+    return res
+
+
+def gates_r3(m, n_bars):
+    """metrics dict -> {gate: True/False/None}. An empty or unreadable candidate (0 notes) fails only
+    enough_notes; its other gates are None (not evaluated) and are not counted as failed."""
+    def le(v, x):
+        return v is not None and v <= x
+
+    def lt(v, x):
+        return v is not None and v < x
+    if not m.get("notes"):
+        return {g: (False if g == "enough_notes" else None) for g in R3_GATES}
+    return {
+        "enough_notes": (m.get("notes") or 0) >= n_bars and le(m.get("empty_beat_rate"), EMPTY_BEAT_MAX),
+        "melody_copy": lt(m.get("copy"), COPY_MAX),
+        "prompt_copy": lt(m.get("prompt_doc"), DOC_MAX),
+        "chord_fit": (m.get("chord_match") is not None and m["chord_match"] >= CHORD_MATCH_MIN)
+                     and le(m.get("ook"), OOK_MAX),
+        "playable": m.get("playable") is True,
+    }
+
+
+def _min_ranks(values, higher_better):
+    """1 = best, ties share the minimum rank; None is ranked after every value."""
+    def key(v):
+        return (1, 0) if v is None else (0, -v if higher_better else v)
+    ks = [key(v) for v in values]
+    return [1 + sum(1 for o in ks if o < k) for k in ks]
+
+
+def select_r3(cands, selectable=True):
+    """cands: list of dicts with 'k', metrics and 'gates' (from gates_r3). Adds 'failed', 'pool', 'ranks',
+    'borda' to each. -> {'chosen': k or None, 'fallback': bool, 'passers': n, 'selected': bool}.
+    selectable=False (one LLM-written candidate): scored and ranked for display, never 'selected'."""
+    for c in cands:
+        c["failed"] = [g for g in R3_GATES if (c.get("gates") or {}).get(g) is False]
+    passers = [c for c in cands if not c["failed"]]
+    fallback = False
+    if passers:
+        pool = passers
+    else:
+        live = [c for c in cands if c.get("notes")]
+        fewest = min((len(c["failed"]) for c in live), default=None)
+        pool = [c for c in live if len(c["failed"]) == fewest]
+        fallback = bool(pool)
+    for c in cands:
+        c["pool"] = any(c is p for p in pool)
+        c["ranks"], c["borda"] = None, None
+    if pool:
+        per_axis = {a: _min_ranks([p.get(a) for p in pool], d == "high") for a, d in R3_AXES.items()}
+        for i, p in enumerate(pool):
+            p["ranks"] = {a: per_axis[a][i] for a in R3_AXES}
+            p["borda"] = sum(p["ranks"].values())
+    if not pool:
+        chosen = None
+    else:
+        win = min(pool, key=lambda p: (p["borda"], p["prompt_sim"] if p.get("prompt_sim") is not None
+                                       else float("inf"), p["k"]))
+        chosen = win["k"]
+    return {"chosen": chosen, "fallback": fallback if selectable else False,
+            "passers": len(passers), "selected": bool(selectable and chosen is not None)}
 
 
 def main():

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第三輪挑選報告</title>
+<style>
+:root { --bg:#f7f6f3; --card:#fff; --text:#1d1d1f; --muted:#6b6b70; --line:#e3e1dc; --accent:#3b5bdb;
+  --warn:#b54708; --ok:#2b7a3d; --chip:#eef1fb; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#151517; --card:#1f1f23; --text:#ececee; --muted:#9a9aa2; --line:#33333a; --accent:#8da2fb;
+    --warn:#f5a46b; --ok:#7fd18f; --chip:#272b3a; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.7 -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; }
+main { max-width:980px; margin:0 auto; padding:28px 16px 64px; }
+h1 { font-size:24px; margin:0 0 4px; } h2 { font-size:19px; margin:32px 0 8px; }
+.muted { color:var(--muted); } .ok { color:var(--ok); } .warn { color:var(--warn); } .accent { color:var(--accent); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin:12px 0; }
+.stats { display:flex; flex-wrap:wrap; gap:10px; }
+.stat { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:8px 14px; }
+.stat b { font-size:22px; display:block; }
+.tw { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-size:13.5px; margin:6px 0; }
+th, td { border-bottom:1px solid var(--line); padding:4px 8px; text-align:right; vertical-align:top; }
+th:first-child, td:first-child, .l { text-align:left; }
+tr.pick td { font-weight:600; color:var(--accent); }
+.def td, .def th { text-align:left; }
+details { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:8px 12px; margin:8px 0; }
+summary { cursor:pointer; font-weight:600; }
+code { background:var(--chip); border-radius:5px; padding:0 4px; font-size:13px; }
+.next { border-left:4px solid var(--accent); }
+</style>
+</head>
+<body>
+<main>
+<h1>原型 02 第三輪：先過門檻、再排名的挑選指標</h1>
+<p class="muted">產生時間 2026-11-22 11:48。資料：<code>reports/round3-scores.json</code>（由 <code>round3.py</code> 產生）。這一輪沒有重跑任何模型，也沒有呼叫 Gemini：AMT、AccoMontage 用第二輪存下的 8 份候選重新挑選，所以新舊挑選面對的是同一批候選，差別只來自指標。</p>
+
+<div class="stats">
+<div class="stat"><b>16/16</b>格有產出</div>
+<div class="stat"><b>7/8</b>格新舊挑得不同</div>
+<div class="stat"><b>1</b>格新舊相同</div>
+<div class="stat"><b>1</b>格退回（沒有一份過全部門檻）</div>
+</div>
+
+<h2>一、指標怎麼算</h2>
+<div class="card">
+<p><b>為什麼改：</b>第二輪的分數把「忠於和弦」和「不抄旋律」等項目加在一起比高低，結果常挑到幾乎照抄柱式和弦提示的那份。R5 研究發現「忠於和弦」和「不照抄提示」會互相拉扯，所以這一輪把「忠於和弦」改成門檻：先淘汰不合格的，剩下的再比「有沒有變化、守不守規則」。</p>
+<p><b>門檻</b>（五道都過才算通過；起始值都可以調，這輪不調）：</p>
+<div class="tw"><table class="def">
+<tr><th>門檻</th><th>白話</th><th>條件</th></tr>
+<tr><td>彈得夠多</td><td>不能幾乎什麼都沒彈</td><td>音數 ≥ 小節數，而且空拍比例 ≤ 25%。一拍裡只要有任何伴奏音<b>正在響</b>就不算空拍（延長的和弦也算）。</td></tr>
+<tr><td>不抄旋律</td><td>不能只是把旋律重彈一次或平移</td><td>和旋律同時起音、距離固定（同音、八度、平行三度等）的伴奏音比例 &lt; 0.5（沿用第二輪的「抄旋律」）。</td></tr>
+<tr><td>不照抄提示</td><td>不能只是把柱式和弦提示原樣彈出來</td><td>抄襲程度 = 2 × 配對數 ÷（伴奏音數＋提示音數）&lt; 0.5。配對：音名相同（不管八度）、起音差 ≤ 40 毫秒，一個音只能配一次。提示原樣彈出來 = 1.0。</td></tr>
+<tr><td>守住和弦</td><td>要照和弦表走，不亂彈調外音</td><td>逐拍和弦吻合率 ≥ 0.7（一拍裡響著的伴奏，至少一半時間是當下和弦的音，這一拍才算吻合），而且調外音 ≤ 5%。</td></tr>
+<tr><td>彈得到</td><td>一個人兩隻手彈得出來</td><td>同時起音的一組音，一隻手彈得下，或能切成左右兩手、每隻手 ≤ 5 個音且跨度 ≤ 14 個半音，就算彈得到。兩隻手怎麼切都不行的，就不合格。</td></tr>
+</table></div>
+<p><b>排名</b>（只在通過門檻的候選之間排，每項 1 = 最好，同分同名次；三項名次加總最小的勝出；再同分就選「不像提示」比較低的，再同分選編號小的）：</p>
+<div class="tw"><table class="def">
+<tr><th>項目</th><th>白話</th><th>怎麼算</th></tr>
+<tr><td>不像提示</td><td>越不像柱式和弦提示越好</td><td>兩個數的平均：① 音符比對 F1（音高相同、起音差 ≤ 50 毫秒、結束時間也接近才算配對）；② 節奏格子相似度（十六分音符格子上「有沒有起音」的餘弦相似度）。越低越好。</td></tr>
+<tr><td>不違規</td><td>少一點和聲規則上的毛病</td><td>低音和旋律之間的平行五度、平行八度（每個旋律音的比例），加上刺耳重疊（旋律與伴奏同時響小二度、三全音、大七度的時間比例）。越低越好。</td></tr>
+<tr><td>低音正確</td><td>換和弦時，最低的音是不是和弦的低音</td><td>每次換和弦，看換和弦後半拍內起音的最低伴奏音，音名是不是和弦的低音（斜線和弦看斜線後面的音）。越高越好。這一項是自訂的，沒有文獻依據。</td></tr>
+</table></div>
+<p><b>退回：</b>如果一格裡沒有任何一份過全部門檻，就在「擋掉的門檻數最少」的那幾份裡用同樣方法排名，並標成「退回」。</p>
+<p><b>Claude、Gemini 寫伴奏</b>每格只有一份，指標照樣計算、顯示，但不參與挑選。</p>
+</div>
+
+<h2>二、每格挑選結果：新 vs 舊</h2>
+<div class="tw"><table>
+<tr><th>格子</th><th>新指標挑的</th><th>舊指標挑的</th><th>新舊</th><th>過全部門檻</th><th>備註</th></tr>
+<tr><td>快樂頌（貝多芬） × Claude 的和弦 × AMT + 和弦條件</td><td>第 8 份</td><td>第 8 份</td><td><span class=ok>相同</span></td><td>2/8</td><td></td></tr>
+<tr><td>快樂頌（貝多芬） × Claude 的和弦 × AccoMontage</td><td>第 3 份</td><td>第 8 份</td><td><span class=accent>不同</span></td><td>3/8</td><td></td></tr>
+<tr><td>快樂頌（貝多芬） × Claude 的和弦 × Claude 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>1/1</td><td>過全部門檻</td></tr>
+<tr><td>快樂頌（貝多芬） × Claude 的和弦 × Gemini 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>0/1</td><td>沒過：不照抄提示</td></tr>
+<tr><td>快樂頌（貝多芬） × Gemini 的和弦 × AMT + 和弦條件</td><td>第 4 份</td><td>第 2 份</td><td><span class=accent>不同</span></td><td>3/8</td><td></td></tr>
+<tr><td>快樂頌（貝多芬） × Gemini 的和弦 × AccoMontage</td><td>第 7 份</td><td>第 5 份</td><td><span class=accent>不同</span></td><td>3/8</td><td></td></tr>
+<tr><td>快樂頌（貝多芬） × Gemini 的和弦 × Claude 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>1/1</td><td>過全部門檻</td></tr>
+<tr><td>快樂頌（貝多芬） × Gemini 的和弦 × Gemini 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>0/1</td><td>沒過：不照抄提示</td></tr>
+<tr><td>綠袖子 Greensleeves × Claude 的和弦 × AMT + 和弦條件</td><td>第 3 份</td><td>第 6 份</td><td><span class=accent>不同</span></td><td>1/8</td><td></td></tr>
+<tr><td>綠袖子 Greensleeves × Claude 的和弦 × AccoMontage</td><td>第 7 份</td><td>第 4 份</td><td><span class=accent>不同</span></td><td>3/8</td><td></td></tr>
+<tr><td>綠袖子 Greensleeves × Claude 的和弦 × Claude 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>1/1</td><td>過全部門檻</td></tr>
+<tr><td>綠袖子 Greensleeves × Claude 的和弦 × Gemini 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>1/1</td><td>過全部門檻</td></tr>
+<tr><td>綠袖子 Greensleeves × Gemini 的和弦 × AMT + 和弦條件</td><td>第 3 份</td><td>第 6 份</td><td><span class=accent>不同</span></td><td>0/8</td><td><span class=warn>退回</span></td></tr>
+<tr><td>綠袖子 Greensleeves × Gemini 的和弦 × AccoMontage</td><td>第 2 份</td><td>第 1 份</td><td><span class=accent>不同</span></td><td>4/8</td><td></td></tr>
+<tr><td>綠袖子 Greensleeves × Gemini 的和弦 × Claude 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>1/1</td><td>過全部門檻</td></tr>
+<tr><td>綠袖子 Greensleeves × Gemini 的和弦 × Gemini 寫伴奏</td><td colspan=3 class=muted>只有一份，不挑選</td><td>1/1</td><td>過全部門檻</td></tr>
+</table></div>
+
+<h2>三、門檻通過數</h2>
+<p class="muted">每格、每份候選分開算（AMT、AccoMontage 每格 8 份，Claude、Gemini 每格 1 份）。只算非空白的候選：空白（0 個音）的候選只算沒過「彈得夠多」，其他門檻不評估，數量另列在表的最後一列。</p>
+<div class="tw"><table>
+<tr><th>門檻</th><th>AMT + 和弦條件</th><th>AccoMontage</th><th>Claude 寫伴奏</th><th>Gemini 寫伴奏</th></tr>
+<tr><td>彈得夠多</td><td>19/19</td><td>32/32</td><td>4/4</td><td>4/4</td></tr>
+<tr><td>不抄旋律</td><td>14/19</td><td>32/32</td><td>4/4</td><td>4/4</td></tr>
+<tr><td>不照抄提示</td><td>15/19</td><td>31/32</td><td>4/4</td><td>2/4</td></tr>
+<tr><td>守住和弦</td><td>14/19</td><td>32/32</td><td>4/4</td><td>4/4</td></tr>
+<tr><td>彈得到</td><td>18/19</td><td>13/32</td><td>4/4</td><td>4/4</td></tr>
+<tr><td><b>全部通過</b></td><td>6/19</td><td>13/32</td><td>4/4</td><td>2/4</td></tr>
+<tr><td class=muted>空白候選（0 個音，不計入上面各列）</td><td class=muted>13</td><td class=muted>0</td><td class=muted>0</td><td class=muted>0</td></tr>
+</table></div>
+<p class="muted">全部模型合計：彈得夠多 59/59；不抄旋律 54/59；不照抄提示 52/59；守住和弦 54/59；彈得到 39/59。</p>
+<ul>
+<li><b>AMT + 和弦條件</b>：非空白的 19 份裡，最常擋下的是「不抄旋律」（5 份）；另有 13 份是空白的（0 個音）。</li>
+<li><b>AccoMontage</b>：非空白的 32 份裡，最常擋下的是「彈得到」（19 份）。</li>
+</ul>
+
+<h2>四、退回的格子</h2>
+<div class="card"><ul><li>綠袖子 Greensleeves × Gemini 的和弦 × AMT + 和弦條件：挑了第 3 份，它沒過「守住和弦」。</li></ul></div>
+
+<h2>五、每格的名次表</h2>
+<p class="muted">名次欄的括號是原始數值。★ = 新指標挑的，○ = 第二輪舊指標挑的。「抄提示」「和弦吻合」「抄旋律」是門檻用的數值。</p>
+<details><summary>快樂頌（貝多芬） × Claude 的和弦 × AMT + 和弦條件 <span class=muted>（新舊相同）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>126</td><td class='ok l'>✓</td><td>0.21</td><td>0.73</td><td>0.13</td><td>1（0.20）</td><td>2（0.307）</td><td>2（0.57）</td><td>5</td><td></td></tr><tr class=''><td>2</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>3</td><td>79</td><td class='warn l'>✗ 守住和弦</td><td>0.07</td><td>0.36</td><td>0.20</td><td>–（0.26）</td><td>–（0.186）</td><td>–（0.00）</td><td>–</td><td></td></tr><tr class=''><td>4</td><td>130</td><td class='warn l'>✗ 不照抄提示</td><td>0.68</td><td>0.98</td><td>0.47</td><td>–（0.30）</td><td>–（0.071）</td><td>–（0.96）</td><td>–</td><td></td></tr><tr class=''><td>5</td><td>61</td><td class='warn l'>✗ 不抄旋律</td><td>0.33</td><td>0.78</td><td>1.00</td><td>–（0.29）</td><td>–（0.735）</td><td>–（0.39）</td><td>–</td><td></td></tr><tr class=''><td>6</td><td>61</td><td class='warn l'>✗ 不抄旋律、守住和弦</td><td>0.20</td><td>0.53</td><td>0.98</td><td>–（0.31）</td><td>–（0.000）</td><td>–（0.22）</td><td>–</td><td></td></tr><tr class=''><td>7</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class='pick'><td>8</td><td>118</td><td class='ok l'>✓</td><td>0.24</td><td>0.98</td><td>0.11</td><td>2（0.32）</td><td>1（0.041）</td><td>1（0.91）</td><td>4</td><td>★○</td></tr></table></div></details>
+<details><summary>快樂頌（貝多芬） × Claude 的和弦 × AccoMontage <span class=muted>（新舊不同）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>216</td><td class='warn l'>✗ 彈得到</td><td>0.34</td><td>0.95</td><td>0.07</td><td>–（0.22）</td><td>–（0.073）</td><td>–（0.57）</td><td>–</td><td></td></tr><tr class=''><td>2</td><td>339</td><td class='warn l'>✗ 彈得到</td><td>0.21</td><td>1.00</td><td>0.05</td><td>–（0.21）</td><td>–（0.039）</td><td>–（0.57）</td><td>–</td><td></td></tr><tr class='pick'><td>3</td><td>138</td><td class='ok l'>✓</td><td>0.22</td><td>0.97</td><td>0.09</td><td>1（0.22）</td><td>1（0.027）</td><td>1（0.78）</td><td>3</td><td>★</td></tr><tr class=''><td>4</td><td>189</td><td class='ok l'>✓</td><td>0.21</td><td>0.98</td><td>0.08</td><td>2（0.22）</td><td>3（0.096）</td><td>3（0.52）</td><td>8</td><td></td></tr><tr class=''><td>5</td><td>222</td><td class='warn l'>✗ 彈得到</td><td>0.28</td><td>1.00</td><td>0.08</td><td>–（0.24）</td><td>–（0.055）</td><td>–（0.61）</td><td>–</td><td></td></tr><tr class=''><td>6</td><td>220</td><td class='ok l'>✓</td><td>0.22</td><td>1.00</td><td>0.08</td><td>3（0.23）</td><td>2（0.066）</td><td>2（0.61）</td><td>7</td><td></td></tr><tr class=''><td>7</td><td>255</td><td class='warn l'>✗ 彈得到</td><td>0.37</td><td>1.00</td><td>0.07</td><td>–（0.23）</td><td>–（0.044）</td><td>–（0.70）</td><td>–</td><td></td></tr><tr class=''><td>8</td><td>264</td><td class='warn l'>✗ 彈得到</td><td>0.26</td><td>1.00</td><td>0.06</td><td>–（0.22）</td><td>–（0.105）</td><td>–（0.57）</td><td>–</td><td>○</td></tr></table></div></details>
+<details><summary>快樂頌（貝多芬） × Claude 的和弦 × Claude 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>105</td><td class='ok l'>✓</td><td>0.35</td><td>1.00</td><td>0.18</td><td>1（0.34）</td><td>1（0.036）</td><td>1（1.00）</td><td>3</td><td></td></tr></table></div></details>
+<details><summary>快樂頌（貝多芬） × Claude 的和弦 × Gemini 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>125</td><td class='warn l'>✗ 不照抄提示</td><td>0.55</td><td>1.00</td><td>0.18</td><td>1（0.42）</td><td>1（0.035）</td><td>1（1.00）</td><td>3</td><td></td></tr></table></div></details>
+<details><summary>快樂頌（貝多芬） × Gemini 的和弦 × AMT + 和弦條件 <span class=muted>（新舊不同）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>999</td><td class='warn l'>✗ 守住和弦、彈得到</td><td>0.18</td><td>0.88</td><td>0.09</td><td>–（0.27）</td><td>–（0.062）</td><td>–（0.79）</td><td>–</td><td></td></tr><tr class=''><td>2</td><td>198</td><td class='warn l'>✗ 不照抄提示</td><td>0.73</td><td>1.00</td><td>0.18</td><td>–（0.84）</td><td>–（0.031）</td><td>–（0.97）</td><td>–</td><td>○</td></tr><tr class=''><td>3</td><td>128</td><td class='warn l'>✗ 守住和弦</td><td>0.20</td><td>0.69</td><td>0.20</td><td>–（0.37）</td><td>–（0.186）</td><td>–（0.00）</td><td>–</td><td></td></tr><tr class='pick'><td>4</td><td>38</td><td class='ok l'>✓</td><td>0.47</td><td>1.00</td><td>0.34</td><td>2（0.49）</td><td>1（0.000）</td><td>1（0.97）</td><td>4</td><td>★</td></tr><tr class=''><td>5</td><td>77</td><td class='ok l'>✓</td><td>0.37</td><td>0.89</td><td>0.23</td><td>1（0.36）</td><td>3（0.134）</td><td>3（0.11）</td><td>7</td><td></td></tr><tr class=''><td>6</td><td>61</td><td class='warn l'>✗ 不抄旋律</td><td>0.34</td><td>0.73</td><td>0.97</td><td>–（0.45）</td><td>–（0.000）</td><td>–（0.39）</td><td>–</td><td></td></tr><tr class=''><td>7</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>8</td><td>39</td><td class='ok l'>✓</td><td>0.47</td><td>1.00</td><td>0.33</td><td>2（0.49）</td><td>1（0.000）</td><td>1（0.97）</td><td>4</td><td></td></tr></table></div></details>
+<details><summary>快樂頌（貝多芬） × Gemini 的和弦 × AccoMontage <span class=muted>（新舊不同）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>271</td><td class='warn l'>✗ 不照抄提示、彈得到</td><td>0.53</td><td>0.98</td><td>0.12</td><td>–（0.29）</td><td>–（0.037）</td><td>–（0.63）</td><td>–</td><td></td></tr><tr class=''><td>2</td><td>258</td><td class='warn l'>✗ 彈得到</td><td>0.34</td><td>0.95</td><td>0.06</td><td>–（0.26）</td><td>–（0.074）</td><td>–（0.42）</td><td>–</td><td></td></tr><tr class=''><td>3</td><td>283</td><td class='ok l'>✓</td><td>0.48</td><td>0.98</td><td>0.16</td><td>3（0.28）</td><td>2（0.048）</td><td>2（0.55）</td><td>7</td><td></td></tr><tr class=''><td>4</td><td>210</td><td class='ok l'>✓</td><td>0.33</td><td>0.95</td><td>0.07</td><td>2（0.26）</td><td>3（0.060）</td><td>3（0.39）</td><td>8</td><td></td></tr><tr class=''><td>5</td><td>269</td><td class='warn l'>✗ 彈得到</td><td>0.33</td><td>0.95</td><td>0.06</td><td>–（0.28）</td><td>–（0.056）</td><td>–（0.47）</td><td>–</td><td>○</td></tr><tr class=''><td>6</td><td>270</td><td class='warn l'>✗ 彈得到</td><td>0.32</td><td>0.97</td><td>0.06</td><td>–（0.29）</td><td>–（0.039）</td><td>–（0.61）</td><td>–</td><td></td></tr><tr class='pick'><td>7</td><td>302</td><td class='ok l'>✓</td><td>0.25</td><td>1.00</td><td>0.03</td><td>1（0.25）</td><td>1（0.041）</td><td>1（0.61）</td><td>3</td><td>★</td></tr><tr class=''><td>8</td><td>264</td><td class='warn l'>✗ 彈得到</td><td>0.34</td><td>0.94</td><td>0.08</td><td>–（0.27）</td><td>–（0.061）</td><td>–（0.47）</td><td>–</td><td></td></tr></table></div></details>
+<details><summary>快樂頌（貝多芬） × Gemini 的和弦 × Claude 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>118</td><td class='ok l'>✓</td><td>0.46</td><td>1.00</td><td>0.16</td><td>1（0.43）</td><td>1（0.021）</td><td>1（1.00）</td><td>3</td><td></td></tr></table></div></details>
+<details><summary>快樂頌（貝多芬） × Gemini 的和弦 × Gemini 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>144</td><td class='warn l'>✗ 不照抄提示</td><td>0.58</td><td>1.00</td><td>0.22</td><td>1（0.48）</td><td>1（0.028）</td><td>1（1.00）</td><td>3</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Claude 的和弦 × AMT + 和弦條件 <span class=muted>（新舊不同）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>2</td><td>38</td><td class='warn l'>✗ 不抄旋律</td><td>0.31</td><td>0.87</td><td>0.71</td><td>–（0.28）</td><td>–（0.000）</td><td>–（0.54）</td><td>–</td><td></td></tr><tr class='pick'><td>3</td><td>49</td><td class='ok l'>✓</td><td>0.27</td><td>0.78</td><td>0.20</td><td>1（0.25）</td><td>1（0.058）</td><td>1（0.85）</td><td>3</td><td>★</td></tr><tr class=''><td>4</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>5</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>6</td><td>46</td><td class='warn l'>✗ 不照抄提示</td><td>0.85</td><td>1.00</td><td>0.26</td><td>–（0.85）</td><td>–（0.012）</td><td>–（0.92）</td><td>–</td><td>○</td></tr><tr class=''><td>7</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>8</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Claude 的和弦 × AccoMontage <span class=muted>（新舊不同）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>176</td><td class='warn l'>✗ 彈得到</td><td>0.23</td><td>0.94</td><td>0.07</td><td>–（0.18）</td><td>–（0.052）</td><td>–（0.54）</td><td>–</td><td></td></tr><tr class=''><td>2</td><td>211</td><td class='ok l'>✓</td><td>0.12</td><td>0.98</td><td>0.04</td><td>2（0.17）</td><td>3（0.110）</td><td>1（0.54）</td><td>6</td><td></td></tr><tr class=''><td>3</td><td>236</td><td class='ok l'>✓</td><td>0.24</td><td>0.94</td><td>0.08</td><td>3（0.18）</td><td>2（0.062）</td><td>2（0.31）</td><td>7</td><td></td></tr><tr class=''><td>4</td><td>176</td><td class='warn l'>✗ 彈得到</td><td>0.21</td><td>0.94</td><td>0.07</td><td>–（0.18）</td><td>–（0.052）</td><td>–（0.54）</td><td>–</td><td>○</td></tr><tr class=''><td>5</td><td>233</td><td class='warn l'>✗ 彈得到</td><td>0.24</td><td>0.98</td><td>0.09</td><td>–（0.18）</td><td>–（0.044）</td><td>–（0.69）</td><td>–</td><td></td></tr><tr class=''><td>6</td><td>265</td><td class='warn l'>✗ 彈得到</td><td>0.11</td><td>0.98</td><td>0.04</td><td>–（0.15）</td><td>–（0.024）</td><td>–（0.54）</td><td>–</td><td></td></tr><tr class='pick'><td>7</td><td>146</td><td class='ok l'>✓</td><td>0.19</td><td>0.98</td><td>0.08</td><td>1（0.17）</td><td>1（0.045）</td><td>3（0.23）</td><td>5</td><td>★</td></tr><tr class=''><td>8</td><td>238</td><td class='warn l'>✗ 彈得到</td><td>0.25</td><td>0.98</td><td>0.09</td><td>–（0.18）</td><td>–（0.038）</td><td>–（0.62）</td><td>–</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Claude 的和弦 × Claude 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>91</td><td class='ok l'>✓</td><td>0.25</td><td>1.00</td><td>0.12</td><td>1（0.23）</td><td>1（0.005）</td><td>1（0.92）</td><td>3</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Claude 的和弦 × Gemini 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>82</td><td class='ok l'>✓</td><td>0.30</td><td>1.00</td><td>0.13</td><td>1（0.22）</td><td>1（0.000）</td><td>1（0.92）</td><td>3</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Gemini 的和弦 × AMT + 和弦條件 <span class=muted>（新舊不同・退回）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>2</td><td>36</td><td class='warn l'>✗ 不抄旋律</td><td>0.28</td><td>0.72</td><td>0.50</td><td>2（0.29）</td><td>1（0.000）</td><td>3（0.21）</td><td>6</td><td></td></tr><tr class='pick'><td>3</td><td>41</td><td class='warn l'>✗ 守住和弦</td><td>0.27</td><td>0.59</td><td>0.34</td><td>1（0.27）</td><td>2（0.091）</td><td>2（0.43）</td><td>5</td><td>★</td></tr><tr class=''><td>4</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>5</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>6</td><td>46</td><td class='warn l'>✗ 不照抄提示</td><td>0.89</td><td>1.00</td><td>0.26</td><td>3（0.89）</td><td>3（0.104）</td><td>1（0.93）</td><td>7</td><td>○</td></tr><tr class=''><td>7</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr><tr class=''><td>8</td><td>0</td><td class='warn l'>✗ 彈得夠多</td><td>–</td><td>–</td><td>–</td><td>–（–）</td><td>–（–）</td><td>–（–）</td><td>–</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Gemini 的和弦 × AccoMontage <span class=muted>（新舊不同）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>177</td><td class='warn l'>✗ 彈得到</td><td>0.23</td><td>0.94</td><td>0.05</td><td>–（0.20）</td><td>–（0.033）</td><td>–（0.43）</td><td>–</td><td>○</td></tr><tr class='pick'><td>2</td><td>259</td><td class='ok l'>✓</td><td>0.22</td><td>0.90</td><td>0.07</td><td>2（0.17）</td><td>3（0.085）</td><td>1（0.64）</td><td>6</td><td>★</td></tr><tr class=''><td>3</td><td>236</td><td class='ok l'>✓</td><td>0.26</td><td>0.90</td><td>0.08</td><td>4（0.18）</td><td>2（0.076）</td><td>4（0.43）</td><td>10</td><td></td></tr><tr class=''><td>4</td><td>178</td><td class='warn l'>✗ 彈得到</td><td>0.20</td><td>0.90</td><td>0.06</td><td>–（0.19）</td><td>–（0.061）</td><td>–（0.43）</td><td>–</td><td></td></tr><tr class=''><td>5</td><td>201</td><td class='warn l'>✗ 彈得到</td><td>0.21</td><td>0.92</td><td>0.06</td><td>–（0.19）</td><td>–（0.054）</td><td>–（0.43）</td><td>–</td><td></td></tr><tr class=''><td>6</td><td>271</td><td class='warn l'>✗ 彈得到</td><td>0.12</td><td>0.98</td><td>0.03</td><td>–（0.15）</td><td>–（0.106）</td><td>–（0.57）</td><td>–</td><td></td></tr><tr class=''><td>7</td><td>249</td><td class='ok l'>✓</td><td>0.25</td><td>0.92</td><td>0.06</td><td>3（0.17）</td><td>1（0.068）</td><td>2（0.50）</td><td>6</td><td></td></tr><tr class=''><td>8</td><td>271</td><td class='ok l'>✓</td><td>0.12</td><td>1.00</td><td>0.03</td><td>1（0.16）</td><td>4（0.159）</td><td>2（0.50）</td><td>7</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Gemini 的和弦 × Claude 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>91</td><td class='ok l'>✓</td><td>0.23</td><td>1.00</td><td>0.12</td><td>1（0.24）</td><td>1（0.079）</td><td>1（0.93）</td><td>3</td><td></td></tr></table></div></details>
+<details><summary>綠袖子 Greensleeves × Gemini 的和弦 × Gemini 寫伴奏 <span class=muted>（只有一份）</span></summary><div class=tw><table><tr><th>份</th><th>音數</th><th class=l>門檻</th><th>抄提示</th><th>和弦吻合</th><th>抄旋律</th><th>不像提示</th><th>不違規</th><th>低音正確</th><th>加總</th><th></th></tr><tr class=''><td>1</td><td>94</td><td class='ok l'>✓</td><td>0.22</td><td>1.00</td><td>0.12</td><td>1（0.24）</td><td>1（0.079）</td><td>1（0.93）</td><td>3</td><td></td></tr></table></div></details>
+
+<h2>六、和計畫字面不同的地方</h2>
+<div class="card"><ul>
+<li><b>空拍看「正在響」，不看「起音」：</b>MusPy 的空拍是數起音，但那樣會把「一個和弦延長一整小節」的織體判成空拍、擋掉。這裡改成「一拍裡有任何伴奏音在響就不算空」。</li>
+<li><b>「彈得到」是兩隻手的檢查：</b>計畫的表寫「同時發聲 ≤ 5 個、跨度 ≤ 14 個半音」，照字面當成一隻手，會擋掉所有「低音＋和弦」的織體，連 Claude、Gemini 的規劃也過不了。計畫的本意是「彈得到」，所以改成兩隻手的檢查：試過所有左右手的切法，只要有一種切法兩手都彈得下就合格。</li>
+<li><b>只看「起音」相同的一組音：</b>彈得到的檢查只看同時按下的音，不管前面還在延長的音（例如踏板留著的低音）。</li>
+<li><b>平行五八度只看相鄰的兩個旋律音：</b>兩個旋律音中任何一個當下沒有伴奏音在響，這一對就跳過。比例的分母是全部旋律音數。</li>
+<li><b>舊指標挑的那份</b>取自第二輪 <code>candidates/scores.json</code> 的 <code>best</code>（它是候選清單的索引，再對應到編號）。</li>
+<li><b>AccoMontage 常被「彈得到」擋下：</b>它的伴奏來自 POP909 流行歌鋼琴譜，常有一次橫跨三個音域的大和弦（例如低音 37、中間 52–57、上面 67–69），左手撐不開；而且只要整首有一個這樣的和弦，整份就不合格。這是門檻的結果，不是程式錯誤，但門檻值（5 音、14 半音）沒有文獻依據，聽過之後可以再調。</li>
+</ul></div>
+
+<div class="card next">
+<p><b>下一步：請你盲聽。</b>打開 <code>prototype/harmony-first/output/round3/player.html</code>：</p>
+<ol>
+<li>用「盲聽二：新 vs 舊」聽新舊挑得不同的 7 格，每格記下 A 或 B 哪個比較好、為什麼，再按揭曉。</li>
+<li>用「盲聽一：模型」聽每份和弦的四個模型，看新指標挑的 AMT、AccoMontage 和 Claude、Gemini 寫的比起來如何。</li>
+</ol>
+<p>如果新指標挑的多半比較好，下一步才開始調參數；如果沒有比較好，先回頭看是哪道門檻或哪一項名次判斷錯了。</p>
+</div>
+</main>
+</body>
+</html>

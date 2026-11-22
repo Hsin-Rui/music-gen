@@ -128,6 +128,34 @@ output/player.html                                     試聽頁
 - **VeeHarmGen 只看音級集合、不管上下文：** 快樂頌第 10–11 小節冒出 G、C（D 大調裡的 C 是調外和弦）；綠袖子從 F 開始，還有 Cm/Eb、Dmaj7/F#；茉莉花出現 Fm/G#。可以當「沒有音樂常識的規則基準」。
 - **三段改成一段一段跑：** 同時跑三段時 AMT 搶 GPU、記憶體換頁，一份從 1 分鐘變 15 分鐘。
 
+## 第三輪：新挑選指標（2026-11-22）
+
+建置計畫：`docs/plan-harmony-first-round3.md`。舊的挑選（z 分數加總）不動，`run.py` 照舊使用；第三輪改用「先過門檻、再排名」，只重新挑選第二輪存下的候選，不重跑任何模型、不呼叫 Gemini、不做表情演奏。
+
+- **範圍：** 快樂頌、綠袖子 × Claude、Gemini 的和弦 × AMT、AccoMontage、Claude 寫伴奏、Gemini 寫伴奏 = 16 格。AMT、AccoMontage 從 8 份候選裡挑；Claude、Gemini 寫伴奏每格只有一份，只計算、顯示，不挑選。
+- **門檻：** 彈得夠多、不抄旋律、不照抄提示、守住和弦、彈得到（兩隻手）。**排名：** 不像提示、不違規、低音正確，名次加總最小的勝出；沒有一份過全部門檻時「退回」到擋掉最少的幾份裡排。定義寫在 `steps/metrics.py` 的說明裡（`compute_r3`、`gates_r3`、`select_r3`）。
+
+```bash
+cd prototype/harmony-first
+uv run round3.py                    # 16 格：每格印出 new k / old k / passers n/8（幾秒鐘）
+uv run make_player_r3.py            # → output/round3/player.html（盲聽一：模型；盲聽二：新 vs 舊）
+uv run make_report_r3.py            # → reports/round3-report.html
+uv run --with pytest pytest -q tests/test_round3.py
+```
+
+選項：`--melodies ode_to_joy,greensleeves`、`--soundfont PATH`。
+
+```
+output/round3/<旋律>/<和弦來源>/<模型>/accompaniment.mid   新指標挑的那份
+output/round3/<旋律>/<和弦來源>/<模型>/plain.{mid,wav}     直接播放版（沿用原型 01 的合併與轉檔）
+output/round3/<旋律>/<和弦來源>/<模型>/scores.json         每份候選的指標、門檻、名次、chosen、old_chosen、fallback、selected
+output/round3/summary.json                               16 格彙整（同一份複製到 reports/round3-scores.json，進 git）
+output/round3/player.html                                試聽頁（用相對路徑讀第二輪的提示音檔和舊挑選的 plain.wav）
+reports/round3-report.html                               報告（離線可開）
+```
+
+**第一次跑的結果（還沒聽過，只看數字）：** AMT、AccoMontage 的 8 格裡有 7 格新舊挑得不同。綠袖子 × Gemini 和弦 × AMT 沒有一份過全部門檻（退回）。舊指標在綠袖子的兩格 AMT 都挑了「抄提示」0.85–0.89 的那份，正是這輪要擋掉的情況。AccoMontage 每格 8 份裡有 4–5 份被「彈得到」擋下（有一次橫跨三個音域、兩手撐不開的和弦，整首只要有一個就不合格），門檻值沒有文獻依據，聽過之後可以再調。
+
 ## 初步觀察（2026-11-21，還沒有人聽過，只看數字）
 
 - **產出：** 16 格伴奏（快樂頌 6、茉莉花 6、綠袖子 4），每格 3 個版本，共 48 個伴奏 WAV，加上 8 個「旋律＋柱式和弦」和 3 個輸入旋律，59 個 WAV 都不是靜音。缺的格子：Polyffusion 全部（沒有權重）、綠袖子的 AccoMontage2（3/4）。
