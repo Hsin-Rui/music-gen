@@ -13,10 +13,12 @@ added: '2026-11-21'
 
 ## 本專案從這篇取用的說法
 
+- （R5）Lerch 等人綜述：生成音樂沒有通用評量方法
 - 生成音樂評估綜述（ACM CSUR）
 
 ## 被哪些研究引用
 
+- [R5 [25]](../../docs/research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.md)
 - [R1 [59]](../../docs/research-music-generation-tech-roadmap/research-music-generation-tech-roadmap.md)
 
 ## 筆記

@@ -13,10 +13,12 @@ added: '2026-11-21'
 
 ## 本專案從這篇取用的說法
 
+- （R5）CTnCTR、PCS、MCTD 公式（原文確認）；模板配和聲在 CTnCTR、PCS 上高於真人（0.91、1.97 對 0.74、1.42）
 - 和聲一致性指標彙整；沒有「多生幾份再挑」的伴奏論文
 
 ## 被哪些研究引用
 
+- [R5 [1]](../../docs/research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.md)
 - [R3 [12]](../../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
 
 

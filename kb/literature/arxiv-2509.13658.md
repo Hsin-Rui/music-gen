@@ -13,10 +13,12 @@ added: '2026-11-21'
 
 ## 本專案從這篇取用的說法
 
+- （R5）SSIMuse：鋼琴捲簾的結構相似度，可比對候選與提示
 - SSIMuse 多聲部抄襲檢測（預印本）
 
 ## 被哪些研究引用
 
+- [R5 [12]](../../docs/research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.md)
 - [R1 [25]](../../docs/research-music-generation-tech-roadmap/research-music-generation-tech-roadmap.md)
 
 ## 筆記

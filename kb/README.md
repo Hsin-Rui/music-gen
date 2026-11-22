@@ -6,7 +6,7 @@
 
 - **找東西：** 看下面的目錄，或在 `kb/` 裡搜尋關鍵字（`grep -ri 伴奏 kb/`）。
 - **新增：** 每次研究或做原型後，把新的文獻、模型、資料集各加一個檔（格式照同資料夾現有的檔），再執行 `python3 kb/build_index.py` 重建本頁。
-- **出處：** 每筆都連回它來自哪份研究報告或實驗。研究報告（`docs/research-*`）是原始證據，這裡是整理後的索引。R1＝技術路線圖、R2＝原型模型查證、R3＝配和聲與伴奏模型、R4＝原型 02 候選模型補查。
+- **出處：** 每筆都連回它來自哪份研究報告或實驗。研究報告（`docs/research-*`）是原始證據，這裡是整理後的索引。R1＝技術路線圖、R2＝原型模型查證、R3＝配和聲與伴奏模型、R4＝原型 02 候選模型補查、R5＝伴奏挑選指標。
 - **信心：** 文獻的信心欄位沿用研究報告的判定；「尚未精讀」表示只用了報告查證過的那句話。
 
 ## 實驗
@@ -107,9 +107,16 @@
 | 文獻（本專案取用的說法） | 發表 | 信心 |
 |---|---|---|
 | [AI 音樂刺激研究以標示偏誤為主](literature/ai-music-stimuli-labelling-2025.md) | 2025–2026 | 中 |
+| [PIG 鋼琴指法資料集與統計指法模型（Nakamura 等人）](literature/arxiv-1904.10237.md) | 2019 | 高 |
+| [Bach Doodle／Coconet](literature/arxiv-1907.06637.md) | 2019 | 低 |
 | [京劇歌聲只用音符合成（DurIAN，預印本）](literature/arxiv-1912.12010.md) | 2019-12 | 中低 |
 | [和聲一致性指標彙整；沒有「多生幾份再挑」的伴奏論文](literature/arxiv-2001.02360.md) | 2020–2026 | 中 |
+| [Bach or Mock?（ICML 2020 工作坊）](literature/arxiv-2006.13329.md) | 2020-06 | 中 |
+| [Jazz Transformer（Wu & Yang，ISMIR 2020）](literature/arxiv-2008.01307.md) | 2020-08 | 高 |
+| [MusPy（ISMIR 2020）](literature/arxiv-2008.01951.md) | 2020 | 高 |
 | [IS／FAD 與主觀評分相關弱](literature/arxiv-2108.01576.md) | 2021-08 | 中 |
+| [AccoMontage（ISMIR 2021）](literature/arxiv-2108.11213.md) | 2021 | 中 |
+| [FIGARO（ICLR 2023）](literature/arxiv-2201.10936.md) | 2023 | 高 |
 | [AccoMontage2 聽覺測試：和聲性顯著優於 BLSTM](literature/arxiv-2209.00353.md) | 2022 | 中 |
 | [Compose & Embellish：先寫樂譜再潤飾成鋼琴演奏](literature/arxiv-2209.08212.md) | 2022 / ICASSP 2023 | 中 |
 | [AMT 補寫與伴奏能力（TMLR）](literature/arxiv-2306.08620.md) | 2023-06 | 高 |
@@ -119,11 +126,13 @@
 | [ChatMusician：配和聲用編輯距離評，不是評和聲品質](literature/arxiv-2402.16153.md) | 2024-02 | 高 |
 | [MuPT：ABC 預訓練模型，只會續寫](literature/arxiv-2404.06393.md) | 2024 | 中 |
 | [Transkun 鋼琴採譜（ISMIR 2024）](literature/arxiv-2404.09466.md) | 2024 | 中 |
+| [Whole-Song 階層式生成（ICLR 2024）](literature/arxiv-2405.09901.md) | 2024-05 | 高 |
 | [JASCO：音訊模型直接吃和弦和旋律條件](literature/arxiv-2406.10970.md) | 2024-06 | 中 |
 | [MelodyT5：ABC 配和聲、七和弦與轉位、1.13 億參數、訓練資料、指標比較](literature/arxiv-2407.02277.md) | 2024-07 | 高 |
 | [MuseBarControl：直接微調不服從控制（預印本）](literature/arxiv-2407.04331.md) | 2024-07 | 中低 |
 | [YourMT3+（IEEE MLSP 2024）](literature/arxiv-2407.04822.md) | 2024-07 | 中 |
 | [語言模型配和聲：專家給 GPT-4 5.5–6.5 分](literature/arxiv-2407.21531.md) | 2024-07 | 高 |
+| [RubricNet 鋼琴難度](literature/arxiv-2408.00473.md) | 2024-08 | 高 |
 | [GaMaDHaNi 音高曲線階層生成（ISMIR 2024）](literature/arxiv-2408.12658.md) | 2024-08 | 高 |
 | [GPT-4o 音程好、辨認和弦與音階弱](literature/arxiv-2409.05521.md) | 2024-09 | 低 |
 | [鋼琴 MIDI→MusicXML（ISMIR 2024）；音訊→樂譜（IJCAI 2024）](literature/arxiv-2410.00210.md) | 2024 | 中 |
@@ -134,10 +143,12 @@
 | [樂理考試各編碼格式比較](literature/arxiv-2503.22853.md) | 2025-03 | 中 |
 | [STAGE：音訊分軌生成](literature/arxiv-2504.05690.md) | 2025 | 高 |
 | [Aria-MIDI 從網路音訊轉錄（ICLR 2025）](literature/arxiv-2504.15071.md) | 2025-04 | 高 |
+| [SMART](literature/arxiv-2504.16839.md) | 2025-04 | 中 |
 | [生成音樂評估綜述（ACM CSUR）](literature/arxiv-2506.05104.md) | 2025-06 | 高 |
 | [Function Alignment：一個基礎模型加多個音樂轉接器](literature/arxiv-2506.15548.md) | 2025-06 | 中 |
 | [Florence Price 藝術歌曲資料集與伴奏生成](literature/arxiv-2506.23130.md) | 2025-06 | 中 |
 | [Aria 論文評估續寫與分類](literature/arxiv-2506.23869.md) | 2025-06 | 中 |
+| [生成音樂評量指標綜述（Kader & Karmaker，預印本）](literature/arxiv-2509.00051.md) | 2025-08 | 中 |
 | [SSIMuse 多聲部抄襲檢測（預印本）](literature/arxiv-2509.13658.md) | 2025-09 | 中 |
 | [依目標難度生成視奏譜（預印本）](literature/arxiv-2509.16913.md) | 2025-09 | 中 |
 | [ABC-Eval：LLM 小節層級失敗（預印本）](literature/arxiv-2509.23350.md) | 2025-09 | 高（單一來源） |
@@ -154,7 +165,9 @@
 | [ACE-Step 1.5 能力（預印本）](literature/arxiv-2602.00744.md) | 2026-02 | 高 |
 | [D3PIA：220 萬參數、POP909 比較表、13 位專家聽覺測試；和弦正確率不等於聽感和諧](literature/arxiv-2602.03523.md) | 2026-02 | 高 |
 | [風格規劃＋樂句檢索，以綜合分數挑選](literature/arxiv-2602.15074.md) | 2026-02 | 高 |
+| [Academic Text-to-Music 挑戰](literature/arxiv-2605.21538.md) | 2026 | 低 |
 | [MuScriptor 架構與評測（預印本，ISMIR 2026 投稿）](literature/arxiv-2607.08168.md) | 2026-08 | 中 |
+| [鋼琴編曲論文](literature/arxiv-2608.03050.md) | 2026 | 中 |
 | [MazzikaAI：用提示詞引導音訊模型增加 maqam 微分音（預印本）](literature/arxiv-2608.10360.md) | 2026-08 | 中低 |
 | [VQ-VAE 曲線符號化（韓國傳統音樂，預印本）](literature/arxiv-2608.10979.md) | 2026-08 | 中 |
 | [MAJEPPA 論文，ISMIR 2026](literature/arxiv-2608.11026.md) | 2026-08 | 中 |
@@ -164,8 +177,11 @@
 | [語言模型在符號輸入接近滿分、音訊下降；LogicLM](literature/carone-2026-llm-music-theory-pmlr.md) | 2026-01 | 中 |
 | [中國合唱資料集](literature/chinese-chorales-dataset-2024.md) | 約 2024 | 低 |
 | [工尺譜光學辨譜，39 張圖評估](literature/gongche-omr-2014.md) | 2014 | 中 |
+| [GrooveToolbox](literature/groovetoolbox-2021.md) | 2021 | 低 |
 | [MDT：馬可夫鏈出題、3 個難度因子、R² 0.869（Sci Rep）](literature/harrison-2017-mdt-melodic-discrimination.md) | 2017-06 | 高 |
 | [CA-BAT（IRT＋CAT＋AIG）](literature/harrison-2018-ca-bat.md) | 2018 | 中 |
+| [Harrison & Pearce（Psychological Review 2020）](literature/harrison-pearce-2020-consonance.md) | 2020 | 高 |
+| [Herremans & Chew 張力帶（TENOR 2016）](literature/herremans-chew-2016-tension-ribbons.md) | 2016 | 中 |
 | [計算民族音樂學：離散化是文化慣例](literature/icmc-smc-2014-discretisation-culture.md) | 2014 | 中 |
 | [VocalNotes：「音符」是否適合許多傳統的基本單位](literature/iftawm-vocalnotes-note-as-unit.md) | 未確認 | 低 |
 | [京劇清唱資料，f0＋音符（ISMIR 2017）](literature/ismir-2017-jingju-a-cappella-dataset.md) | 2017 | 中高 |
@@ -175,12 +191,17 @@
 | [VAE 旋律作為相似度刺激（ICMPC 2023）](literature/kim-2023-vae-similarity-stimuli-icmpc.md) | 2023 | 中 |
 | [Mistuning Perception Test（BRM 2019）](literature/larrouy-maestri-2019-mistuning-perception-test.md) | 2019 | 中 |
 | [PROMS（PLoS One 2012）](literature/law-2012-proms.md) | 2012 | 中 |
+| [McLeod & Steedman（JNMR 2016）HMM 聲部分離，有程式碼，巴赫作品測試](literature/mcleod-steedman-2016-voice-separation.md) | 2016 | 中 |
 | [Essen 中國民歌調式標記](literature/meng-2025-essen-chinese-diao.md) | 2025 | 中 |
 | [MET 中國樣本驗證](literature/met-2024-chinese-sample.md) | 2024 | 中 |
+| [mir_eval 音符比對](literature/mir-eval-transcription.md) | 持續更新 | 高 |
 | [MIREX 2024 符號生成：樂譜 → 鋼琴伴奏](literature/mirex-2024-symbolic-generation.md) | 2024 | 中 |
+| [music21 VoiceLeadingQuartet](literature/music21-voiceleading.md) | 現行 | 高 |
 | [短動機導致抄襲（NeurIPS 2025 workshop）](literature/neurips-2025-memorisation-short-motifs.md) | 2025 | 中 |
 | [採譜研究預設西方五線譜的問題（DSH 2022）](literature/soas-2022-transcription-staff-notation-bias.md) | 2022 | 中 |
 | [UAB 學士論文：AI 音樂刺激資料集](literature/uab-2025-ai-music-stimuli-thesis.md) | 2025 | 低 |
+| [Yang & Lerch（Neural Computing and Applications）](literature/yang-lerch-2020-generative-eval.md) | 2020 | 高 |
+| [Yin 等人（SN Computer Science）](literature/yin-2022-originality-report.md) | 2022 | 低 |
 
 ## 來源研究
 
@@ -188,3 +209,4 @@
 - R2 [原型模型查證（2026-11-21）](../docs/research-prototype-model-check/research-prototype-model-check.md)
 - R3 [配和聲與和弦條件伴奏模型（2026-11-21）](../docs/research-harmonization-accompaniment/research-harmonization-accompaniment.md)
 - R4 [原型 02 的候選模型補查（2026-11-21）](../docs/research-accompaniment-candidates-r4/research-accompaniment-candidates-r4.md)
+- R5 [伴奏挑選指標（2026-11-22）](../docs/research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.md)

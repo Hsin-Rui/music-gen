@@ -13,10 +13,12 @@ added: '2026-11-21'
 
 ## 本專案從這篇取用的說法
 
+- （R5）YuE2 從 8 份挑一份：Pareto 刪除後依序 0.10 容差（只讀到摘要）
 - YuE2：合一模型優於分段串接；顯式樂譜規劃有幫助（預印本，只讀摘要）
 
 ## 被哪些研究引用
 
+- [R5 [24]](../../docs/research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.md)
 - [R1 [70]](../../docs/research-music-generation-tech-roadmap/research-music-generation-tech-roadmap.md)
 
 ## 筆記

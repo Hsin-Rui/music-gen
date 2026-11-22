@@ -13,12 +13,14 @@ added: '2026-11-21'
 
 ## 本專案從這篇取用的說法
 
+- （R5）逐拍和弦正確率：自動和弦辨識後比對根音＋性質
 - 和弦正確率 0.567（AMT 0.446、GETMusic 0.423）；每小節 0.46 秒（AMT 6.32 秒）
 - 23 人聽覺測試五項全部勝過對照組
 - 第一段沿用 AccoMontage；只支援 4/4
 
 ## 被哪些研究引用
 
+- [R5 [2]](../../docs/research-accompaniment-metrics-r5/research-accompaniment-metrics-r5.md)
 - [R4 [1]](../../docs/research-accompaniment-candidates-r4/research-accompaniment-candidates-r4.md)
 
 ## 筆記
